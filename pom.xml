@@ -1,4 +1,8 @@
-<properties>
-  <sonar.organization>dburackov</sonar.organization>
+<project>
+  
+  <properties>
+    <sonar.organization>dburackov</sonar.organization>
   <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-</properties>
+  </properties>
+  
+</project>
