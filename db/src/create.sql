@@ -102,3 +102,15 @@ CREATE TABLE viewed_profiles(
                   REFERENCES pet_profile(pet_profile_id)
 );
 
+CREATE TABLE match (
+    match_id INT GENERATED ALWAYS AS IDENTITY ,
+    first_pet_id INT NOT NULL ,
+    second_pet_id INT NOT NULL ,
+
+    PRIMARY KEY (match_id),
+    CONSTRAINT fk_first_pet FOREIGN KEY (first_pet_id)
+                  REFERENCES pet_profile(pet_profile_id),
+    CONSTRAINT fk_second_oet FOREIGN KEY (second_pet_id)
+                  REFERENCES pet_profile(pet_profile_id)
+);
+
