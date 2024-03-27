@@ -10,7 +10,7 @@ CREATE TYPE KIND AS ENUM ('dog', 'cat', 'others later');
 
 create type purpose_type as enum ('procreation', 'walking');
 
-CREATE TABLE pet_profile (
+CREATE TABLE pet_profiles (
     pet_profile_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL ,
     purpose PURPOSE_TYPE,
@@ -32,7 +32,7 @@ CREATE TABLE passport(
 
     PRIMARY KEY (passport_id),
     CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
-                     REFERENCES pet_profile(pet_profile_id)
+                     REFERENCES pet_profiles(pet_profile_id)
 );
 
 
@@ -43,7 +43,7 @@ CREATE TABLE photos(
 
     PRIMARY KEY (photo_id),
     CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
-                   REFERENCES pet_profile(pet_profile_id)
+                   REFERENCES pet_profiles(pet_profile_id)
 );
 
 CREATE TABLE tags(
@@ -58,7 +58,7 @@ CREATE TABLE pet_xref_tag (
     tag_id INT NOT NULL,
 
     CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
-                   REFERENCES pet_profile(pet_profile_id),
+                   REFERENCES pet_profiles(pet_profile_id),
     CONSTRAINT fk_tag FOREIGN KEY (tag_id)
                     REFERENCES tags(tag_id)
 );
@@ -71,22 +71,22 @@ CREATE TABLE likes(
 
     PRIMARY KEY (like_id),
     CONSTRAINT fk_object_pet FOREIGN KEY (object_pet_id)
-                  REFERENCES pet_profile(pet_profile_id),
+                  REFERENCES pet_profiles(pet_profile_id),
     CONSTRAINT fk_target_pet FOREIGN KEY (target_pet_id)
-                  REFERENCES pet_profile(pet_profile_id)
+                  REFERENCES pet_profiles(pet_profile_id)
 );
 
 CREATE TYPE SOCIAL_MEDIA_TYPE AS ENUM ('twitter', 'instagram', 'telegram');
 
 CREATE TABLE social_media(
     social_media_id INT GENERATED ALWAYS AS IDENTITY ,
-    pet_profile INT NOT NULL ,
+    pet_profile_id INT NOT NULL ,
     type SOCIAL_MEDIA_TYPE,
     link VARCHAR(50) NOT NULL,
 
     PRIMARY KEY (social_media_id),
-    CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile)
-                         REFERENCES pet_profile(pet_profile_id)
+    CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
+                         REFERENCES pet_profiles(pet_profile_id)
 );
 
 
@@ -97,9 +97,9 @@ CREATE TABLE viewed_profiles(
 
     PRIMARY KEY (viewed_profile_id),
     CONSTRAINT fk_object_pet FOREIGN KEY (object_pet_id)
-                  REFERENCES pet_profile(pet_profile_id),
+                  REFERENCES pet_profiles(pet_profile_id),
     CONSTRAINT fk_target_pet FOREIGN KEY (target_pet_id)
-                  REFERENCES pet_profile(pet_profile_id)
+                  REFERENCES pet_profiles(pet_profile_id)
 );
 
 CREATE TABLE match (
@@ -109,7 +109,8 @@ CREATE TABLE match (
 
     PRIMARY KEY (match_id),
     CONSTRAINT fk_first_pet FOREIGN KEY (first_pet_id)
-                  REFERENCES pet_profile(pet_profile_id),
+                  REFERENCES pet_profiles(pet_profile_id),
     CONSTRAINT fk_second_oet FOREIGN KEY (second_pet_id)
-                  REFERENCES pet_profile(pet_profile_id)
+                  REFERENCES pet_profiles(pet_profile_id)
 );
+

@@ -2,7 +2,7 @@
 
 Тема: "Pet Tinder" 
 
-[Sonar Cloud](https://sonarcloud.io/project/configuration?id=dburackov_pproj)
+[Sonar Cloud](https://sonarcloud.io/project/overview?id=dburackov_pproj)
 
 # План проекта
 
@@ -15,7 +15,7 @@
 | |Этап|По плану|По факту|
 |---|-----|-----|-----|
 |1|DB|6|4|
-|2|JDBC|100||
+|2|JDBC|12||
 |3|Backend|100||
 |4|Angular|100||
 |5|React|100||
