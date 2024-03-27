@@ -6,9 +6,9 @@ CREATE TABLE users (
     PRIMARY KEY (user_id)
 );
 
-CREATE TYPE KIND AS ENUM ('dog', 'cat', 'a', 'b', 'c', 'd', 'e', 'f');
+CREATE TYPE KIND AS ENUM ('dog', 'cat', 'others later');
 
-CREATE TYPE PURPOSE_TYPE AS ENUM ('first', 'second');
+create type purpose_type as enum ('procreation', 'walking');
 
 CREATE TABLE pet_profile (
     pet_profile_id INT GENERATED ALWAYS AS IDENTITY,
@@ -113,4 +113,3 @@ CREATE TABLE match (
     CONSTRAINT fk_second_oet FOREIGN KEY (second_pet_id)
                   REFERENCES pet_profile(pet_profile_id)
 );
-
