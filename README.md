@@ -20,7 +20,4 @@
 |4|Angular|100||
 |5|React|100||
 
-## Мощная схема бд
-
-![схема бд](/jdbc/database_scheme/scheme.png)
 
