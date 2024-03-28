@@ -1,5 +1,7 @@
 package databaserepos;
 
+import entities.Tag;
+
 import java.sql.SQLException;
 
 public class TagRepository extends DBController {

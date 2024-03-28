@@ -1,4 +1,4 @@
-package databaserepos;
+package entities;
 
 import java.util.Date;
 

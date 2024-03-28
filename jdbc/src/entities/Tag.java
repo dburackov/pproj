@@ -1,4 +1,4 @@
-package databaserepos;
+package entities;
 
 public class Tag {
     public Tag() {};

@@ -1,4 +1,4 @@
-package databaserepos;
+package entities;
 
 public enum Kind {
     dog,

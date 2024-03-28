@@ -1,5 +1,7 @@
 package databaserepos;
 
+import entities.User;
+
 import java.sql.SQLException;
 
 public class UserRepository extends DBController {

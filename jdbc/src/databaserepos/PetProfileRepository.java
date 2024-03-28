@@ -1,5 +1,8 @@
 package databaserepos;
 
+import entities.PetProfile;
+import entities.Purpose;
+
 import java.sql.SQLException;
 
 public class PetProfileRepository extends DBController {

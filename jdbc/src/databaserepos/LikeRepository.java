@@ -1,5 +1,7 @@
 package databaserepos;
 
+import entities.Like;
+
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -48,7 +50,7 @@ public class LikeRepository extends DBController {
             String sql = String.format("""
                     UPDATE likes
                     SET object_pet_id = %d, target_pet_id = %d, date = '%s'
-                    WHERE user_id = %d;
+                    WHERE like_id = %d;
                     """, like.object_pet_id, like.target_pet_id, like.date.toString(), id);
 
             rowsUpdated = statement.executeUpdate(sql);

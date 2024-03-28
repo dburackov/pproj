@@ -1,5 +1,8 @@
 package databaserepos;
 
+import entities.Kind;
+import entities.Passport;
+
 import java.sql.SQLException;
 import java.util.Date;
 
