@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "matches")
-public class Matche {
+public class Match {
     @Id
     @Column(name = "match_id")
     private UUID matchId;
