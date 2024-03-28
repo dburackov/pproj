@@ -6,17 +6,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Table(name = "matches")
-public class Matches {
+public class Matche {
     @Id
     @Column(name = "match_id")
-    private Long matchId;
+    private UUID matchId;
 
     @Column(name = "first_pet_id")
-    private Long firstPetId;
+    private UUID firstPetId;
 
     @Column(name = "second_pet_id")
-    private Long secondPetId;
+    private UUID secondPetId;
 }

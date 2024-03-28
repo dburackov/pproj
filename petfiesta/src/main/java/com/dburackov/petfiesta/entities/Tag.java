@@ -7,13 +7,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Table(name = "tags")
-public class Tags {
+public class Tag {
     @Id
     @Column(name = "tag_id")
-    private Long tagId;
+    private UUID tagId;
 
     @Column(name = "name")
     private String name;

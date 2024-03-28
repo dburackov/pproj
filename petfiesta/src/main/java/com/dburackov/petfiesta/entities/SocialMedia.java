@@ -7,16 +7,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Table(name = "social_medias")
-public class SocialMedias {
+public class SocialMedia {
     @Id
     @Column(name = "social_media_id")
-    private Long socialMediaId;
+    private UUID socialMediaId;
 
     @Column(name = "pet_profile_id")
-    private Long petProfileId;
+    private UUID petProfileId;
 
     @Column(name = "type")
     private String type;

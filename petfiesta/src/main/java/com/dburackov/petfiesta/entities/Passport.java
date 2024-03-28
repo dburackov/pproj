@@ -7,17 +7,18 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "passports")
-public class Passports {
+public class Passport {
     @Id
     @Column(name = "passport_id")
-    private Long passportId;
+    private UUID passportId;
 
     @Column(name = "pet_profile_id")
-    private Long petProfileId;
+    private UUID petProfileId;
 
     @Column(name = "name")
     private String name;

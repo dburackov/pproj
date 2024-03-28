@@ -6,17 +6,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Table(name = "viewed_profiles")
-public class ViewedProfiles {
+public class ViewedProfile {
     @Id
     @Column(name = "viewed_profile_id")
-    private Long viewedProfileId;
+    private UUID viewedProfileId;
 
     @Column(name = "object_pet_id")
-    private Long objectPetId;
+    private UUID objectPetId;
 
     @Column(name = "target_pet_id")
-    private Long targetPetId;
+    private UUID targetPetId;
 }

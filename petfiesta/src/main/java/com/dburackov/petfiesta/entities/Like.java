@@ -7,20 +7,21 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "likes")
-public class Likes {
+public class Like {
     @Id
     @Column(name = "like_id")
-    private Long likeId;
+    private UUID likeId;
 
     @Column(name = "object_pet_id")
-    private Long objectPetId;
+    private UUID objectPetId;
 
     @Column(name = "target_pet_id")
-    private Long targetPetId;
+    private UUID targetPetId;
 
     @Column(name = "date")
     private Date date;
