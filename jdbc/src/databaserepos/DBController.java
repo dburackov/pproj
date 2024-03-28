@@ -1,9 +1,12 @@
 package databaserepos;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class DBController {
     private Connection connection;
@@ -16,7 +19,8 @@ public class DBController {
         jdbcUrl = "jdbc:postgresql://localhost:5432/pproj";
         props = new Properties();
         props.setProperty("user", "postgres");
-        props.setProperty("password", "rjhjkm");
+        String password = getPassword();
+        props.setProperty("password", password);
 
         Class.forName("org.postgresql.Driver");
 
@@ -43,6 +47,17 @@ public class DBController {
         }
     }
 
-
+    private String getPassword() {
+        String result = null;
+        try {
+            File file = new File("database_config");
+            Scanner scanner = new Scanner(file);
+            result = scanner.nextLine();
+            scanner.close();
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 }
