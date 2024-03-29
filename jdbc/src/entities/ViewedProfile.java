@@ -1,5 +1,8 @@
 package entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class ViewedProfile {
     public ViewedProfile() {
 
@@ -10,9 +13,17 @@ public class ViewedProfile {
         this.targetPetId = targetPetId;
     }
 
-    public int viewedProfileId = 0;
-    public int objectPetId = 0;
-    public int targetPetId = 0;
+    @Getter
+    @Setter
+    private int viewedProfileId = 0;
+
+    @Getter
+    @Setter
+    private int objectPetId = 0;
+
+    @Getter
+    @Setter
+    private int targetPetId = 0;
 
 //    public static String sequence = "viewed_profiles_viewed_profile_id_seq";
 }

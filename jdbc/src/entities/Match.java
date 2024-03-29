@@ -1,5 +1,9 @@
 package entities;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
 public class Match {
     public Match() {
 
@@ -10,8 +14,16 @@ public class Match {
         this.secondPetId = secondPetId;
     }
 
-    public int matchId;
-    public int firstPetId;
-    public int secondPetId;
+    @Getter
+    @Setter
+    private int matchId;
+
+    @Getter
+    @Setter
+    private int firstPetId;
+
+    @Getter
+    @Setter
+    private int secondPetId;
 
 }

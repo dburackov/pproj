@@ -1,5 +1,8 @@
 package entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class User {
     public User() {
         this.userId = 0;
@@ -14,8 +17,19 @@ public class User {
         this.password = password;
     }
 
-    public int userId;
-    public String name;
-    public String email;
-    public String password;
+    @Getter
+    @Setter
+    private int userId;
+
+    @Getter
+    @Setter
+    private String name;
+
+    @Getter
+    @Setter
+    private String email;
+
+    @Getter
+    @Setter
+    private String password;
 }

@@ -22,7 +22,7 @@ public class PhotoRepository extends DBController {
                     (pet_profile_id, file_link)
                     VALUES
                     (%d, '%s');
-                    """, photo.petProfileId, photo.fileLink);
+                    """, photo.getPetProfileId(), photo.getFileLink());
 
         statement.executeUpdate(sql);
 
@@ -66,9 +66,9 @@ public class PhotoRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.photoId = resultSet.getInt(idFieldName);
-            result.petProfileId = resultSet.getInt("pet_profile_id");
-            result.fileLink = resultSet.getString("file_link");
+            result.setPhotoId(resultSet.getInt(idFieldName));
+            result.setPetProfileId(resultSet.getInt("pet_profile_id"));
+            result.setFileLink(resultSet.getString("file_link"));
         }
 
         close();

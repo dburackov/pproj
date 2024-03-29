@@ -22,7 +22,7 @@ public class TagRepository extends DBController {
                     (name)
                     VALUES
                     ('%s');
-                    """, tag.name);
+                    """, tag.getName());
 
         statement.executeUpdate(sql);
 
@@ -40,7 +40,7 @@ public class TagRepository extends DBController {
                     UPDATE tags
                     SET name = '%s'
                     WHERE tag_id = %d;
-                    """, tag.name, id);
+                    """, tag.getName(), id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -81,8 +81,8 @@ public class TagRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.tagId = resultSet.getInt(idFieldName);
-            result.name = resultSet.getString("name");
+            result.setTagId(resultSet.getInt(idFieldName));
+            result.setName(resultSet.getString("name"));
         }
 
         close();

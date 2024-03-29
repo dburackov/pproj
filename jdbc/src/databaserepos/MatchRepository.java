@@ -22,7 +22,7 @@ public class MatchRepository extends DBController {
                     (first_pet_id, second_pet_id)
                     VALUES
                     (%d, %d);
-                    """, match.firstPetId, match.secondPetId);
+                    """, match.getFirstPetId(), match.getSecondPetId());
 
         statement.executeUpdate(sql);
 
@@ -40,7 +40,7 @@ public class MatchRepository extends DBController {
                     UPDATE matches
                     SET first_pet_id = %d, second_pet_id = %d
                     WHERE match_id = %d;
-                    """, match.firstPetId, match.secondPetId, id);
+                    """, match.getFirstPetId(), match.getSecondPetId(), id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -82,9 +82,9 @@ public class MatchRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.matchId = resultSet.getInt(idFieldName);
-            result.firstPetId = resultSet.getInt("first_pet_id");
-            result.secondPetId = resultSet.getInt("second_pet_id");
+            result.setMatchId(resultSet.getInt(idFieldName));
+            result.setFirstPetId(resultSet.getInt("first_pet_id"));
+            result.setSecondPetId(resultSet.getInt("second_pet_id"));
         }
 
         close();

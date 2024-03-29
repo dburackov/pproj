@@ -1,5 +1,8 @@
 package entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class SocialMedia {
     public SocialMedia() {}
 
@@ -9,10 +12,21 @@ public class SocialMedia {
         this.type = type;
     }
 
-    public int socialMediaId = 0;
-    public int petProfileId = 0;
-    public String link = null;
-    public SocialMediaType type = null;
+    @Getter
+    @Setter
+    private int socialMediaId = 0;
+
+    @Getter
+    @Setter
+    private int petProfileId = 0;
+
+    @Getter
+    @Setter
+    private String link = null;
+
+    @Getter
+    @Setter
+    private SocialMediaType type = null;
 
 //    public static String sequence = "social_media_social_media_id_seq";
 }

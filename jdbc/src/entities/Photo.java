@@ -1,5 +1,8 @@
 package entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Photo {
     public Photo() {}
 
@@ -8,8 +11,16 @@ public class Photo {
         this.fileLink = fileLink;
     }
 
-    public int photoId;
-    public int petProfileId;
-    public String fileLink;
+    @Getter
+    @Setter
+    private int photoId;
+
+    @Getter
+    @Setter
+    private int petProfileId;
+
+    @Getter
+    @Setter
+    private String fileLink;
 
 }

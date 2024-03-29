@@ -21,7 +21,7 @@ public class PetProfileRepository extends DBController {
                     (user_id, purpose)
                     VALUES
                     (%d, '%s');
-                    """, petProfile.userId, petProfile.purpose.toString());
+                    """, petProfile.getUserId(), petProfile.getPurpose().toString());
 
         statement.executeUpdate(sql);
 
@@ -39,7 +39,7 @@ public class PetProfileRepository extends DBController {
                     UPDATE pet_profiles
                     SET purpose = '%s'
                     WHERE pet_profile_id = '%d';
-                    """, petProfile.purpose, id);
+                    """, petProfile.getPurpose(), id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -81,9 +81,9 @@ public class PetProfileRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.petProfileId = resultSet.getInt(idFieldName);
-            result.userId = resultSet.getInt("user_id");
-            result.purpose = Purpose.valueOf(resultSet.getString("purpose"));
+            result.setPetProfileId(resultSet.getInt(idFieldName));
+            result.setUserId(resultSet.getInt("user_id"));
+            result.setPurpose(Purpose.valueOf(resultSet.getString("purpose")));
         }
 
         close();

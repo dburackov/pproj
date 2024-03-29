@@ -1,5 +1,8 @@
 package entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class PetProfile {
 
     public PetProfile() {
@@ -14,9 +17,16 @@ public class PetProfile {
         this.purpose = purpose;
     }
 
-    public int petProfileId;
-    public int userId;
+    @Getter
+    @Setter
+    private int petProfileId;
 
-    public Purpose purpose;
+    @Getter
+    @Setter
+    private int userId;
+
+    @Getter
+    @Setter
+    private Purpose purpose;
 
 }

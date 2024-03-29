@@ -23,7 +23,7 @@ public class UserRepository extends DBController {
                     (name, email, password)
                     VALUES
                     ('%s', '%s', '%s');
-                    """, user.name, user.email, user.password);
+                    """, user.getName(), user.getEmail(), user.getPassword());
 
         statement.executeUpdate(sql);
 
@@ -41,7 +41,7 @@ public class UserRepository extends DBController {
                     UPDATE users
                     SET name = '%s', email = '%s', password = '%s'
                     WHERE user_id = %d;
-                    """, user.name, user.email, user.password, id);
+                    """, user.getName(), user.getEmail(), user.getPassword(), id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -84,10 +84,10 @@ public class UserRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.userId = resultSet.getInt(idFieldName);
-            result.name = resultSet.getString("name");
-            result.email = resultSet.getString("email");
-            result.password = resultSet.getString("password");
+            result.setUserId(resultSet.getInt(idFieldName));
+            result.setName(resultSet.getString("name"));
+            result.setEmail(resultSet.getString("email"));
+            result.setPassword(resultSet.getString("password"));
         }
 
         close();
