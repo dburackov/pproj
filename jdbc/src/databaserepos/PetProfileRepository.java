@@ -58,7 +58,7 @@ public class PetProfileRepository extends DBController {
 
         while (resultSet.next())
         {
-            String petProfileId = resultSet.getString("pet_profile_id");
+            String petProfileId = resultSet.getString(idFieldName);
             String userId = resultSet.getString("user_id");
             String purpose = resultSet.getString("purpose");
             System.out.println(petProfileId + " " + userId + " " + purpose);
@@ -81,7 +81,7 @@ public class PetProfileRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.petProfileId = resultSet.getInt("pet_profile_id");
+            result.petProfileId = resultSet.getInt(idFieldName);
             result.userId = resultSet.getInt("user_id");
             result.purpose = Purpose.valueOf(resultSet.getString("purpose"));
         }

@@ -60,7 +60,7 @@ public class UserRepository extends DBController {
 
         while (resultSet.next())
         {
-            String userId = resultSet.getString("user_id");
+            String userId = resultSet.getString(idFieldName);
             String name = resultSet.getString("name");
             String email = resultSet.getString("email");
             String password = resultSet.getString("password");
@@ -84,7 +84,7 @@ public class UserRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.userId = resultSet.getInt("user_id");
+            result.userId = resultSet.getInt(idFieldName);
             result.name = resultSet.getString("name");
             result.email = resultSet.getString("email");
             result.password = resultSet.getString("password");

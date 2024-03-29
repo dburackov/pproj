@@ -1,12 +1,9 @@
 package databaserepos;
 
-import entities.User;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.sql.Statement;
-import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 

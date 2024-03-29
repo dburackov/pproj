@@ -60,7 +60,7 @@ public class LikeRepository extends DBController {
 
         while (resultSet.next())
         {
-            String likeId = resultSet.getString("like_id");
+            String likeId = resultSet.getString(idFieldName);
             String objectPetId = resultSet.getString("object_pet_id");
             String targetPetId = resultSet.getString("target_pet_id");
             String date = resultSet.getString("date");
@@ -84,7 +84,7 @@ public class LikeRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.likeId = resultSet.getInt("user_id");
+            result.likeId = resultSet.getInt(idFieldName);
             result.targetPetId = resultSet.getInt("target_pet_id");
             result.objectPetId = resultSet.getInt("object_pet_id");
             result.date = new Date(resultSet.getString("date"));

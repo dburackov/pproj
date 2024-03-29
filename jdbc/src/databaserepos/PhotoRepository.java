@@ -43,7 +43,7 @@ public class PhotoRepository extends DBController {
 
         while (resultSet.next())
         {
-            String photoId = resultSet.getString("photo_id");
+            String photoId = resultSet.getString(idFieldName);
             String petProfileId = resultSet.getString("pet_profile_id");
             String fileLink = resultSet.getString("file_link");
             System.out.println(photoId + " " + petProfileId + " " + fileLink);
@@ -66,7 +66,7 @@ public class PhotoRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.photoId = resultSet.getInt("photo_id");
+            result.photoId = resultSet.getInt(idFieldName);
             result.petProfileId = resultSet.getInt("pet_profile_id");
             result.fileLink = resultSet.getString("file_link");
         }

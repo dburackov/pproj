@@ -75,7 +75,7 @@ public class PassportRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.passportId = resultSet.getInt("passport_id");
+            result.passportId = resultSet.getInt(idFieldName);
             result.petProfileId = resultSet.getInt("pet_profile_id");
             result.name = resultSet.getString("name");
             result.birthDate = new Date(resultSet.getString("birth_date"));

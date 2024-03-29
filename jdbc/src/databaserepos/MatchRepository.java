@@ -59,9 +59,9 @@ public class MatchRepository extends DBController {
 
         while (resultSet.next())
         {
-            String matchId = resultSet.getString("like_id");
-            String firstPetId = resultSet.getString("object_pet_id");
-            String secondPetId = resultSet.getString("target_pet_id");
+            String matchId = resultSet.getString(idFieldName);
+            String firstPetId = resultSet.getString("first_pet_id");
+            String secondPetId = resultSet.getString("second_pet_id");
             System.out.println(matchId + " " + firstPetId + " " + secondPetId);
         }
 
@@ -82,7 +82,7 @@ public class MatchRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.matchId = resultSet.getInt("user_id");
+            result.matchId = resultSet.getInt(idFieldName);
             result.firstPetId = resultSet.getInt("first_pet_id");
             result.secondPetId = resultSet.getInt("second_pet_id");
         }

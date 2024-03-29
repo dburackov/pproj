@@ -59,7 +59,7 @@ public class TagRepository extends DBController {
 
         while (resultSet.next())
         {
-            String tagId = resultSet.getString("user_id");
+            String tagId = resultSet.getString(idFieldName);
             String name = resultSet.getString("name");
             System.out.println(tagId + " " + name + " ");
         }
@@ -81,7 +81,7 @@ public class TagRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.tagId = resultSet.getInt("tag_id");
+            result.tagId = resultSet.getInt(idFieldName);
             result.name = resultSet.getString("name");
         }
 
