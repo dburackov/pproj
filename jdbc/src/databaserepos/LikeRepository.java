@@ -3,7 +3,9 @@ package databaserepos;
 import entities.Like;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class LikeRepository extends DBController {
     public LikeRepository() throws SQLException, ClassNotFoundException {
@@ -23,7 +25,7 @@ public class LikeRepository extends DBController {
                 (object_pet_id, target_pet_id, date)
                 VALUES
                 (%d, %d, '%s');
-                """, like.objectPetId, like.targetPetId, like.date.toString());
+                """, like.getObjectPetId(), like.getTargetPetId(), like.getDate().toString());
 
         statement.executeUpdate(sql);
 
@@ -41,7 +43,7 @@ public class LikeRepository extends DBController {
                     UPDATE likes
                     SET object_pet_id = %d, target_pet_id = %d, date = '%s'
                     WHERE like_id = %d;
-                    """, like.objectPetId, like.targetPetId, like.date.toString(), id);
+                    """, like.getObjectPetId(), like.getTargetPetId(), like.getDate().toString(), id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -65,6 +67,7 @@ public class LikeRepository extends DBController {
             String targetPetId = resultSet.getString("target_pet_id");
             String date = resultSet.getString("date");
             System.out.println(likeId + " " + objectPetId + " " + targetPetId + " " + date);
+
         }
 
         close();
@@ -84,10 +87,10 @@ public class LikeRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.likeId = resultSet.getInt(idFieldName);
-            result.targetPetId = resultSet.getInt("target_pet_id");
-            result.objectPetId = resultSet.getInt("object_pet_id");
-            result.date = new Date(resultSet.getString("date"));
+            result.setLikeId(resultSet.getInt(idFieldName));
+            result.setTargetPetId(resultSet.getInt("target_pet_id"));
+            result.setObjectPetId(resultSet.getInt("object_pet_id"));
+            result.setDate(new Date(resultSet.getString("date")));
         }
 
         close();

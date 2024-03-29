@@ -49,7 +49,7 @@ public class UserRepository extends DBController {
         return rowsUpdated;
     }
 
-    public void read_all() throws SQLException {
+    public void readAll() throws SQLException {
         open();
 
         String sql = """

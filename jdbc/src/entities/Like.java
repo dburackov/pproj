@@ -1,7 +1,11 @@
 package entities;
 
+import lombok.Data;
+
 import java.util.Date;
 
+
+@Data
 public class Like {
 
     public Like() {
@@ -14,8 +18,8 @@ public class Like {
         this.date = date;
     }
 
-    public int likeId;
-    public int objectPetId;
-    public int targetPetId;
-    public Date date;
+    private int likeId;
+    private int objectPetId;
+    private int targetPetId;
+    private Date date;
 }

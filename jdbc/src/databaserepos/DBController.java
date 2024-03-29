@@ -26,7 +26,7 @@ public class DBController {
         String password = getPassword();
         props.setProperty("password", password);
 
-        Class.forName("org.postgresql.Driver");
+//        Class.forName("org.postgresql.Driver");
 
 
     }

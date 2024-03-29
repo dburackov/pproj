@@ -32,7 +32,7 @@ public class PhotoRepository extends DBController {
         return lastInsertedId;
     }
 
-    public void read_all() throws SQLException {
+    public void readAll() throws SQLException {
         open();
 
         String sql = """
