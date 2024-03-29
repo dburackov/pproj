@@ -4,6 +4,8 @@
 
 [Sonar Cloud](https://sonarcloud.io/project/overview?id=dburackov_pproj)
 
+[JDBC](https://github.com/dburackov/pproj/tree/jdbc)
+
 # План проекта
 
 1. БД - придумать схему согласно теме проекта, минимум 7 таблиц, обязательное наличие связи многие ко многим. Необходимо использовать PostgreSQL.
@@ -19,5 +21,7 @@
 |3|Backend|100||
 |4|Angular|100||
 |5|React|100||
+
+#
 
 
