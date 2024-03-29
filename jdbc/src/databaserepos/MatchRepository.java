@@ -1,10 +1,8 @@
 package databaserepos;
 
-import entities.Like;
 import entities.Match;
 
 import java.sql.SQLException;
-import java.util.Date;
 
 public class MatchRepository extends DBController {
     public MatchRepository() throws SQLException, ClassNotFoundException {
@@ -24,7 +22,7 @@ public class MatchRepository extends DBController {
                     (first_pet_id, second_pet_id)
                     VALUES
                     (%d, %d);
-                    """, match.first_pet_id, match.second_pet_id);
+                    """, match.firstPetId, match.secondPetId);
 
         statement.executeUpdate(sql);
 
@@ -42,7 +40,7 @@ public class MatchRepository extends DBController {
                     UPDATE matches
                     SET first_pet_id = %d, second_pet_id = %d
                     WHERE match_id = %d;
-                    """, match.first_pet_id, match.second_pet_id, id);
+                    """, match.firstPetId, match.secondPetId, id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -84,9 +82,9 @@ public class MatchRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.match_id = resultSet.getInt("user_id");
-            result.first_pet_id = resultSet.getInt("first_pet_id");
-            result.second_pet_id = resultSet.getInt("second_pet_id");
+            result.matchId = resultSet.getInt("user_id");
+            result.firstPetId = resultSet.getInt("first_pet_id");
+            result.secondPetId = resultSet.getInt("second_pet_id");
         }
 
         close();

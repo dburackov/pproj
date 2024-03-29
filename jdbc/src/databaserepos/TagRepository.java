@@ -81,7 +81,7 @@ public class TagRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.tag_id = resultSet.getInt("tag_id");
+            result.tagId = resultSet.getInt("tag_id");
             result.name = resultSet.getString("name");
         }
 

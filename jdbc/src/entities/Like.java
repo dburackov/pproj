@@ -8,14 +8,14 @@ public class Like {
 //
     }
 
-    public Like(int object_pet_id, int target_pet_id, Date date) {
-        this.object_pet_id = object_pet_id;
-        this.target_pet_id = target_pet_id;
+    public Like(int objectPetId, int targetPetId, Date date) {
+        this.objectPetId = objectPetId;
+        this.targetPetId = targetPetId;
         this.date = date;
     }
 
-    public int like_id = 0;
-    public int object_pet_id = 0;
-    public int target_pet_id = 0;
-    public Date date = null;
+    public int likeId;
+    public int objectPetId;
+    public int targetPetId;
+    public Date date;
 }

@@ -24,8 +24,8 @@ public class PassportRepository extends DBController {
                         (pet_profile_id, name, birth_date, kind, breed, breeding_certificate, coat, bio)
                         VALUES
                         (%d, '%s', '%s', '%s', '%s', %b, '%s', '%s');
-                        """, passport.pet_profile_id, passport.name, passport.birth_date.toString(),
-                    passport.kind.toString(), passport.breed, passport.breeding_certificate, passport.coat, passport.bio);
+                        """, passport.petProfileId, passport.name, passport.birthDate.toString(),
+                    passport.kind.toString(), passport.breed, passport.breedingCertificate, passport.coat, passport.bio);
 
             statement.executeUpdate(sql);
 
@@ -51,8 +51,8 @@ public class PassportRepository extends DBController {
                     coat = '%s',
                     bio = '%s'
                     WHERE passport_id = %d;
-                    """, passport.pet_profile_id, passport.name, passport.birth_date.toString(),
-                passport.kind.toString(), passport.breed, passport.breeding_certificate, passport.coat, passport.bio,
+                    """, passport.petProfileId, passport.name, passport.birthDate.toString(),
+                passport.kind.toString(), passport.breed, passport.breedingCertificate, passport.coat, passport.bio,
                 id);
 
         rowsUpdated = statement.executeUpdate(sql);
@@ -75,13 +75,13 @@ public class PassportRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.passport_id = resultSet.getInt("passport_id");
-            result.pet_profile_id = resultSet.getInt("pet_profile_id");
+            result.passportId = resultSet.getInt("passport_id");
+            result.petProfileId = resultSet.getInt("pet_profile_id");
             result.name = resultSet.getString("name");
-            result.birth_date = new Date(resultSet.getString("birth_date"));
+            result.birthDate = new Date(resultSet.getString("birth_date"));
             result.kind = Kind.valueOf(resultSet.getString("kind"));
             result.breed = resultSet.getString("breed");
-            result.breeding_certificate = resultSet.getBoolean("breeding_certificate");
+            result.breedingCertificate = resultSet.getBoolean("breeding_certificate");
             result.breed = resultSet.getString("coat");
             result.breed = resultSet.getString("bio");
         }

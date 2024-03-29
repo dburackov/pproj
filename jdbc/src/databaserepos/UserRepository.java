@@ -84,7 +84,7 @@ public class UserRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.user_id = resultSet.getInt("user_id");
+            result.userId = resultSet.getInt("user_id");
             result.name = resultSet.getString("name");
             result.email = resultSet.getString("email");
             result.password = resultSet.getString("password");

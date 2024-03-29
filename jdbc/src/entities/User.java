@@ -2,7 +2,7 @@ package entities;
 
 public class User {
     public User() {
-        this.user_id = 0;
+        this.userId = 0;
         this.name = null;
         this.email = null;
         this.password = null;
@@ -14,7 +14,7 @@ public class User {
         this.password = password;
     }
 
-    public int user_id;
+    public int userId;
     public String name;
     public String email;
     public String password;

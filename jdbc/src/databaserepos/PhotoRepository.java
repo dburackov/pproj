@@ -1,7 +1,6 @@
 package databaserepos;
 
 import entities.Photo;
-import entities.User;
 
 import java.sql.SQLException;
 
@@ -23,7 +22,7 @@ public class PhotoRepository extends DBController {
                     (pet_profile_id, file_link)
                     VALUES
                     (%d, '%s');
-                    """, photo.pet_profile_id, photo.file_link);
+                    """, photo.petProfileId, photo.fileLink);
 
         statement.executeUpdate(sql);
 
@@ -67,9 +66,9 @@ public class PhotoRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.photo_id = resultSet.getInt("photo_id");
-            result.pet_profile_id = resultSet.getInt("pet_profile_id");
-            result.file_link = resultSet.getString("file_link");
+            result.photoId = resultSet.getInt("photo_id");
+            result.petProfileId = resultSet.getInt("pet_profile_id");
+            result.fileLink = resultSet.getString("file_link");
         }
 
         close();

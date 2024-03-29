@@ -7,7 +7,7 @@ public class Tag {
         this.name = name;
     }
 
-    public int tag_id;
+    public int tagId;
     public String name;
 
 }

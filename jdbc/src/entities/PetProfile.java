@@ -3,19 +3,19 @@ package entities;
 public class PetProfile {
 
     public PetProfile() {
-        this.pet_profile_id = 0;
-        this.user_id = 0;
+        this.petProfileId = 0;
+        this.userId = 0;
         this.purpose = Purpose.walking;
     }
 
     public PetProfile(int user_id, Purpose purpose) {
-        this.pet_profile_id = 0;
-        this.user_id = user_id;
+        this.petProfileId = 0;
+        this.userId = user_id;
         this.purpose = purpose;
     }
 
-    public int pet_profile_id;
-    public int user_id;
+    public int petProfileId;
+    public int userId;
 
     public Purpose purpose;
 

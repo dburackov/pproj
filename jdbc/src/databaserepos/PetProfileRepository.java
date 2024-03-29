@@ -21,7 +21,7 @@ public class PetProfileRepository extends DBController {
                     (user_id, purpose)
                     VALUES
                     (%d, '%s');
-                    """, petProfile.user_id, petProfile.purpose.toString());
+                    """, petProfile.userId, petProfile.purpose.toString());
 
         statement.executeUpdate(sql);
 
@@ -81,8 +81,8 @@ public class PetProfileRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.pet_profile_id = resultSet.getInt("pet_profile_id");
-            result.user_id = resultSet.getInt("user_id");
+            result.petProfileId = resultSet.getInt("pet_profile_id");
+            result.userId = resultSet.getInt("user_id");
             result.purpose = Purpose.valueOf(resultSet.getString("purpose"));
         }
 

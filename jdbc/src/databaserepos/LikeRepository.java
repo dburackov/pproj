@@ -23,7 +23,7 @@ public class LikeRepository extends DBController {
                 (object_pet_id, target_pet_id, date)
                 VALUES
                 (%d, %d, '%s');
-                """, like.object_pet_id, like.target_pet_id, like.date.toString());
+                """, like.objectPetId, like.targetPetId, like.date.toString());
 
         statement.executeUpdate(sql);
 
@@ -41,7 +41,7 @@ public class LikeRepository extends DBController {
                     UPDATE likes
                     SET object_pet_id = %d, target_pet_id = %d, date = '%s'
                     WHERE like_id = %d;
-                    """, like.object_pet_id, like.target_pet_id, like.date.toString(), id);
+                    """, like.objectPetId, like.targetPetId, like.date.toString(), id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -84,9 +84,9 @@ public class LikeRepository extends DBController {
 
         while (resultSet.next())
         {
-            result.like_id = resultSet.getInt("user_id");
-            result.target_pet_id = resultSet.getInt("target_pet_id");
-            result.object_pet_id = resultSet.getInt("object_pet_id");
+            result.likeId = resultSet.getInt("user_id");
+            result.targetPetId = resultSet.getInt("target_pet_id");
+            result.objectPetId = resultSet.getInt("object_pet_id");
             result.date = new Date(resultSet.getString("date"));
         }
 
