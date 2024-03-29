@@ -26,16 +26,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getUserById(UUID id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).get();
     }
 
-    public User updateUser(UUID id, User user) {
+    public User updateUser(Long id, User user) {
         user.setUserId(id);
         return userRepository.save(user);
     }
 
-    public void deleteUserById(UUID id) {
+    public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 
