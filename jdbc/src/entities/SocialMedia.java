@@ -28,5 +28,4 @@ public class SocialMedia {
     @Setter
     private SocialMediaType type = null;
 
-//    public static String sequence = "social_media_social_media_id_seq";
 }

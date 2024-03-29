@@ -9,26 +9,7 @@ public class Passport {
     public Passport() {
 
     }
-
-    public Passport(
-        int petProfileId,
-        String name,
-        Date birthDate,
-        Kind kind,
-        String breed,
-        boolean breedingCertificate,
-        String coat,
-        String bio
-    ) {
-        this.petProfileId = petProfileId;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.kind = kind;
-        this.breed = breed;
-        this.breedingCertificate = breedingCertificate;
-        this.coat = coat;
-        this.bio = bio;
-    }
+    
 
     @Getter
     @Setter

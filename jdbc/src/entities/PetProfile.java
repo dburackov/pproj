@@ -11,9 +11,9 @@ public class PetProfile {
         this.purpose = Purpose.walking;
     }
 
-    public PetProfile(int user_id, Purpose purpose) {
+    public PetProfile(int userId, Purpose purpose) {
         this.petProfileId = 0;
-        this.userId = user_id;
+        this.userId = userId;
         this.purpose = purpose;
     }
 

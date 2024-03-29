@@ -9,7 +9,7 @@ public class User {
         this.name = null;
         this.email = null;
         this.password = null;
-    };
+    }
 
     public User(String name, String email, String password) {
         this.name = name;

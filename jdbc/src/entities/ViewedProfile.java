@@ -24,6 +24,5 @@ public class ViewedProfile {
     @Getter
     @Setter
     private int targetPetId = 0;
-
-//    public static String sequence = "viewed_profiles_viewed_profile_id_seq";
+    
 }

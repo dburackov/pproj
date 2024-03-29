@@ -1,7 +1,7 @@
 package entities;
 
 public enum SocialMediaType {
-    twitter,
-    instagram,
-    telegram
+    TWITTER,
+    INSTAGRAM,
+    TELEGRAM
 }
