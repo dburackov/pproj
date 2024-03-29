@@ -24,5 +24,5 @@ public class ViewedProfile {
     @Getter
     @Setter
     private int targetPetId = 0;
-    
+
 }

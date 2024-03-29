@@ -25,10 +25,6 @@ public class DBController {
         props.setProperty("user", "spring");
         String password = getPassword();
         props.setProperty("password", password);
-
-//        Class.forName("org.postgresql.Driver");
-
-
     }
 
     public void open() throws SQLException {
