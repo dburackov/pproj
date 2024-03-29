@@ -5,9 +5,9 @@ public class ViewedProfile {
 
     }
 
-    public ViewedProfile(int object_pet_id, int target_pet_id) {
-        this.objectPetId = object_pet_id;
-        this.targetPetId = target_pet_id;
+    public ViewedProfile(int objectPetId, int targetPetId) {
+        this.objectPetId = objectPetId;
+        this.targetPetId = targetPetId;
     }
 
     public int viewedProfileId = 0;

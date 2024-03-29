@@ -8,21 +8,21 @@ public class Passport {
     }
 
     public Passport(
-        int pet_profile_id,
+        int petProfileId,
         String name,
-        Date birth_date,
+        Date birthDate,
         Kind kind,
         String breed,
-        boolean breeding_certificate,
+        boolean breedingCertificate,
         String coat,
         String bio
     ) {
-        this.petProfileId = pet_profile_id;
+        this.petProfileId = petProfileId;
         this.name = name;
-        this.birthDate = birth_date;
+        this.birthDate = birthDate;
         this.kind = kind;
         this.breed = breed;
-        this.breedingCertificate = breeding_certificate;
+        this.breedingCertificate = breedingCertificate;
         this.coat = coat;
         this.bio = bio;
     }

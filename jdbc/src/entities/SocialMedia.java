@@ -3,14 +3,14 @@ package entities;
 public class SocialMedia {
     public SocialMedia() {}
 
-    public SocialMedia(int pet_profile, String link, SocialMediaType type) {
-        this.petProfile = pet_profile;
+    public SocialMedia(int petProfileId, String link, SocialMediaType type) {
+        this.petProfileId = petProfileId;
         this.link = link;
         this.type = type;
     }
 
     public int socialMediaId = 0;
-    public int petProfile = 0;
+    public int petProfileId = 0;
     public String link = null;
     public SocialMediaType type = null;
 
