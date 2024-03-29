@@ -59,9 +59,9 @@ public class TagRepository extends DBController {
 
         while (resultSet.next())
         {
-            String tag_id = resultSet.getString("user_id");
+            String tagId = resultSet.getString("user_id");
             String name = resultSet.getString("name");
-            System.out.println(tag_id + " " + name + " ");
+            System.out.println(tagId + " " + name + " ");
         }
 
         close();

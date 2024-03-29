@@ -43,10 +43,10 @@ public class PhotoRepository extends DBController {
 
         while (resultSet.next())
         {
-            String photo_id = resultSet.getString("photo_id");
-            String pet_profile_id = resultSet.getString("pet_profile_id");
-            String file_link = resultSet.getString("file_link");
-            System.out.println(photo_id + " " + pet_profile_id + " " + file_link);
+            String photoId = resultSet.getString("photo_id");
+            String petProfileId = resultSet.getString("pet_profile_id");
+            String fileLink = resultSet.getString("file_link");
+            System.out.println(photoId + " " + petProfileId + " " + fileLink);
         }
 
         close();

@@ -48,7 +48,7 @@ public class MatchRepository extends DBController {
         return rowsUpdated;
     }
 
-    public void read_all() throws SQLException {
+    public void readAll() throws SQLException {
         open();
 
         String sql = """
@@ -59,10 +59,10 @@ public class MatchRepository extends DBController {
 
         while (resultSet.next())
         {
-            String match_id = resultSet.getString("like_id");
-            String first_pet_id = resultSet.getString("object_pet_id");
-            String second_pet_id = resultSet.getString("target_pet_id");
-            System.out.println(match_id + " " + first_pet_id + " " + second_pet_id);
+            String matchId = resultSet.getString("like_id");
+            String firstPetId = resultSet.getString("object_pet_id");
+            String secondPetId = resultSet.getString("target_pet_id");
+            System.out.println(matchId + " " + firstPetId + " " + secondPetId);
         }
 
         close();

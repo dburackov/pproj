@@ -31,7 +31,7 @@ public class PetProfileRepository extends DBController {
         return lastInsertedId;
     }
 
-    public int update(int id, PetProfile new_pet_profile) throws SQLException {
+    public int update(int id, PetProfile petProfile) throws SQLException {
         int rowsUpdated = 0;
         open();
 
@@ -39,7 +39,7 @@ public class PetProfileRepository extends DBController {
                     UPDATE pet_profiles
                     SET purpose = '%s'
                     WHERE pet_profile_id = '%d';
-                    """, new_pet_profile.purpose, id);
+                    """, petProfile.purpose, id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -58,10 +58,10 @@ public class PetProfileRepository extends DBController {
 
         while (resultSet.next())
         {
-            String pet_profile_id = resultSet.getString("pet_profile_id");
-            String user_id = resultSet.getString("user_id");
+            String petProfileId = resultSet.getString("pet_profile_id");
+            String userId = resultSet.getString("user_id");
             String purpose = resultSet.getString("purpose");
-            System.out.println(pet_profile_id + " " + user_id + " " + purpose);
+            System.out.println(petProfileId + " " + userId + " " + purpose);
         }
 
         close();

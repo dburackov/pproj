@@ -33,7 +33,7 @@ public class UserRepository extends DBController {
         return lastInsertedId;
     }
 
-    public int update(int id, User new_user) throws SQLException {
+    public int update(int id, User user) throws SQLException {
         int rowsUpdated = 0;
         open();
 
@@ -41,7 +41,7 @@ public class UserRepository extends DBController {
                     UPDATE users
                     SET name = '%s', email = '%s', password = '%s'
                     WHERE user_id = %d;
-                    """, new_user.name, new_user.email, new_user.password, id);
+                    """, user.name, user.email, user.password, id);
 
         rowsUpdated = statement.executeUpdate(sql);
 
@@ -60,11 +60,11 @@ public class UserRepository extends DBController {
 
         while (resultSet.next())
         {
-            String user_id = resultSet.getString("user_id");
+            String userId = resultSet.getString("user_id");
             String name = resultSet.getString("name");
             String email = resultSet.getString("email");
             String password = resultSet.getString("password");
-            System.out.println(user_id + " " + name + " " + email + " " + password);
+            System.out.println(userId + " " + name + " " + email + " " + password);
         }
 
         close();

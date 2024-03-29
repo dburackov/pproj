@@ -49,7 +49,7 @@ public class LikeRepository extends DBController {
         return rowsUpdated;
     }
 
-    public void read_all() throws SQLException {
+    public void readAll() throws SQLException {
         open();
 
         String sql = """
@@ -60,11 +60,11 @@ public class LikeRepository extends DBController {
 
         while (resultSet.next())
         {
-            String like_id = resultSet.getString("like_id");
-            String object_pet_id = resultSet.getString("object_pet_id");
-            String target_pet_id = resultSet.getString("target_pet_id");
+            String likeId = resultSet.getString("like_id");
+            String objectPetId = resultSet.getString("object_pet_id");
+            String targetPetId = resultSet.getString("target_pet_id");
             String date = resultSet.getString("date");
-            System.out.println(like_id + " " + object_pet_id + " " + target_pet_id + " " + date);
+            System.out.println(likeId + " " + objectPetId + " " + targetPetId + " " + date);
         }
 
         close();
