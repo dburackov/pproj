@@ -22,5 +22,5 @@
 
 ## Мощная схема бд
 
-![схема бд](/jdbc/database_scheme/scheme.png)
+![схема бд](/database_scheme/scheme.png)
 
