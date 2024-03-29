@@ -14,5 +14,5 @@ public class SocialMedia {
     public String link = null;
     public SocialMediaType type = null;
 
-    public static String sequence = "social_media_social_media_id_seq";
+//    public static String sequence = "social_media_social_media_id_seq";
 }

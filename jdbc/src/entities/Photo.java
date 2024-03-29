@@ -8,9 +8,8 @@ public class Photo {
         this.fileLink = file_link;
     }
 
-    public int photoId = 0;
-    public int petProfileId = 0;
-    public String fileLink = null;
+    public int photoId;
+    public int petProfileId;
+    public String fileLink;
 
-    public static String sequence = "photos_photo_id_seq";
 }

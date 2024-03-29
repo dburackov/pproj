@@ -27,14 +27,14 @@ public class Passport {
         this.bio = bio;
     }
 
-    public int passportId = 0;
-    public int petProfileId = 0;
-    public String name = null;
-    public Date birthDate = null;
-    public Kind kind = null;
-    public String breed = null;
-    public boolean breedingCertificate = false;
-    public String coat = null;
-    public String bio = null;
+    public int passportId;
+    public int petProfileId;
+    public String name;
+    public Date birthDate;
+    public Kind kind;
+    public String breed;
+    public boolean breedingCertificate;
+    public String coat;
+    public String bio;
 
 }

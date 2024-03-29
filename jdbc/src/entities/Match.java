@@ -10,8 +10,8 @@ public class Match {
         this.secondPetId = secondPetId;
     }
 
-    public int matchId = 0;
-    public int firstPetId = 0;
-    public int secondPetId = 0;
+    public int matchId;
+    public int firstPetId;
+    public int secondPetId;
 
 }

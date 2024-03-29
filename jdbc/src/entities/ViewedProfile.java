@@ -14,5 +14,5 @@ public class ViewedProfile {
     public int objectPetId = 0;
     public int targetPetId = 0;
 
-    public static String sequence = "viewed_profiles_viewed_profile_id_seq";
+//    public static String sequence = "viewed_profiles_viewed_profile_id_seq";
 }
