@@ -8,6 +8,7 @@ public class UserRepository extends DBController {
 
     public UserRepository() throws SQLException, ClassNotFoundException {
         super();
+
     }
 
     public int create(User user) {

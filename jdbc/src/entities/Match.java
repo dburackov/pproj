@@ -14,5 +14,4 @@ public class Match {
     public int first_pet_id = 0;
     public int second_pet_id = 0;
 
-    public static String sequence = "match_match_id_seq";
 }

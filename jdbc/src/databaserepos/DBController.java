@@ -1,5 +1,7 @@
 package databaserepos;
 
+import entities.User;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -15,10 +17,15 @@ public class DBController {
     Properties props;
     String jdbcUrl;
 
+    protected static String sequence;
+    protected static String tableName;
+    protected static String idFieldName;
+
+
     public DBController() throws ClassNotFoundException, SQLException {
-        jdbcUrl = "jdbc:postgresql://localhost:5432/pproj";
+        jdbcUrl = "jdbc:postgresql://localhost:5432/petfiesta";
         props = new Properties();
-        props.setProperty("user", "postgres");
+        props.setProperty("user", "spring");
         String password = getPassword();
         props.setProperty("password", password);
 
@@ -47,6 +54,38 @@ public class DBController {
         }
     }
 
+    protected int getLastInsertedId() throws SQLException {
+        int result = 0;
+        open();
+
+        String sql = String.format("""
+                SELECT currval('%s');
+                """, sequence);
+
+        resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next())
+        {
+            result = resultSet.getInt("currval");
+        }
+
+        close();
+        return result;
+    }
+
+    public void delete(int id) throws SQLException {
+        open();
+
+        String sql = String.format("""
+                    DELETE FROM %s
+                    WHERE %s = %d
+                    """, tableName, idFieldName, id);
+
+        statement.executeUpdate(sql);
+
+        close();
+    }
+
     private String getPassword() {
         String result = null;
         try {
@@ -55,7 +94,7 @@ public class DBController {
             result = scanner.nextLine();
             scanner.close();
         }catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return result;
     }
