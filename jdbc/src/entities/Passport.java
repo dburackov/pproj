@@ -37,5 +37,4 @@ public class Passport {
     public String coat = null;
     public String bio = null;
 
-    public static String sequence = "passport_passport_id_seq";
 }

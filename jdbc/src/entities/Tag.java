@@ -10,6 +10,4 @@ public class Tag {
     public int tag_id;
     public String name;
 
-    public static String sequence = "tags_tag_id_seq";
-
 }

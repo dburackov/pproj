@@ -18,6 +18,4 @@ public class User {
     public String name;
     public String email;
     public String password;
-
-    public static String sequence = "users_user_id_seq";
 }

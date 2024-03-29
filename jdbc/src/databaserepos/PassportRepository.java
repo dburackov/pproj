@@ -9,48 +9,38 @@ import java.util.Date;
 public class PassportRepository extends DBController {
     public PassportRepository() throws SQLException, ClassNotFoundException {
         super();
+
+        sequence = "passport_passport_id_seq";
+        tableName = "passports";
+        idFieldName = "passport_id";
     }
 
-        public int create(Passport passport) {
-            int id = -1;
-            try {
-                open();
+        public int create(Passport passport) throws SQLException {
+            int lastInsertedId;
+            open();
 
-                String sql = String.format("""
-                        INSERT INTO passport
+            String sql = String.format("""
+                        INSERT INTO passports
                         (pet_profile_id, name, birth_date, kind, breed, breeding_certificate, coat, bio)
                         VALUES
                         (%d, '%s', '%s', '%s', '%s', %b, '%s', '%s');
                         """, passport.pet_profile_id, passport.name, passport.birth_date.toString(),
-                        passport.kind.toString(), passport.breed, passport.breeding_certificate, passport.coat, passport.bio);
+                    passport.kind.toString(), passport.breed, passport.breeding_certificate, passport.coat, passport.bio);
 
-                statement.executeUpdate(sql);
+            statement.executeUpdate(sql);
 
-                sql = String.format("""
-                    SELECT currval('%s');
-                    """, Passport.sequence);
+            lastInsertedId = getLastInsertedId();
 
-                resultSet = statement.executeQuery(sql);
-
-                while (resultSet.next())
-                {
-                    id = resultSet.getInt("currval");
-                }
-
-                close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return id;
+            close();
+            return lastInsertedId;
         }
 
-    public int update(int id, Passport passport) {
+    public int update(int id, Passport passport) throws SQLException {
         int rowsUpdated = 0;
-        try {
-            open();
+        open();
 
-            String sql = String.format("""
-                    UPDATE passport
+        String sql = String.format("""
+                    UPDATE passports
                     SET
                     pet_profile_id = %d,
                     name = '%s',
@@ -62,66 +52,41 @@ public class PassportRepository extends DBController {
                     bio = '%s'
                     WHERE passport_id = %d;
                     """, passport.pet_profile_id, passport.name, passport.birth_date.toString(),
-                    passport.kind.toString(), passport.breed, passport.breeding_certificate, passport.coat, passport.bio,
-                    id);
+                passport.kind.toString(), passport.breed, passport.breeding_certificate, passport.coat, passport.bio,
+                id);
 
-            rowsUpdated = statement.executeUpdate(sql);
+        rowsUpdated = statement.executeUpdate(sql);
 
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        close();
         return rowsUpdated;
     }
 
-    public Passport get(int id) {
+    public Passport get(int id) throws SQLException {
         Passport result = new Passport();
-        try {
-            open();
+        open();
 
-            String sql = String.format("""
+        String sql = String.format("""
                     SELECT *
-                    FROM passport
+                    FROM passports
                     WHERE passport_id = %d
                     """, id);
 
-            resultSet = statement.executeQuery(sql);
+        resultSet = statement.executeQuery(sql);
 
-            while (resultSet.next())
-            {
-                result.passport_id = resultSet.getInt("passport_id");
-                result.pet_profile_id = resultSet.getInt("pet_profile_id");
-                result.name = resultSet.getString("name");
-                result.birth_date = new Date(resultSet.getString("birth_date"));
-                result.kind = Kind.valueOf(resultSet.getString("kind"));
-                result.breed = resultSet.getString("breed");
-                result.breeding_certificate = resultSet.getBoolean("breeding_certificate");
-                result.breed = resultSet.getString("coat");
-                result.breed = resultSet.getString("bio");
-            }
-
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        while (resultSet.next())
+        {
+            result.passport_id = resultSet.getInt("passport_id");
+            result.pet_profile_id = resultSet.getInt("pet_profile_id");
+            result.name = resultSet.getString("name");
+            result.birth_date = new Date(resultSet.getString("birth_date"));
+            result.kind = Kind.valueOf(resultSet.getString("kind"));
+            result.breed = resultSet.getString("breed");
+            result.breeding_certificate = resultSet.getBoolean("breeding_certificate");
+            result.breed = resultSet.getString("coat");
+            result.breed = resultSet.getString("bio");
         }
+
+        close();
         return result;
     }
-
-    public void delete(int id) {
-        try {
-            open();
-
-            String sql = String.format("""
-                    DELETE FROM passport
-                    WHERE passport_id = %d
-                    """, id);
-
-            statement.executeUpdate(sql);
-
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

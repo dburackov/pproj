@@ -39,7 +39,7 @@ public class MatchRepository extends DBController {
         open();
 
         String sql = String.format("""
-                    UPDATE match
+                    UPDATE matches
                     SET first_pet_id = %d, second_pet_id = %d
                     WHERE match_id = %d;
                     """, match.first_pet_id, match.second_pet_id, id);
@@ -76,7 +76,7 @@ public class MatchRepository extends DBController {
 
         String sql = String.format("""
                     SELECT *
-                    FROM match
+                    FROM matches
                     WHERE match_id = %d
                     """, id);
 

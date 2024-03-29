@@ -7,124 +7,86 @@ import java.sql.SQLException;
 public class TagRepository extends DBController {
     public TagRepository() throws SQLException, ClassNotFoundException {
         super();
+
+        sequence = "tags_tag_id_seq";
+        tableName = "tags";
+        idFieldName = "tag_id";
     }
 
-    public int create(Tag tag) {
-        int id = -1;
-        try {
-            open();
+    public int create(Tag tag) throws SQLException {
+        int lastInsertedId = -1;
+        open();
 
-            String sql = String.format("""
+        String sql = String.format("""
                     INSERT INTO tags
                     (name)
                     VALUES
                     ('%s');
                     """, tag.name);
 
-            statement.executeUpdate(sql);
+        statement.executeUpdate(sql);
 
-            sql = String.format("""
-                SELECT currval('%s');
-                """, Tag.sequence);
+        lastInsertedId = getLastInsertedId();
 
-            resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next())
-            {
-                id = resultSet.getInt("currval");
-            }
-
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id;
+        close();
+        return lastInsertedId;
     }
 
-    public int update(int id, Tag tag) {
+    public int update(int id, Tag tag) throws SQLException {
         int rowsUpdated = 0;
-        try {
-            open();
+        open();
 
-            String sql = String.format("""
+        String sql = String.format("""
                     UPDATE tags
                     SET name = '%s'
                     WHERE tag_id = %d;
                     """, tag.name, id);
 
-            rowsUpdated = statement.executeUpdate(sql);
+        rowsUpdated = statement.executeUpdate(sql);
 
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        close();
         return rowsUpdated;
     }
 
-    public void read_all() {
-        try {
-            open();
+    public void read_all() throws SQLException {
+        open();
 
-            String sql = """
+        String sql = """
                     SELECT * FROM tags;
                     """;
 
-            resultSet = statement.executeQuery(sql);
+        resultSet = statement.executeQuery(sql);
 
-            while (resultSet.next())
-            {
-                String tag_id = resultSet.getString("user_id");
-                String name = resultSet.getString("name");
-                System.out.println(tag_id + " " + name + " ");
-            }
-
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        while (resultSet.next())
+        {
+            String tag_id = resultSet.getString("user_id");
+            String name = resultSet.getString("name");
+            System.out.println(tag_id + " " + name + " ");
         }
+
+        close();
     }
 
-    public Tag get(int id) {
+    public Tag get(int id) throws SQLException {
         Tag result = new Tag();
-        try {
-            open();
+        open();
 
-            String sql = String.format("""
-                    SELECT * 
-                    FROM users
-                    WHERE user_id = %d
-                    """, id);
-
-            resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next())
-            {
-                result.tag_id = resultSet.getInt("tag_id");
-                result.name = resultSet.getString("name");
-            }
-
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public void delete(int id) {
-        try {
-            open();
-
-            String sql = String.format("""
-                    DELETE FROM tags
+        String sql = String.format("""
+                    SELECT *
+                    FROM tags
                     WHERE tag_id = %d
                     """, id);
 
-            statement.executeUpdate(sql);
+        resultSet = statement.executeQuery(sql);
 
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        while (resultSet.next())
+        {
+            result.tag_id = resultSet.getInt("tag_id");
+            result.name = resultSet.getString("name");
         }
+
+        close();
+        return result;
     }
 
 }

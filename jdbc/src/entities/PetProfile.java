@@ -18,6 +18,5 @@ public class PetProfile {
     public int user_id;
 
     public Purpose purpose;
-    public static String sequence = "pet_profile_pet_profile_id_seq";
 
 }
