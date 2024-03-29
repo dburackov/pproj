@@ -22,6 +22,8 @@
 |4|Angular|100||
 |5|React|100||
 
-#
+# Cхема бд
+
+![схема бд](https://github.com/dburackov/pproj/blob/jdbc/database_scheme/scheme.png)
 
 
