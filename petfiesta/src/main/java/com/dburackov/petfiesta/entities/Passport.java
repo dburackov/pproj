@@ -12,7 +12,7 @@ public class Passport {
     @Id
     @Column(name = "passport_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long passportId;
+    private Long id;
 
     @Column(name = "pet_profile_id")
     private Long petProfileId;

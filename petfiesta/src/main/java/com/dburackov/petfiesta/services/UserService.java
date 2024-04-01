@@ -1,8 +1,11 @@
 package com.dburackov.petfiesta.services;
 
+import com.dburackov.petfiesta.dto.userdto.CreateUserDto;
+import com.dburackov.petfiesta.dto.userdto.GetUserDto;
 import com.dburackov.petfiesta.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dburackov.petfiesta.mappers.UserMapper;
 import com.dburackov.petfiesta.repositories.UserRepository;
+import lombok.var;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,18 +13,23 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserService() {
-        //
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public List<GetUserDto> getUsers() {
+
+        return userRepository.findAll().stream().map(userMapper::userToGetUserDto).toList();
     }
 
-    public User addUser(User user) {
+    public User createUser(CreateUserDto createUserDto) {
+        User user = userMapper.createUserDtoToUser(createUserDto);
+
+        
         return userRepository.save(user);
     }
 
@@ -30,7 +38,7 @@ public class UserService {
     }
 
     public User updateUser(Long id, User user) {
-        user.setUserId(id);
+        user.setId(id);
         return userRepository.save(user);
     }
 

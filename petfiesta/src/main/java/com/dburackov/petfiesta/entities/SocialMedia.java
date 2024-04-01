@@ -12,7 +12,7 @@ public class SocialMedia {
     @Id
     @Column(name = "social_media_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long socialMediaId;
+    private Long id;
 
     @Column(name = "pet_profile_id")
     private Long petProfileId;

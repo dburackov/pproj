@@ -21,7 +21,7 @@ public class PassportService {
     }
 
     public Passport updatePassport(Long id, Passport passport) {
-        passport.setPassportId(id);
+        passport.setId(id);
         return passportRepository.save(passport);
     }
 

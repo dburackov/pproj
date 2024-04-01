@@ -1,6 +1,8 @@
 package com.dburackov.petfiesta.controllers;
 
 
+import com.dburackov.petfiesta.dto.userdto.CreateUserDto;
+import com.dburackov.petfiesta.dto.userdto.GetUserDto;
 import com.dburackov.petfiesta.entities.User;
 import com.dburackov.petfiesta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/users")
-    public List<User> getUsers() {
+    public List<GetUserDto> getUsers() {
         return userService.getUsers();
     }
 
@@ -23,9 +25,9 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/users/add")
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    @PostMapping("/users/create")
+    public GetUserDto createUser (@RequestBody CreateUserDto createUserDto) {
+        return userService.createUser(createUserDto);
     }
 
     @PostMapping("/users/update/{id}")

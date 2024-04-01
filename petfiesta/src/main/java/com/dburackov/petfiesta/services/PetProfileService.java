@@ -32,7 +32,7 @@ public class PetProfileService {
 
 
     public PetProfile updatePetProfile(Long id, PetProfile petProfile) {
-        petProfile.setPetProfileId(id);
+        petProfile.setId(id);
         return petProfileRepository.save(petProfile);
     }
 

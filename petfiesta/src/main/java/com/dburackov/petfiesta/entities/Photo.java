@@ -11,7 +11,7 @@ public class Photo {
     @Id
     @Column(name = "photo_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long photoId;
+    private Long id;
 
     @Column(name = "pet_profile_id")
     private Long petProfileId;
