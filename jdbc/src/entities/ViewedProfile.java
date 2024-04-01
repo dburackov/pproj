@@ -1,28 +1,19 @@
 package entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class ViewedProfile {
-    public ViewedProfile() {
 
-    }
+@Setter
+@Getter
+@NoArgsConstructor
+public class ViewedProfile implements Entity {
 
-    public ViewedProfile(int objectPetId, int targetPetId) {
-        this.objectPetId = objectPetId;
-        this.targetPetId = targetPetId;
-    }
-
-    @Getter
-    @Setter
     private int viewedProfileId = 0;
 
-    @Getter
-    @Setter
     private int objectPetId = 0;
 
-    @Getter
-    @Setter
     private int targetPetId = 0;
 
 }

@@ -1,26 +1,19 @@
 package entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class Photo {
-    public Photo() {}
 
-    public Photo(int petProfileId, String fileLink) {
-        this.petProfileId = petProfileId;
-        this.fileLink = fileLink;
-    }
+@Setter
+@Getter
+@NoArgsConstructor
+public class Photo implements Entity {
 
-    @Getter
-    @Setter
     private int photoId;
 
-    @Getter
-    @Setter
     private int petProfileId;
 
-    @Getter
-    @Setter
-    private String fileLink;
+    private String filePath;
 
 }

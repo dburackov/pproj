@@ -1,31 +1,21 @@
 package entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class SocialMedia {
-    public SocialMedia() {}
 
-    public SocialMedia(int petProfileId, String link, SocialMediaType type) {
-        this.petProfileId = petProfileId;
-        this.link = link;
-        this.type = type;
-    }
+@Setter
+@Getter
+@NoArgsConstructor
+public class SocialMedia implements Entity {
 
-    @Getter
-    @Setter
     private int socialMediaId = 0;
 
-    @Getter
-    @Setter
     private int petProfileId = 0;
 
-    @Getter
-    @Setter
     private String link = null;
 
-    @Getter
-    @Setter
-    private SocialMediaType type = null;
+    private String type = null;
 
 }
