@@ -24,6 +24,6 @@
 
 # Cхема бд
 
-![схема бд](https://github.com/dburackov/pproj/blob/jdbc/database_scheme/petfiesta.png)
+![схема бд](https://github.com/dburackov/pproj/blob/jdbc/database_scheme/scheme.png)
 
 
