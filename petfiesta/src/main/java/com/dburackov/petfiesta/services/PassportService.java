@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PassportService {
@@ -21,16 +20,16 @@ public class PassportService {
         return passportRepository.save(passport);
     }
 
-    public Passport updatePassport(UUID id, Passport passport) {
+    public Passport updatePassport(Long id, Passport passport) {
         passport.setPassportId(id);
         return passportRepository.save(passport);
     }
 
-    public void deletePassportById(UUID id) {
+    public void deletePassportById(Long id) {
         passportRepository.deleteById(id);
     }
 
-    public Passport getPetPassport(UUID petProfileId) {
+    public Passport getPetPassport(Long petProfileId) {
         return passportRepository.findByPetProfileId(petProfileId);
     }
 }

@@ -5,9 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
-public interface PetProfileRepository extends JpaRepository<PetProfile, UUID> {
-    List<PetProfile> findByUserId(UUID userId);
+public interface PetProfileRepository extends JpaRepository<PetProfile, Long> {
+    List<PetProfile> findByUserId(Long userId);
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class PetProfileController {
@@ -19,27 +18,27 @@ public class PetProfileController {
     }
 
     @GetMapping("/pet-profiles/{id}")
-    public PetProfile getPetProfileById(UUID id) {
+    public PetProfile getPetProfileById(@PathVariable Long id) {
         return petProfileService.getPetProfileById(id);
     }
 
-    @GetMapping("/pet-profiles/add")
+    @PostMapping("/pet-profiles/add")
     public PetProfile addPetProfile(@RequestBody PetProfile petProfile) {
         return petProfileService.addPetProfile(petProfile);
     }
 
     @PostMapping("/pet-profiles/update/{id}")
-    public PetProfile updatePetProfile(@PathVariable  UUID id, @RequestBody PetProfile petProfile) {
+    public PetProfile updatePetProfile(@PathVariable  Long id, @RequestBody PetProfile petProfile) {
         return petProfileService.updatePetProfile(id, petProfile);
     }
 
     @DeleteMapping("/pet-profiles/delete/{id}")
-    public void deletePetProfileById(@PathVariable UUID id) {
+    public void deletePetProfileById(@PathVariable Long id) {
         petProfileService.deletePetProfileById(id);
     }
 
     @GetMapping("/users/{userId}/pet-profiles")
-    public List<PetProfile> getUserPetProfiles(@PathVariable UUID userId) {
+    public List<PetProfile> getUserPetProfiles(@PathVariable Long userId) {
         return petProfileService.getUserPetProfiles(userId);
     }
 }

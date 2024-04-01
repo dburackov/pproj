@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PetProfileService {
@@ -23,7 +22,7 @@ public class PetProfileService {
         return petProfileRepository.findAll();
     }
 
-    public PetProfile getPetProfileById(UUID id) {
+    public PetProfile getPetProfileById(Long id) {
         return petProfileRepository.findById(id).get();
     }
 
@@ -32,16 +31,16 @@ public class PetProfileService {
     }
 
 
-    public PetProfile updatePetProfile(UUID id, PetProfile petProfile) {
+    public PetProfile updatePetProfile(Long id, PetProfile petProfile) {
         petProfile.setPetProfileId(id);
         return petProfileRepository.save(petProfile);
     }
 
-    public void deletePetProfileById(UUID id) {
+    public void deletePetProfileById(Long id) {
         petProfileRepository.deleteById(id);
     }
 
-    public List<PetProfile> getUserPetProfiles(UUID userId) {
+    public List<PetProfile> getUserPetProfiles(Long userId) {
         return petProfileRepository.findByUserId(userId);
     }
 }
