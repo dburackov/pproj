@@ -8,7 +8,7 @@ CREATE TABLE users (
 
 CREATE TYPE KIND AS ENUM ('dog', 'cat', 'others');
 
-create type purpose_type as enum ('procreation', 'walking');
+CREATE TYPE purpose_type AS enum ('procreation', 'walking');
 
 CREATE TABLE pet_profiles (
     pet_profile_id INT GENERATED ALWAYS AS IDENTITY,
@@ -68,7 +68,6 @@ CREATE TABLE likes(
     like_id INT GENERATED ALWAYS AS IDENTITY ,
     object_pet_id INT NOT NULL ,
     target_pet_id INT NOT NULL ,
-    date DATE NOT NULL DEFAULT current_date,
 
     PRIMARY KEY (like_id),
     CONSTRAINT fk_object_pet FOREIGN KEY (object_pet_id)
