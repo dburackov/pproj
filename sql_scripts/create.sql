@@ -40,7 +40,7 @@ CREATE TABLE passports
 CREATE TABLE photos(
     photo_id INT GENERATED ALWAYS AS IDENTITY ,
     pet_profile_id INT NOT NULL,
-    file_link INT NOT NULL ,
+    file_path INT NOT NULL ,
 
     PRIMARY KEY (photo_id),
     CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
