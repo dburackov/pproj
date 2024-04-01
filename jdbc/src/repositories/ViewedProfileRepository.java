@@ -1,4 +1,4 @@
-package databaserepos;
+package repositories;
 
 public class ViewedProfileRepository {
 }

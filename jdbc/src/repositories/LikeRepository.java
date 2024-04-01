@@ -1,11 +1,9 @@
-package databaserepos;
+package repositories;
 
 import entities.Like;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class LikeRepository extends DBController {
     public LikeRepository() throws SQLException, ClassNotFoundException {

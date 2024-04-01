@@ -1,4 +1,4 @@
-package databaserepos;
+package repositories;
 
 import java.io.File;
 import java.io.FileNotFoundException;
