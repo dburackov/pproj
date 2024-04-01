@@ -1,12 +1,8 @@
 package com.dburackov.petfiesta.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.UUID;
 
 @Data
 @Entity
@@ -14,10 +10,11 @@ import java.util.UUID;
 public class Photo {
     @Id
     @Column(name = "photo_id")
-    private UUID photoId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long photoId;
 
     @Column(name = "pet_profile_id")
-    private UUID petProfileId;
+    private Long petProfileId;
 
     @Column(name = "file_link")
     private Long fileLink;

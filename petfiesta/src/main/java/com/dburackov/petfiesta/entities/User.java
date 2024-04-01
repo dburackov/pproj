@@ -1,12 +1,8 @@
 package com.dburackov.petfiesta.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.UUID;
 
 @Data
 @Entity
@@ -14,6 +10,7 @@ import java.util.UUID;
 public class User {
     @Id
     @Column(name = "user_id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long userId;
 
     @Column(name = "name")

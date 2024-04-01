@@ -1,12 +1,8 @@
 package com.dburackov.petfiesta.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.UUID;
 
 
 @Data
@@ -16,10 +12,11 @@ public class PetProfile {
 
     @Id
     @Column(name = "pet_profile_id")
-    private UUID petProfileId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long petProfileId;
 
     @Column(name = "user_id")
-    private UUID userId;
+    private Long userId;
 
     @Column(name = "purpose")
     private String purpose;

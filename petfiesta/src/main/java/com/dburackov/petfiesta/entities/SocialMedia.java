@@ -1,13 +1,9 @@
 package com.dburackov.petfiesta.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.UUID;
 
 @Data
 @Entity
@@ -15,10 +11,11 @@ import java.util.UUID;
 public class SocialMedia {
     @Id
     @Column(name = "social_media_id")
-    private UUID socialMediaId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long socialMediaId;
 
     @Column(name = "pet_profile_id")
-    private UUID petProfileId;
+    private Long petProfileId;
 
     @Column(name = "type")
     private String type;

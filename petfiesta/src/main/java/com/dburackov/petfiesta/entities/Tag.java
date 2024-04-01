@@ -1,13 +1,9 @@
 package com.dburackov.petfiesta.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.UUID;
 
 @Data
 @Entity
@@ -15,7 +11,8 @@ import java.util.UUID;
 public class Tag {
     @Id
     @Column(name = "tag_id")
-    private UUID tagId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long tagId;
 
     @Column(name = "name")
     private String name;

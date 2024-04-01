@@ -1,13 +1,9 @@
 package com.dburackov.petfiesta.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -15,15 +11,12 @@ import java.util.UUID;
 public class Like {
     @Id
     @Column(name = "like_id")
-    private UUID likeId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long likeId;
 
     @Column(name = "object_pet_id")
-    private UUID objectPetId;
+    private Long objectPetId;
 
     @Column(name = "target_pet_id")
-    private UUID targetPetId;
-
-    @Column(name = "date")
-    private Date date;
-
+    private Long targetPetId;
 }
