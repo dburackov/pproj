@@ -18,4 +18,8 @@ public class Tag implements Entity {
     @Getter
     private String name;
 
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16s", tagId, name);
+    }
 }

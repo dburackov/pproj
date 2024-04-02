@@ -24,4 +24,9 @@ public class User implements Entity {
     @Setter
     @Getter
     private String password;
+
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16s%-16s%-16s", userId, name, email, password);
+    }
 }

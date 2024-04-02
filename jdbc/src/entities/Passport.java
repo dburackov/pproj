@@ -49,4 +49,9 @@ public class Passport implements Entity {
     @Getter
     private String bio;
 
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16d%-16s%-16s%-16s%-16s%-16b%-16s%-16s",
+                passportId, petProfileId, name, birthDate.toString(), kind, breed, breedingCertificate, coat, bio);
+    }
 }

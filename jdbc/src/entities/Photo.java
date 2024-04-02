@@ -22,4 +22,8 @@ public class Photo implements Entity {
     @Getter
     private String filePath;
 
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16d%-16s", photoId, petProfileId, filePath);
+    }
 }

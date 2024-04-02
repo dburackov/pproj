@@ -27,4 +27,9 @@ public class PetProfile implements Entity {
     @Setter
     @Getter
     private List<Tag> tags;
+
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16s%-16s", petProfileId, purpose, tags);
+    }
 }

@@ -22,4 +22,8 @@ public class ViewedProfile implements Entity {
     @Getter
     private Long targetPetId;
 
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16d%-16d", viewedProfileId, objectPetId, targetPetId);
+    }
 }

@@ -27,4 +27,9 @@ public class Like implements Entity {
     @Setter
     @Getter
     private Long targetPetId;
+
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16d%-16d", likeId, objectPetId, targetPetId);
+    }
 }

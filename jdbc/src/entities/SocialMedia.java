@@ -27,4 +27,8 @@ public class SocialMedia implements Entity {
     @Getter
     private String type;
 
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16d%-16s%-16s", socialMediaId, petProfileId, link, type);
+    }
 }

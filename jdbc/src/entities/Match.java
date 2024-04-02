@@ -23,4 +23,8 @@ public class Match implements Entity {
     @Getter
     private Long secondPetId;
 
+    @Override
+    public String toString() {
+        return String.format("%-16d%-16d%-16d", matchId, firstPetId, secondPetId);
+    }
 }
