@@ -1,79 +1,48 @@
 package repositories;
 
+import entities.Entity;
 import entities.Like;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class LikeRepository extends DBController {
-    public LikeRepository() throws SQLException, ClassNotFoundException {
+public class LikeRepository extends Repository {
+    public LikeRepository() throws IOException {
         super();
 
-        sequence = "likes_like_id_seq";
-        tableName = "likes";
-        idFieldName = "like_id";
+        sequenceName = "likes_like_id_seq";
+
     }
 
-    public int create(Like like) throws SQLException {
-        int lastInsertedId = 0;
+    @Override
+    public List<Entity> readAll() throws SQLException {
         open();
 
-        String sql = String.format("""
-               INSERT INTO likes
-                (object_pet_id, target_pet_id, date)
-                VALUES
-                (%d, %d, '%s');
-                """, like.getObjectPetId(), like.getTargetPetId(), like.getDate().toString());
+        List<Entity> likes = new ArrayList<>();
 
-        statement.executeUpdate(sql);
-
-        lastInsertedId = getLastInsertedId();
-
-        close();
-        return lastInsertedId;
-    }
-
-    public int update(int id, Like like) throws SQLException {
-        int rowsUpdated = 0;
-        open();
-
-        String sql = String.format("""
-                    UPDATE likes
-                    SET object_pet_id = %d, target_pet_id = %d, date = '%s'
-                    WHERE like_id = %d;
-                    """, like.getObjectPetId(), like.getTargetPetId(), like.getDate().toString(), id);
-
-        rowsUpdated = statement.executeUpdate(sql);
-
-        close();
-        return rowsUpdated;
-    }
-
-    public void readAll() throws SQLException {
-        open();
-
-        String sql = """
+        String sql ="""
                     SELECT * FROM likes;
                     """;
 
         resultSet = statement.executeQuery(sql);
-
         while (resultSet.next())
         {
-            String likeId = resultSet.getString(idFieldName);
-            String objectPetId = resultSet.getString("object_pet_id");
-            String targetPetId = resultSet.getString("target_pet_id");
-            String date = resultSet.getString("date");
-            System.out.println(likeId + " " + objectPetId + " " + targetPetId + " " + date);
-
+            likes.add(new Like(resultSet.getLong("like_id"),
+                    resultSet.getLong("object_pet_id"),
+                    resultSet.getLong("target_pet_id")));
         }
 
         close();
+        return likes;
     }
 
-    public Like get(int id) throws SQLException {
-        Like result = new Like();
+    @Override
+    public Entity getById(Long id) throws SQLException {
         open();
+        Like like = new Like();
 
         String sql = String.format("""
                     SELECT *
@@ -83,15 +52,63 @@ public class LikeRepository extends DBController {
 
         resultSet = statement.executeQuery(sql);
 
-        while (resultSet.next())
-        {
-            result.setLikeId(resultSet.getInt(idFieldName));
-            result.setTargetPetId(resultSet.getInt("target_pet_id"));
-            result.setObjectPetId(resultSet.getInt("object_pet_id"));
-            result.setDate(new Date(resultSet.getString("date")));
+        if (resultSet.next()) {
+            like.setLikeId(resultSet.getLong("like_id"));
+            like.setObjectPetId(resultSet.getLong("object_pet_id"));
+            like.setTargetPetId(resultSet.getLong("target_pet_id"));
         }
 
         close();
-        return result;
+        return like;
+    }
+
+    @Override
+    public Long create(Entity entity) throws SQLException {
+        open();
+
+        Long lastInsertedId;
+        Like like = (Like)entity;
+
+        String sql = String.format("""
+               INSERT INTO likes
+                (object_pet_id, target_pet_id)
+                VALUES
+                (%d, %d);
+                """, like.getObjectPetId(), like.getTargetPetId());
+
+        statement.executeUpdate(sql);
+        lastInsertedId = getLastInsertedId();
+
+        close();
+        return lastInsertedId;
+    }
+
+    @Override
+    public void update(Entity entity) throws SQLException {
+        open();
+
+        Like like = (Like)entity;
+
+        String sql = String.format("""
+                    UPDATE likes
+                    SET object_pet_id = %d, target_pet_id = %d
+                    WHERE like_id = %d;
+                    """, like.getObjectPetId(), like.getTargetPetId(), like.getLikeId());
+
+        close();
+    }
+
+    @Override
+    public void delete(Long id) throws SQLException {
+        open();
+
+        String sql = String.format("""
+                    DELETE FROM likes
+                    WHERE like_id = %d
+                    """, id);
+
+        statement.executeUpdate(sql);
+
+        close();
     }
 }

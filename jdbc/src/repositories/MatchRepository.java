@@ -1,76 +1,47 @@
 package repositories;
 
+import entities.Entity;
+import entities.Like;
 import entities.Match;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MatchRepository extends DBController {
-    public MatchRepository() throws SQLException, ClassNotFoundException {
+public class MatchRepository extends Repository {
+    public MatchRepository() throws IOException {
         super();
 
-        sequence = "match_match_id_seq";
-        tableName = "matches";
-        idFieldName = "match_id";
+        sequenceName = "match_match_id_seq";
     }
 
-    public int create(Match match) throws SQLException {
-        int lastInsertedId = 0;
+    @Override
+    public List<Entity> readAll() throws SQLException {
         open();
 
-        String sql = String.format("""
-                    INSERT INTO matches
-                    (first_pet_id, second_pet_id)
-                    VALUES
-                    (%d, %d);
-                    """, match.getFirstPetId(), match.getSecondPetId());
+        List<Entity> matches = new ArrayList<>();
 
-        statement.executeUpdate(sql);
-
-        lastInsertedId = getLastInsertedId();
-
-        close();
-        return lastInsertedId;
-    }
-
-    public int update(int id, Match match) throws SQLException {
-        int rowsUpdated = 0;
-        open();
-
-        String sql = String.format("""
-                    UPDATE matches
-                    SET first_pet_id = %d, second_pet_id = %d
-                    WHERE match_id = %d;
-                    """, match.getFirstPetId(), match.getSecondPetId(), id);
-
-        rowsUpdated = statement.executeUpdate(sql);
-
-        close();
-        return rowsUpdated;
-    }
-
-    public void readAll() throws SQLException {
-        open();
-
-        String sql = """
+        String sql ="""
                     SELECT * FROM matches;
                     """;
 
         resultSet = statement.executeQuery(sql);
-
         while (resultSet.next())
         {
-            String matchId = resultSet.getString(idFieldName);
-            String firstPetId = resultSet.getString("first_pet_id");
-            String secondPetId = resultSet.getString("second_pet_id");
-            System.out.println(matchId + " " + firstPetId + " " + secondPetId);
+            matches.add(new Match(resultSet.getLong("match_id"),
+                    resultSet.getLong("first_pet_id"),
+                    resultSet.getLong("second_pet_id")));
         }
 
         close();
+        return matches;
     }
 
-    public Match get(int id) throws SQLException {
-        Match result = new Match();
+    @Override
+    public Entity getById(Long id) throws SQLException {
         open();
+        Match match = new Match();
 
         String sql = String.format("""
                     SELECT *
@@ -80,14 +51,66 @@ public class MatchRepository extends DBController {
 
         resultSet = statement.executeQuery(sql);
 
-        while (resultSet.next())
-        {
-            result.setMatchId(resultSet.getInt(idFieldName));
-            result.setFirstPetId(resultSet.getInt("first_pet_id"));
-            result.setSecondPetId(resultSet.getInt("second_pet_id"));
+        if (resultSet.next()) {
+            match.setMatchId(resultSet.getLong("match_id"));
+            match.setFirstPetId(resultSet.getLong("first_pet_id"));
+            match.setSecondPetId(resultSet.getLong("second_pet_id"));
         }
 
         close();
-        return result;
+        return match;
     }
+
+    @Override
+    public Long create(Entity entity) throws SQLException {
+        open();
+
+        Long lastInsertedId;
+        Match match = (Match) entity;
+
+        String sql = String.format("""
+               INSERT INTO Matches
+                (first_pet_id, second_pet_id)
+                VALUES
+                (%d, %d);
+                """, match.getFirstPetId(), match.getSecondPetId());
+
+        statement.executeUpdate(sql);
+        lastInsertedId = getLastInsertedId();
+
+        close();
+        return lastInsertedId;
+    }
+
+    @Override
+    public void update(Entity entity) throws SQLException {
+        open();
+
+        Match match = (Match) entity;
+
+        String sql = String.format("""
+                    UPDATE
+                    SET first_pet_id = %d, second_pet_id = %d
+                    WHERE like_id = %d;
+                    """, match.getFirstPetId(), match.getSecondPetId(), match.getMatchId());
+
+        statement.executeUpdate(sql);
+
+        close();
+    }
+
+    @Override
+    public void delete(Long id) throws SQLException {
+        open();
+
+        String sql = String.format("""
+                    DELETE FROM matches
+                    WHERE match_id = %d
+                    """, id);
+
+        statement.executeUpdate(sql);
+
+        close();
+    }
+
 }

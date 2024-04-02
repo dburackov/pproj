@@ -1,93 +1,116 @@
 package repositories;
 
+import entities.Entity;
+import entities.Match;
 import entities.PetProfile;
-import entities.Purpose;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PetProfileRepository extends DBController {
-    public PetProfileRepository() throws SQLException, ClassNotFoundException {
+public class PetProfileRepository extends Repository {
+    public PetProfileRepository() throws IOException {
         super();
 
-        sequence = "pet_profile_pet_profile_id_seq";
+        sequenceName = "pet_profile_pet_profile_id_seq";
     }
 
-    public int create(PetProfile petProfile) throws SQLException {
-        int lastInsertedId = 0;
+    @Override
+    public List<Entity> readAll() throws SQLException {
         open();
 
-        String sql = String.format("""
-                    INSERT INTO pet_profiles
-                    (user_id, purpose)
-                    VALUES
-                    (%d, '%s');
-                    """, petProfile.getUserId(), petProfile.getPurpose().toString());
+        List<Entity> petProfiles = new ArrayList<>();
 
-        statement.executeUpdate(sql);
-
-        lastInsertedId = getLastInsertedId();
-
-        close();
-        return lastInsertedId;
-    }
-
-    public int update(int id, PetProfile petProfile) throws SQLException {
-        int rowsUpdated = 0;
-        open();
-
-        String sql = String.format("""
-                    UPDATE pet_profiles
-                    SET purpose = '%s'
-                    WHERE pet_profile_id = '%d';
-                    """, petProfile.getPurpose(), id);
-
-        rowsUpdated = statement.executeUpdate(sql);
-
-        close();
-        return rowsUpdated;
-    }
-
-    public void readAll() throws SQLException {
-        open();
-
-        String sql = """
+        String sql ="""
                     SELECT * FROM pet_profiles;
                     """;
 
         resultSet = statement.executeQuery(sql);
-
         while (resultSet.next())
         {
-            String petProfileId = resultSet.getString(idFieldName);
-            String userId = resultSet.getString("user_id");
-            String purpose = resultSet.getString("purpose");
-            System.out.println(petProfileId + " " + userId + " " + purpose);
+            petProfiles.add(new PetProfile(resultSet.getLong("pet_profile_id"),
+                    resultSet.getLong("user_id"),
+                    resultSet.getString("purpose")));
         }
 
         close();
+        return petProfiles;
     }
 
-    public PetProfile get(int id) throws SQLException {
-        PetProfile result = new PetProfile();
+    @Override
+    public Entity getById(Long id) throws SQLException {
         open();
+        PetProfile petProfile = new PetProfile();
 
         String sql = String.format("""
-                    SELECT * 
+                    SELECT *
                     FROM pet_profiles
                     WHERE pet_profile_id = %d
                     """, id);
 
         resultSet = statement.executeQuery(sql);
 
-        while (resultSet.next())
-        {
-            result.setPetProfileId(resultSet.getInt(idFieldName));
-            result.setUserId(resultSet.getInt("user_id"));
-            result.setPurpose(Purpose.valueOf(resultSet.getString("purpose")));
+        if (resultSet.next()) {
+            petProfile.setPetProfileId(resultSet.getLong("pet_profile_id"));
+            petProfile.setUserId(resultSet.getLong("user_id"));
+            petProfile.setPurpose(resultSet.getString("second_pet_id"));
         }
 
         close();
-        return result;
+        return petProfile;
+    }
+
+    @Override
+    public Long create(Entity entity) throws SQLException {
+        open();
+
+        Long lastInsertedId;
+        PetProfile petProfile = (PetProfile) entity;
+
+        String sql = String.format("""
+               INSERT INTO pet_profiles
+                (user_id, purpose)
+                VALUES
+                (%d, '%s');
+                """, petProfile.getUserId(), petProfile.getPurpose());
+
+        statement.executeUpdate(sql);
+        lastInsertedId = getLastInsertedId();
+
+        close();
+        return lastInsertedId;
+    }
+
+    @Override
+    public void update(Entity entity) throws SQLException {
+        open();
+
+        PetProfile petProfile = (PetProfile) entity;
+
+        String sql = String.format("""
+                    UPDATE pet_profiles
+                    SET purpose = '%s'
+                    WHERE pet_profile_id = '%d';
+                    """, petProfile.getPurpose(), petProfile.getPetProfileId());
+
+        statement.executeUpdate(sql);
+
+        close();
+    }
+
+    @Override
+    public void delete(Long id) throws SQLException {
+        open();
+
+        String sql = String.format("""
+                    DELETE FROM pet_profiles
+                    WHERE pet_profile_id = %d
+                    """, id);
+
+        statement.executeUpdate(sql);
+
+        close();
     }
 
 }
