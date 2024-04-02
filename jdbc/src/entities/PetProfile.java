@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,4 +24,7 @@ public class PetProfile implements Entity {
     @Getter
     private String  purpose;
 
+    @Setter
+    @Getter
+    private List<Tag> tags;
 }

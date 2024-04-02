@@ -3,6 +3,7 @@ package repositories;
 import entities.Entity;
 import entities.Match;
 import entities.PetProfile;
+import entities.Tag;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,7 +32,8 @@ public class PetProfileRepository extends Repository {
         {
             petProfiles.add(new PetProfile(resultSet.getLong("pet_profile_id"),
                     resultSet.getLong("user_id"),
-                    resultSet.getString("purpose")));
+                    resultSet.getString("purpose"),
+                    new ArrayList<>()));
         }
 
         close();
@@ -57,6 +59,22 @@ public class PetProfileRepository extends Repository {
             petProfile.setPurpose(resultSet.getString("second_pet_id"));
         }
 
+        petProfile.setTags(new ArrayList<>());
+
+        sql = String.format("""
+                SELECT tags.tag_id, tags.name FROM pet_profiles
+                JOIN pet_xref_tag ON pet_profiles.pet_profile_id = pet_xref_tag.pet_profile_id
+                JOIN tags ON pet_xref_tag.tag_id = tags.tag_id
+                WHERE pet_profiles.pet_profile_id = %d;
+                """, petProfile.getPetProfileId());
+
+        resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            petProfile.getTags().add(new Tag(resultSet.getLong("tag_id"),
+                    resultSet.getString("name")));
+        }
+
         close();
         return petProfile;
     }
@@ -77,6 +95,19 @@ public class PetProfileRepository extends Repository {
 
         statement.executeUpdate(sql);
         lastInsertedId = getLastInsertedId();
+
+        sql = """
+             INSERT INTO pet_xref_tag
+             (pet_profile_id, tag_id)
+             """;
+
+        for (Tag tag : petProfile.getTags()) {
+            sql = sql.concat(String.format("(%d, %d),", petProfile.getPetProfileId(), tag.getTagId()));
+        }
+
+        sql = sql.substring(0, sql.length() - 1) + ";";
+
+        statement.executeQuery(sql);
 
         close();
         return lastInsertedId;
@@ -105,10 +136,36 @@ public class PetProfileRepository extends Repository {
 
         String sql = String.format("""
                     DELETE FROM pet_profiles
-                    WHERE pet_profile_id = %d
+                    WHERE pet_profile_id = %d;
                     """, id);
 
+        //tags delete by trigger
+
         statement.executeUpdate(sql);
+
+        close();
+    }
+
+    public void addTag(PetProfile petProfile, Tag tag) throws SQLException {
+        open();
+
+        String sql = String.format("""
+                INSERT INTO pet_xref_tag
+                (pet_profile_id, tag_id)
+                VALUES
+                (%d, %d);
+                """, petProfile.getPetProfileId(), tag.getTagId());
+
+        close();
+    }
+
+    public void deleteTag(PetProfile petProfile, Tag tag) throws SQLException {
+        open();
+
+        String sql = String.format("""
+                DELETE FROM pet_xref_tag
+                WHERE pet_profile_id = %d AND tag_id = %d;
+                """, petProfile.getPetProfileId(), tag.getTagId());
 
         close();
     }
