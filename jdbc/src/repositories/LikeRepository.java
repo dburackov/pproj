@@ -47,7 +47,7 @@ public class LikeRepository extends Repository {
         String sql = String.format("""
                     SELECT *
                     FROM likes
-                    WHERE like_id = %d
+                    WHERE like_id = %d;
                     """, id);
 
         resultSet = statement.executeQuery(sql);
@@ -106,7 +106,7 @@ public class LikeRepository extends Repository {
 
         String sql = String.format("""
                     DELETE FROM likes
-                    WHERE like_id = %d
+                    WHERE like_id = %d;
                     """, id);
 
         statement.executeUpdate(sql);

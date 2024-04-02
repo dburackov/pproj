@@ -3,9 +3,7 @@ package repositories;
 
 import entities.Entity;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
@@ -23,18 +21,12 @@ public abstract class Repository {
     protected String sequenceName;
 
 
-    public Repository() throws IOException {
-        FileInputStream inputStream = null;
-        try {
+    protected Repository() throws IOException {
+        try (FileInputStream inputStream = new FileInputStream("db.properties");) {
             properties = new Properties();
-            inputStream = new FileInputStream("db.properties");
             properties.load(inputStream);
         } catch (IOException e) {
             console().printf("Error connecting to database");
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
         }
     }
 

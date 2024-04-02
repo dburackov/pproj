@@ -106,6 +106,8 @@ public class TagRepository extends Repository {
                     WHERE tag_id = %d
                     """, id);
 
+        //in pet_xref_tag delete by trigger
+
         statement.executeUpdate(sql);
 
         close();

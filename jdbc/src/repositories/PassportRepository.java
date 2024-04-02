@@ -63,7 +63,7 @@ public class PassportRepository extends Repository {
             passport.setPassportId(resultSet.getLong("passport_id"));
             passport.setPetProfileId(resultSet.getLong("pet_profile_id"));
             passport.setName(resultSet.getString("name"));
-            passport.setBirthDate(LocalDate.parse(resultSet.getString("birth_date"));
+            passport.setBirthDate(LocalDate.parse(resultSet.getString("birth_date")));
             passport.setKind(resultSet.getString("kind"));
             passport.setBreed(resultSet.getString("breed"));
             passport.setBreedingCertificate(resultSet.getBoolean("breeding_certificate"));
