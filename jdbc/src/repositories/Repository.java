@@ -3,12 +3,15 @@ package repositories;
 
 import entities.Entity;
 
+import javax.annotation.processing.SupportedSourceVersion;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 import java.util.Properties;
+
+import static java.lang.System.console;
 
 public abstract class Repository {
     protected Connection connection;
@@ -21,10 +24,18 @@ public abstract class Repository {
 
 
     public Repository() throws IOException {
-        properties = new Properties();
-        FileInputStream inputStream = new FileInputStream("db.properties");
-        properties.load(inputStream);
-        inputStream.close();
+        FileInputStream inputStream = null;
+        try {
+            properties = new Properties();
+            inputStream = new FileInputStream("db.properties");
+            properties.load(inputStream);
+        } catch (IOException e) {
+            console().printf("Error connecting to database");
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
     }
 
     protected void connect() throws SQLException {
