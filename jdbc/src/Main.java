@@ -11,22 +11,20 @@ import static java.lang.System.in;
 
 public class Main {
 
-    private static void displayMainMenu() throws SQLException, IOException {
+    private static void displayMainMenu() throws SQLException, IOException, IllegalAccessException {
 
         while (true) {
-            System.out.printf("\033[2J");
-            System.out.printf("adfs\n");
-//            console().printf("Choose table:\n");
-//            console().printf("[1] User\n");
-//            console().printf("[2] Pet Profile\n");
-//            console().printf("[3] Passport\n");
-//            console().printf("[4] Photo\n");
-//            console().printf("[5] Social Media\n");
-//            console().printf("[6] Tag\n");
-//            console().printf("[7] Like\n");
-//            console().printf("[8] Match\n");
-//            console().printf("[9] Viewed Profile\n");
-//            console().printf("Type other number to end\n");
+            System.out.println("Choose table:");
+            System.out.println("[1] User");
+            System.out.println("[2] Pet Profile");
+            System.out.println("[3] Passport");
+            System.out.println("[4] Photo");
+            System.out.println("[5] Social Media");
+            System.out.println("[6] Tag");
+            System.out.println("[7] Like");
+            System.out.println("[8] Match");
+            System.out.println("[9] Viewed Profile");
+            System.out.println("[0] Exit");
 
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();
@@ -58,7 +56,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws SQLException, IOException, IllegalAccessException {
         displayMainMenu();
     }
 }
