@@ -12,7 +12,7 @@ public class Tag implements Entity {
 
     @Setter
     @Getter
-    private int tagId;
+    private Long tagId;
 
     @Setter
     @Getter

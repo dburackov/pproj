@@ -95,6 +95,8 @@ public class LikeRepository extends Repository {
                     WHERE like_id = %d;
                     """, like.getObjectPetId(), like.getTargetPetId(), like.getLikeId());
 
+        statement.executeUpdate(sql);
+
         close();
     }
 

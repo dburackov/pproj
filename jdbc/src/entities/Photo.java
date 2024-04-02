@@ -12,11 +12,11 @@ public class Photo implements Entity {
 
     @Setter
     @Getter
-    private int photoId;
+    private Long photoId;
 
     @Setter
     @Getter
-    private int petProfileId;
+    private Long petProfileId;
 
     @Setter
     @Getter

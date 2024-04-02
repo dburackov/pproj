@@ -1,75 +1,46 @@
 package repositories;
 
+import entities.Entity;
+import entities.Match;
 import entities.Tag;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TagRepository extends DBController {
-    public TagRepository() throws SQLException, ClassNotFoundException {
+public class TagRepository extends Repository {
+    public TagRepository() throws IOException {
         super();
 
-        sequence = "tags_tag_id_seq";
-        tableName = "tags";
-        idFieldName = "tag_id";
+        sequenceName = "tags_tag_id_seq";
     }
 
-    public int create(Tag tag) throws SQLException {
-        int lastInsertedId = -1;
+    @Override
+    public List<Entity> readAll() throws SQLException {
         open();
 
-        String sql = String.format("""
-                    INSERT INTO tags
-                    (name)
-                    VALUES
-                    ('%s');
-                    """, tag.getName());
+        List<Entity> tags = new ArrayList<>();
 
-        statement.executeUpdate(sql);
-
-        lastInsertedId = getLastInsertedId();
-
-        close();
-        return lastInsertedId;
-    }
-
-    public int update(int id, Tag tag) throws SQLException {
-        int rowsUpdated = 0;
-        open();
-
-        String sql = String.format("""
-                    UPDATE tags
-                    SET name = '%s'
-                    WHERE tag_id = %d;
-                    """, tag.getName(), id);
-
-        rowsUpdated = statement.executeUpdate(sql);
-
-        close();
-        return rowsUpdated;
-    }
-
-    public void readAll() throws SQLException {
-        open();
-
-        String sql = """
+        String sql ="""
                     SELECT * FROM tags;
                     """;
 
         resultSet = statement.executeQuery(sql);
-
         while (resultSet.next())
         {
-            String tagId = resultSet.getString(idFieldName);
-            String name = resultSet.getString("name");
-            System.out.println(tagId + " " + name + " ");
+            tags.add(new Tag(resultSet.getLong("tag_id"),
+                    resultSet.getString("name")));
         }
 
         close();
+        return tags;
     }
 
-    public Tag get(int id) throws SQLException {
-        Tag result = new Tag();
+    @Override
+    public Entity getById(Long id) throws SQLException {
         open();
+        Tag tag = new Tag();
 
         String sql = String.format("""
                     SELECT *
@@ -79,14 +50,66 @@ public class TagRepository extends DBController {
 
         resultSet = statement.executeQuery(sql);
 
-        while (resultSet.next())
-        {
-            result.setTagId(resultSet.getInt(idFieldName));
-            result.setName(resultSet.getString("name"));
+        if (resultSet.next()) {
+            tag.setTagId(resultSet.getLong("tag_id"));
+            tag.setName(resultSet.getString("name"));
         }
 
         close();
-        return result;
+        return tag;
     }
+
+    @Override
+    public Long create(Entity entity) throws SQLException {
+        open();
+
+        Long lastInsertedId;
+        Tag tag = (Tag) entity;
+
+        String sql = String.format("""
+               INSERT INTO tags
+                (name)
+                VALUES
+                ('%s');
+                """, tag.getName());
+
+        statement.executeUpdate(sql);
+        lastInsertedId = getLastInsertedId();
+
+        close();
+        return lastInsertedId;
+    }
+
+    @Override
+    public void update(Entity entity) throws SQLException {
+        open();
+
+        Tag tag = (Tag) entity;
+
+        String sql = String.format("""
+                    UPDATE tags
+                    SET name = '%s'
+                    WHERE tag_id = %d;
+                    """, tag.getName(), tag.getTagId());
+
+        statement.executeUpdate(sql);
+
+        close();
+    }
+
+    @Override
+    public void delete(Long id) throws SQLException {
+        open();
+
+        String sql = String.format("""
+                    DELETE FROM tags
+                    WHERE tag_id = %d
+                    """, id);
+
+        statement.executeUpdate(sql);
+
+        close();
+    }
+
 
 }

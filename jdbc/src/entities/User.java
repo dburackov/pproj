@@ -11,7 +11,7 @@ import lombok.Setter;
 public class User implements Entity {
     @Setter
     @Getter
-    private int userId;
+    private Long userId;
 
     @Setter
     @Getter

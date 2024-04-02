@@ -13,18 +13,18 @@ public class SocialMedia implements Entity {
 
     @Setter
     @Getter
-    private int socialMediaId = 0;
+    private Long socialMediaId;
 
     @Setter
     @Getter
-    private int petProfileId = 0;
+    private Long petProfileId;
 
     @Setter
     @Getter
-    private String link = null;
+    private String link;
 
     @Setter
     @Getter
-    private String type = null;
+    private String type;
 
 }

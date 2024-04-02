@@ -69,7 +69,7 @@ public class MatchRepository extends Repository {
         Match match = (Match) entity;
 
         String sql = String.format("""
-               INSERT INTO Matches
+               INSERT INTO matches
                 (first_pet_id, second_pet_id)
                 VALUES
                 (%d, %d);
@@ -89,9 +89,9 @@ public class MatchRepository extends Repository {
         Match match = (Match) entity;
 
         String sql = String.format("""
-                    UPDATE
+                    UPDATE matches
                     SET first_pet_id = %d, second_pet_id = %d
-                    WHERE like_id = %d;
+                    WHERE match_id = %d;
                     """, match.getFirstPetId(), match.getSecondPetId(), match.getMatchId());
 
         statement.executeUpdate(sql);

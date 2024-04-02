@@ -1,43 +1,107 @@
 package repositories;
 
-import entities.Kind;
+import entities.Entity;
+import entities.Match;
 import entities.Passport;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class PassportRepository extends DBController {
-    public PassportRepository() throws SQLException, ClassNotFoundException {
+public class PassportRepository extends Repository {
+    public PassportRepository() throws IOException {
         super();
 
-        sequence = "passport_passport_id_seq";
-        tableName = "passports";
-        idFieldName = "passport_id";
+        sequenceName = "passport_passport_id_seq";
     }
 
-        public int create(Passport passport) throws SQLException {
-            int lastInsertedId;
-            open();
+    @Override
+    public List<Entity> readAll() throws SQLException {
+        open();
 
-            String sql = String.format("""
+        List<Entity> passports = new ArrayList<>();
+
+        String sql ="""
+                    SELECT * FROM passports;
+                    """;
+
+        resultSet = statement.executeQuery(sql);
+        while (resultSet.next())
+        {
+            passports.add(new Passport(resultSet.getLong("passport_id"),
+                    resultSet.getLong("pet_profile_id"),
+                    resultSet.getString("name"),
+                    LocalDate.parse(resultSet.getString("birth_date")),
+                    resultSet.getString("kind"),
+                    resultSet.getString("breed"),
+                    resultSet.getBoolean("breeding_certificate"),
+                    resultSet.getString("coat"),
+                    resultSet.getString("bio")));
+        }
+
+        close();
+        return passports;
+    }
+
+    @Override
+    public Entity getById(Long id) throws SQLException {
+        open();
+        Passport passport = new Passport();
+
+        String sql = String.format("""
+                    SELECT *
+                    FROM passports
+                    WHERE passport_id = %d
+                    """, id);
+
+        resultSet = statement.executeQuery(sql);
+
+        if (resultSet.next()) {
+            passport.setPassportId(resultSet.getLong("passport_id"));
+            passport.setPetProfileId(resultSet.getLong("pet_profile_id"));
+            passport.setName(resultSet.getString("name"));
+            passport.setBirthDate(LocalDate.parse(resultSet.getString("birth_date"));
+            passport.setKind(resultSet.getString("kind"));
+            passport.setBreed(resultSet.getString("breed"));
+            passport.setBreedingCertificate(resultSet.getBoolean("breeding_certificate"));
+            passport.setCoat(resultSet.getString("coat"));
+            passport.setBio(resultSet.getString("bio"));
+        }
+
+        close();
+        return passport;
+    }
+
+    @Override
+    public Long create(Entity entity) throws SQLException {
+        open();
+
+        Long lastInsertedId;
+        Passport passport = (Passport) entity;
+
+        String sql = String.format("""
                         INSERT INTO passports
                         (pet_profile_id, name, birth_date, kind, breed, breeding_certificate, coat, bio)
                         VALUES
                         (%d, '%s', '%s', '%s', '%s', %b, '%s', '%s');
                         """, passport.getPetProfileId(), passport.getName(), passport.getBirthDate().toString(),
-                    passport.getKind().toString(), passport.getBreed(), passport.isBreedingCertificate(), passport.getCoat(), passport.getBio());
+                passport.getKind(), passport.getBreed(), passport.isBreedingCertificate(), passport.getCoat(), passport.getBio());
 
-            statement.executeUpdate(sql);
+        statement.executeUpdate(sql);
+        lastInsertedId = getLastInsertedId();
 
-            lastInsertedId = getLastInsertedId();
+        close();
+        return lastInsertedId;
+    }
 
-            close();
-            return lastInsertedId;
-        }
-
-    public int update(int id, Passport passport) throws SQLException {
-        int rowsUpdated = 0;
+    @Override
+    public void update(Entity entity) throws SQLException {
         open();
+
+        Passport passport = (Passport) entity;
 
         String sql = String.format("""
                     UPDATE passports
@@ -52,41 +116,25 @@ public class PassportRepository extends DBController {
                     bio = '%s'
                     WHERE passport_id = %d;
                     """, passport.getPetProfileId(), passport.getName(), passport.getBirthDate().toString(),
-                passport.getKind().toString(), passport.getBreed(), passport.isBreedingCertificate(), passport.getCoat(), passport.getBio(),
-                id);
+                passport.getKind(), passport.getBreed(), passport.isBreedingCertificate(), passport.getCoat(), passport.getBio(),
+                passport.getPassportId());
 
-        rowsUpdated = statement.executeUpdate(sql);
+        statement.executeUpdate(sql);
 
         close();
-        return rowsUpdated;
     }
 
-    public Passport get(int id) throws SQLException {
-        Passport result = new Passport();
+    @Override
+    public void delete(Long id) throws SQLException {
         open();
 
         String sql = String.format("""
-                    SELECT *
-                    FROM passports
+                    DELETE FROM passports
                     WHERE passport_id = %d
                     """, id);
 
-        resultSet = statement.executeQuery(sql);
-
-        while (resultSet.next())
-        {
-            result.setPassportId(resultSet.getInt(idFieldName));
-            result.setPetProfileId(resultSet.getInt("pet_profile_id"));
-            result.setName(resultSet.getString("name"));
-            result.setBirthDate(new Date(resultSet.getString("birth_date")));
-            result.setKind(Kind.valueOf(resultSet.getString("kind")));
-            result.setBreed(resultSet.getString("breed"));
-            result.setBreedingCertificate(resultSet.getBoolean("breeding_certificate"));
-            result.setBreed(resultSet.getString("coat"));
-            result.setBio(resultSet.getString("bio"));
-        }
+        statement.executeUpdate(sql);
 
         close();
-        return result;
     }
 }

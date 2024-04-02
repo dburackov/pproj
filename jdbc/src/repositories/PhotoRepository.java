@@ -1,77 +1,115 @@
 package repositories;
 
+import entities.Entity;
+import entities.Match;
 import entities.Photo;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PhotoRepository extends DBController {
-    public PhotoRepository() throws SQLException, ClassNotFoundException {
+public class PhotoRepository extends Repository {
+    public PhotoRepository() throws IOException {
         super();
 
-        sequence = "photos_photo_id_seq";
-        tableName = "photos";
-        idFieldName = "photo_id";
+        sequenceName = "photos_photo_id_seq";
     }
 
-    public int create(Photo photo) throws SQLException {
-        int lastInsertedId = 0;
+    @Override
+    public List<Entity> readAll() throws SQLException {
         open();
 
+        List<Entity> photos = new ArrayList<>();
+
+        String sql ="""
+                    SELECT * FROM photos;
+                    """;
+
+        resultSet = statement.executeQuery(sql);
+        while (resultSet.next())
+        {
+            photos.add(new Photo(resultSet.getLong("photo_id"),
+                    resultSet.getLong("pet_profile_id"),
+                    resultSet.getString("file_path")));
+        }
+
+        close();
+        return photos;
+    }
+
+    @Override
+    public Entity getById(Long id) throws SQLException {
+        open();
+        Photo photo = new Photo();
+
         String sql = String.format("""
-                    INSERT INTO photos
-                    (pet_profile_id, file_link)
-                    VALUES
-                    (%d, '%s');
-                    """, photo.getPetProfileId(), photo.getFileLink());
+                    SELECT *
+                    FROM photos
+                    WHERE photo_id = %d
+                    """, id);
+
+        resultSet = statement.executeQuery(sql);
+
+        if (resultSet.next()) {
+            photo.setPhotoId(resultSet.getLong("photo_id"));
+            photo.setPetProfileId(resultSet.getLong("pet_profile_id"));
+            photo.setFilePath(resultSet.getString("file_path"));
+        }
+
+        close();
+        return photo;
+    }
+
+    @Override
+    public Long create(Entity entity) throws SQLException {
+        open();
+
+        Long lastInsertedId;
+        Photo photo = (Photo) entity;
+
+        String sql = String.format("""
+               INSERT INTO photos
+                (pet_profile_id, file_path)
+                VALUES
+                (%d, '%s');
+                """, photo.getPetProfileId(), photo.getFilePath());
 
         statement.executeUpdate(sql);
-
         lastInsertedId = getLastInsertedId();
 
         close();
         return lastInsertedId;
     }
 
-    public void readAll() throws SQLException {
+    @Override
+    public void update(Entity entity) throws SQLException {
         open();
 
-        String sql = """
-                    SELECT * FROM photos;
-                    """;
+        Photo photo = (Photo) entity;
 
-        resultSet = statement.executeQuery(sql);
+        String sql = String.format("""
+                    UPDATE photos
+                    SET file_path = '%s'
+                    WHERE photo_id = %d;
+                    """, photo.getFilePath(), photo.getPhotoId());
 
-        while (resultSet.next())
-        {
-            String photoId = resultSet.getString(idFieldName);
-            String petProfileId = resultSet.getString("pet_profile_id");
-            String fileLink = resultSet.getString("file_link");
-            System.out.println(photoId + " " + petProfileId + " " + fileLink);
-        }
+        statement.executeUpdate(sql);
 
         close();
     }
 
-    public Photo get(int id) throws SQLException {
-        Photo result = new Photo();
+    @Override
+    public void delete(Long id) throws SQLException {
         open();
 
         String sql = String.format("""
-                    SELECT *
-                    FROM photos
-                    WHERE photo = %d
+                    DELETE FROM photos
+                    WHERE photo_id = %d
                     """, id);
 
-        resultSet = statement.executeQuery(sql);
-
-        while (resultSet.next())
-        {
-            result.setPhotoId(resultSet.getInt(idFieldName));
-            result.setPetProfileId(resultSet.getInt("pet_profile_id"));
-            result.setFileLink(resultSet.getString("file_link"));
-        }
+        statement.executeUpdate(sql);
 
         close();
-        return result;
     }
 }

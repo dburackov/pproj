@@ -5,6 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 
 
 @NoArgsConstructor
@@ -13,13 +18,13 @@ public class Like implements Entity {
 
     @Setter
     @Getter
-    private int likeId;
+    private Long likeId;
 
     @Setter
     @Getter
-    private int objectPetId;
+    private Long objectPetId;
 
     @Setter
     @Getter
-    private int targetPetId;
+    private Long targetPetId;
 }

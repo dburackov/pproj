@@ -12,14 +12,14 @@ public class ViewedProfile implements Entity {
 
     @Setter
     @Getter
-    private int viewedProfileId = 0;
+    private Long viewedProfileId;
 
     @Setter
     @Getter
-    private int objectPetId = 0;
+    private Long objectPetId;
 
     @Setter
     @Getter
-    private int targetPetId = 0;
+    private Long targetPetId;
 
 }

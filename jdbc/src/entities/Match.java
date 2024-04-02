@@ -13,14 +13,14 @@ import lombok.Setter;
 public class Match implements Entity {
     @Setter
     @Getter
-    private int matchId;
+    private Long matchId;
 
     @Setter
     @Getter
-    private int firstPetId;
+    private Long firstPetId;
 
     @Setter
     @Getter
-    private int secondPetId;
+    private Long secondPetId;
 
 }

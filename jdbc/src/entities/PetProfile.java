@@ -12,11 +12,11 @@ public class PetProfile implements Entity {
 
     @Setter
     @Getter
-    private int petProfileId;
+    private Long petProfileId;
 
     @Setter
     @Getter
-    private int userId;
+    private Long userId;
 
     @Setter
     @Getter

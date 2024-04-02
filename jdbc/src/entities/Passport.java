@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -14,11 +15,11 @@ public class Passport implements Entity {
 
     @Setter
     @Getter
-    private int passportId;
+    private Long passportId;
 
     @Setter
     @Getter
-    private int petProfileId;
+    private Long petProfileId;
 
     @Setter
     @Getter
@@ -26,7 +27,7 @@ public class Passport implements Entity {
 
     @Setter
     @Getter
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Setter
     @Getter
