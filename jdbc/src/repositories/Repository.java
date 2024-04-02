@@ -24,6 +24,7 @@ public abstract class Repository {
         properties = new Properties();
         FileInputStream inputStream = new FileInputStream("db.properties");
         properties.load(inputStream);
+        inputStream.close();
     }
 
     protected void connect() throws SQLException {
