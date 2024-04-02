@@ -48,7 +48,7 @@ public class UserRepository extends Repository {
 
         String sql = String.format("""
                     SELECT *
-                    FROM user
+                    FROM users
                     WHERE user_id = %d
                     """, id);
 
@@ -80,6 +80,7 @@ public class UserRepository extends Repository {
                     """, user.getName(), user.getEmail(), user.getPassword());
 
         statement.executeUpdate(sql);
+
         lastInsertedId = getLastInsertedId();
 
         close();

@@ -9,8 +9,6 @@ import java.sql.*;
 import java.util.List;
 import java.util.Properties;
 
-import static java.lang.System.console;
-
 public abstract class Repository {
     protected Connection connection;
     protected Statement statement;
@@ -21,19 +19,19 @@ public abstract class Repository {
     protected String sequenceName;
 
 
-    protected Repository() throws IOException {
-        try (FileInputStream inputStream = new FileInputStream("db.properties");) {
+    public Repository() throws IOException {
+        try (FileInputStream inputStream = new FileInputStream("db.properties")) {
             properties = new Properties();
             properties.load(inputStream);
         } catch (IOException e) {
-            console().printf("Error connecting to database");
+            System.out.println("Error connecting to database");
         }
     }
 
     protected void connect() throws SQLException {
         String dbUrl = properties.getProperty("db.url");
-        String username = properties.getProperty("username");
-        String password = properties.getProperty("password");
+        String username = properties.getProperty("db.username");
+        String password = properties.getProperty("db.password");
         connection = DriverManager.getConnection(dbUrl, username, password);
     }
 
@@ -56,7 +54,6 @@ public abstract class Repository {
 
     protected Long getLastInsertedId() throws SQLException {
         Long lastInsertedId = null;
-        open();
 
         String sql = String.format("""
                 SELECT currval('%s');
@@ -69,7 +66,6 @@ public abstract class Repository {
             lastInsertedId = resultSet.getLong("currval");
         }
 
-        close();
         return lastInsertedId;
     }
 
