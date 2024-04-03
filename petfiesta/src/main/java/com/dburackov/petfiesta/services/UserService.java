@@ -41,9 +41,7 @@ public class UserService {
     public GetUserDto updateUser(Long id, UserDto userDto) {
         User user = userMapper.userDtoToUser(userDto);
         user.setId(id);
-        user = userRepository.save(user);
-        GetUserDto result = userMapper.userToGetUserDto(user);
-        return result;
+        return userMapper.userToGetUserDto(userRepository.save(user));
     }
 
     public void deleteUserById(Long id) {

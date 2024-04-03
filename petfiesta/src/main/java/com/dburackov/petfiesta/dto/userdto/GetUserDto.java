@@ -1,5 +1,6 @@
 package com.dburackov.petfiesta.dto.userdto;
 
+import com.dburackov.petfiesta.dto.petprofiledto.PetProfileDto;
 import com.dburackov.petfiesta.entities.PetProfile;
 import lombok.Data;
 

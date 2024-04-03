@@ -1,5 +1,6 @@
 package com.dburackov.petfiesta.controllers;
 
+import com.dburackov.petfiesta.dto.petprofiledto.PetProfileDto;
 import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.services.PetProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +14,23 @@ public class PetProfileController {
     PetProfileService petProfileService;
 
     @GetMapping("/pet-profiles")
-    public List<PetProfile> getPetProfiles() {
+    public List<PetProfileDto> getPetProfiles() {
         return petProfileService.getPetProfiles();
     }
 
     @GetMapping("/pet-profiles/{id}")
-    public PetProfile getPetProfileById(@PathVariable Long id) {
+    public PetProfileDto getPetProfileById(@PathVariable Long id) {
         return petProfileService.getPetProfileById(id);
     }
 
     @PostMapping("/pet-profiles/add")
-    public PetProfile addPetProfile(@RequestBody PetProfile petProfile) {
-        return petProfileService.addPetProfile(petProfile);
+    public PetProfileDto addPetProfile(@RequestBody PetProfileDto petProfileDto) {
+        return petProfileService.addPetProfile(petProfileDto);
     }
 
     @PostMapping("/pet-profiles/update/{id}")
-    public PetProfile updatePetProfile(@PathVariable  Long id, @RequestBody PetProfile petProfile) {
-        return petProfileService.updatePetProfile(id, petProfile);
+    public PetProfileDto updatePetProfile(@PathVariable  Long id, @RequestBody PetProfileDto petProfileDto) {
+        return petProfileService.updatePetProfile(id, petProfileDto);
     }
 
     @DeleteMapping("/pet-profiles/delete/{id}")
@@ -37,8 +38,8 @@ public class PetProfileController {
         petProfileService.deletePetProfileById(id);
     }
 
-    @GetMapping("/users/{userId}/pet-profiles")
-    public List<PetProfile> getUserPetProfiles(@PathVariable Long userId) {
-        return petProfileService.getUserPetProfiles(userId);
-    }
+//    @GetMapping("/users/{userId}/pet-profiles")
+//    public List<PetProfile> getUserPetProfiles(@PathVariable Long userId) {
+//        return petProfileService.getUserPetProfiles(userId);
+//    }
 }

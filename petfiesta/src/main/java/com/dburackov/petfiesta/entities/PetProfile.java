@@ -1,5 +1,6 @@
 package com.dburackov.petfiesta.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class PetProfile {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
+    @JsonBackReference
     private User user;
 
     @OneToMany(mappedBy = "petProfile", orphanRemoval = true)
@@ -45,19 +47,19 @@ public class PetProfile {
 //    @ManyToMany(mappedBy = "likedBy")
 //    private List<PetProfile> likedPetProfiles;
 //
-//    @ElementCollection
-//    @CollectionTable(
-//            name="matches",
-//            joinColumns=@JoinColumn(name="second_pet_id")
-//    )
-//    @Column(name="first_pet_id")
-//    private List<Long> matches;
-//
-//    @ElementCollection
-//    @CollectionTable(
-//            name="viewedProfiles",
-//            joinColumns=@JoinColumn(name="target_pet_id")
-//    )
-//    @Column(name="object_pet_id")
-//    private List<Long> viewedProfiles;
+    @ElementCollection
+    @CollectionTable(
+            name="matches",
+            joinColumns=@JoinColumn(name="second_pet_id")
+    )
+    @Column(name="first_pet_id")
+    private List<Long> matches;
+
+    @ElementCollection
+    @CollectionTable(
+            name="viewed_profiles",
+            joinColumns=@JoinColumn(name="target_pet_id")
+    )
+    @Column(name="object_pet_id")
+    private List<Long> viewedProfiles;
 }
