@@ -16,7 +16,7 @@ CREATE TABLE pet_profiles (
     purpose PURPOSE_TYPE,
 
     PRIMARY KEY (pet_profile_id),
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id)
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE passports
@@ -33,7 +33,7 @@ CREATE TABLE passports
 
     PRIMARY KEY (passport_id),
     CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
-                     REFERENCES pet_profiles(pet_profile_id)
+                     REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE
 );
 
 
@@ -44,7 +44,7 @@ CREATE TABLE photos(
 
     PRIMARY KEY (photo_id),
     CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
-                   REFERENCES pet_profiles(pet_profile_id)
+                   REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE
 );
 
 CREATE TABLE tags(
@@ -59,9 +59,9 @@ CREATE TABLE pet_xref_tag (
     tag_id INT NOT NULL,
 
     CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
-                   REFERENCES pet_profiles(pet_profile_id),
+                   REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE,
     CONSTRAINT fk_tag FOREIGN KEY (tag_id)
-                    REFERENCES tags(tag_id)
+                    REFERENCES tags(tag_id) ON DELETE CASCADE
 );
 
 CREATE TABLE likes(
@@ -71,9 +71,9 @@ CREATE TABLE likes(
 
     PRIMARY KEY (like_id),
     CONSTRAINT fk_object_pet FOREIGN KEY (object_pet_id)
-                  REFERENCES pet_profiles(pet_profile_id),
+                  REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE,
     CONSTRAINT fk_target_pet FOREIGN KEY (target_pet_id)
-                  REFERENCES pet_profiles(pet_profile_id)
+                  REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE
 );
 
 CREATE TYPE SOCIAL_MEDIA_TYPE AS ENUM ('twitter', 'instagram', 'telegram');
@@ -87,7 +87,7 @@ CREATE TABLE social_medias
 
     PRIMARY KEY (social_media_id),
     CONSTRAINT fk_pet_profile FOREIGN KEY (pet_profile_id)
-                         REFERENCES pet_profiles(pet_profile_id)
+                         REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE
 );
 
 
@@ -98,9 +98,9 @@ CREATE TABLE viewed_profiles(
 
     PRIMARY KEY (viewed_profile_id),
     CONSTRAINT fk_object_pet FOREIGN KEY (object_pet_id)
-                  REFERENCES pet_profiles(pet_profile_id),
+                  REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE,
     CONSTRAINT fk_target_pet FOREIGN KEY (target_pet_id)
-                  REFERENCES pet_profiles(pet_profile_id)
+                  REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE
 );
 
 CREATE TABLE matches (
@@ -110,8 +110,8 @@ CREATE TABLE matches (
 
     PRIMARY KEY (match_id),
     CONSTRAINT fk_first_pet FOREIGN KEY (first_pet_id)
-                  REFERENCES pet_profiles(pet_profile_id),
+                  REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE,
     CONSTRAINT fk_second_oet FOREIGN KEY (second_pet_id)
-                  REFERENCES pet_profiles(pet_profile_id)
+                  REFERENCES pet_profiles(pet_profile_id) ON DELETE CASCADE
 );
 
