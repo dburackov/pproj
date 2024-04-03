@@ -2,12 +2,13 @@ package repositories;
 
 
 import entities.Entity;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 import java.util.Properties;
+
+import static java.lang.System.console;
 
 public abstract class Repository {
     protected Connection connection;
@@ -24,7 +25,7 @@ public abstract class Repository {
             properties = new Properties();
             properties.load(inputStream);
         } catch (IOException e) {
-            System.out.println("Error connecting to database");
+            console().printf("Error connecting to database\n");
         }
     }
 

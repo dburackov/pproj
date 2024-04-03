@@ -1,7 +1,6 @@
 package repositories;
 
 import entities.Entity;
-import entities.Match;
 import entities.PetProfile;
 import entities.Tag;
 
@@ -14,7 +13,7 @@ public class PetProfileRepository extends Repository {
     public PetProfileRepository() throws IOException {
         super();
 
-        sequenceName = "pet_profile_pet_profile_id_seq";
+        sequenceName = "pet_profiles_pet_profile_id_seq";
     }
 
     @Override
@@ -56,7 +55,7 @@ public class PetProfileRepository extends Repository {
         if (resultSet.next()) {
             petProfile.setPetProfileId(resultSet.getLong("pet_profile_id"));
             petProfile.setUserId(resultSet.getLong("user_id"));
-            petProfile.setPurpose(resultSet.getString("second_pet_id"));
+            petProfile.setPurpose(resultSet.getString("purpose"));
         }
 
         petProfile.setTags(new ArrayList<>());
@@ -96,18 +95,25 @@ public class PetProfileRepository extends Repository {
         statement.executeUpdate(sql);
         lastInsertedId = getLastInsertedId();
 
-        sql = """
-             INSERT INTO pet_xref_tag
+        if (petProfile.getTags() != null) {
+            sql = """
+             
+                    INSERT INTO pet_xref_tag
              (pet_profile_id, tag_id)
              """;
 
-        for (Tag tag : petProfile.getTags()) {
-            sql = sql.concat(String.format("(%d, %d),", petProfile.getPetProfileId(), tag.getTagId()));
+            boolean ok = false;
+            for (Tag tag : petProfile.getTags()) {
+                sql = sql.concat(String.format("(%d, %d),", petProfile.getPetProfileId(), tag.getTagId()));
+                ok = true;
+            }
+
+            if (ok) {
+                sql = sql.substring(0, sql.length() - 1) + ";";
+            }
+
+            statement.executeQuery(sql);
         }
-
-        sql = sql.substring(0, sql.length() - 1) + ";";
-
-        statement.executeQuery(sql);
 
         close();
         return lastInsertedId;
@@ -156,6 +162,13 @@ public class PetProfileRepository extends Repository {
                 (%d, %d);
                 """, petProfile.getPetProfileId(), tag.getTagId());
 
+        statement.executeUpdate(sql);
+
+        if (petProfile.getTags() == null) {
+            petProfile.setTags(new ArrayList<>());
+        } else {
+            petProfile.getTags().add(tag);
+        }
         close();
     }
 
@@ -166,6 +179,14 @@ public class PetProfileRepository extends Repository {
                 DELETE FROM pet_xref_tag
                 WHERE pet_profile_id = %d AND tag_id = %d;
                 """, petProfile.getPetProfileId(), tag.getTagId());
+
+        statement.executeUpdate(sql);
+
+        if (petProfile.getTags() == null) {
+            petProfile.setTags(new ArrayList<>());
+        } else {
+            petProfile.getTags().remove(tag);
+        }
 
         close();
     }

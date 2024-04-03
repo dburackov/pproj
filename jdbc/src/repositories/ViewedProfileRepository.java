@@ -1,7 +1,6 @@
 package repositories;
 
 import entities.Entity;
-import entities.Match;
 import entities.ViewedProfile;
 
 import java.io.IOException;

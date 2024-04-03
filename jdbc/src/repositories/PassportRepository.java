@@ -1,21 +1,19 @@
 package repositories;
 
 import entities.Entity;
-import entities.Match;
 import entities.Passport;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PassportRepository extends Repository {
     public PassportRepository() throws IOException {
         super();
 
-        sequenceName = "passport_passport_id_seq";
+        sequenceName = "passports_passport_id_seq";
     }
 
     @Override

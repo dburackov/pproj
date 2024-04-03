@@ -1,7 +1,6 @@
 package repositories;
 
 import entities.Entity;
-import entities.Like;
 import entities.Match;
 
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class MatchRepository extends Repository {
     public MatchRepository() throws IOException {
         super();
 
-        sequenceName = "match_match_id_seq";
+        sequenceName = "matches_match_id_seq";
     }
 
     @Override

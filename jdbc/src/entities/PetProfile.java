@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class PetProfile implements Entity {
@@ -30,6 +31,10 @@ public class PetProfile implements Entity {
 
     @Override
     public String toString() {
-        return String.format("%-16d%-16s%-16s", petProfileId, purpose, tags);
+        String result = String.format("%-16d%-16s%-16s", petProfileId, userId, purpose);
+        for (Tag tag : tags) {
+            result = result.concat(String.format("(%d, %s) ", tag.getTagId(), tag.getName()));
+        }
+        return result;
     }
 }
