@@ -1,9 +1,8 @@
 package com.dburackov.petfiesta.controllers;
 
 
-import com.dburackov.petfiesta.dto.userdto.CreateUserDto;
+import com.dburackov.petfiesta.dto.userdto.UserDto;
 import com.dburackov.petfiesta.dto.userdto.GetUserDto;
-import com.dburackov.petfiesta.entities.User;
 import com.dburackov.petfiesta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,12 @@ import java.util.List;
 
 @RestController
 public class UserController {
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/users")
     public List<GetUserDto> getUsers() {
@@ -21,18 +24,18 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public GetUserDto getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @PostMapping("/users/create")
-    public GetUserDto createUser (@RequestBody CreateUserDto createUserDto) {
-        return userService.createUser(createUserDto);
+    public GetUserDto createUser (@RequestBody UserDto userDto) {
+        return userService.createUser(userDto);
     }
 
     @PostMapping("/users/update/{id}")
-    public void updateUser(@PathVariable Long id, @RequestBody User user) {
-        userService.updateUser(id, user);
+    public GetUserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+        return userService.updateUser(id, userDto);
     }
 
 

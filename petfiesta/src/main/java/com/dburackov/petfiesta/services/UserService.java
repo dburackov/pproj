@@ -1,13 +1,14 @@
 package com.dburackov.petfiesta.services;
 
-import com.dburackov.petfiesta.dto.userdto.CreateUserDto;
+import com.dburackov.petfiesta.dto.userdto.UserDto;
 import com.dburackov.petfiesta.dto.userdto.GetUserDto;
 import com.dburackov.petfiesta.entities.User;
 import com.dburackov.petfiesta.mappers.UserMapper;
 import com.dburackov.petfiesta.repositories.UserRepository;
-import lombok.var;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +17,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    @Autowired
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
@@ -26,20 +28,22 @@ public class UserService {
         return userRepository.findAll().stream().map(userMapper::userToGetUserDto).toList();
     }
 
-    public User createUser(CreateUserDto createUserDto) {
-        User user = userMapper.createUserDtoToUser(createUserDto);
-
+    public GetUserDto createUser(UserDto userDto) {
+        User user = userMapper.userDtoToUser(userDto);
         
-        return userRepository.save(user);
+        return userMapper.userToGetUserDto(userRepository.save(user));
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).get();
+    public GetUserDto getUserById(Long id) {
+        return userMapper.userToGetUserDto(userRepository.findById(id).get());
     }
 
-    public User updateUser(Long id, User user) {
+    public GetUserDto updateUser(Long id, UserDto userDto) {
+        User user = userMapper.userDtoToUser(userDto);
         user.setId(id);
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        GetUserDto result = userMapper.userToGetUserDto(user);
+        return result;
     }
 
     public void deleteUserById(Long id) {
