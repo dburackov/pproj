@@ -14,8 +14,9 @@ public class Passport {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "pet_profile_id")
-    private Long petProfileId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pet_profile_id")
+    private PetProfile petProfile;
 
     @Column(name = "name")
     private String name;
