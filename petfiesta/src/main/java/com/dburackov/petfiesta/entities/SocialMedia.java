@@ -4,6 +4,8 @@ package com.dburackov.petfiesta.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 @Data
@@ -16,6 +18,7 @@ public class SocialMedia {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pet_profile_id")
     @JsonIgnore
     private PetProfile petProfile;

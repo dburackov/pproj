@@ -3,6 +3,9 @@ package com.dburackov.petfiesta.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 import java.util.Date;
 
@@ -16,6 +19,7 @@ public class Passport {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pet_profile_id")
     @JsonIgnore
     private PetProfile petProfile;
