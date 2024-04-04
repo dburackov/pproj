@@ -1,6 +1,7 @@
 package com.dburackov.petfiesta.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class SocialMedia {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pet_profile_id")
+    @JsonIgnore
     private PetProfile petProfile;
 
     @Column(name = "type")

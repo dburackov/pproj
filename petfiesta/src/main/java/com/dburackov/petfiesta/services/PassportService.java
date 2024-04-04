@@ -5,18 +5,20 @@ import com.dburackov.petfiesta.repositories.PassportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PassportService {
-    @Autowired
-    PassportRepository passportRepository;
+    private final PassportRepository passportRepository;
 
-    public PassportService() {
-        //because
+    @Autowired
+    public PassportService(PassportRepository passportRepository) {
+        this.passportRepository = passportRepository;
     }
 
-    public Passport addPassport(Passport passport) {
+    public Passport getPassportById(Long id) {
+        return passportRepository.findById(id).get();
+    }
+
+    public Passport createPassport(Passport passport) {
         return passportRepository.save(passport);
     }
 

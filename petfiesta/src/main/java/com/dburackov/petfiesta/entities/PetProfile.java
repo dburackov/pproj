@@ -41,12 +41,22 @@ public class PetProfile {
     )
     private List<Tag> tags;
 
-//    @ManyToMany(mappedBy = "likedPetProfiles")
-//    private List<PetProfile> likedBy;
-//
-//    @ManyToMany(mappedBy = "likedBy")
-//    private List<PetProfile> likedPetProfiles;
-//
+    @ElementCollection
+    @CollectionTable (
+            name = "likes",
+            joinColumns = @JoinColumn(name = "target_pet_id")
+    )
+    @Column(name = "object_pet_id")
+    private List<Long> likedBy;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "likes",
+            joinColumns = @JoinColumn(name = "object_pet_id")
+    )
+    @Column(name = "target_pet_id")
+    private List<Long> likedPetProfiles;
+
     @ElementCollection
     @CollectionTable(
             name="matches",
@@ -58,8 +68,8 @@ public class PetProfile {
     @ElementCollection
     @CollectionTable(
             name="viewed_profiles",
-            joinColumns=@JoinColumn(name="target_pet_id")
+            joinColumns=@JoinColumn(name="object_pet_id")
     )
-    @Column(name="object_pet_id")
+    @Column(name="target_pet_id")
     private List<Long> viewedProfiles;
 }

@@ -4,7 +4,6 @@ import com.dburackov.petfiesta.dto.petprofiledto.PetProfileDto;
 import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.mappers.PetProfileMapper;
 import com.dburackov.petfiesta.repositories.PetProfileRepository;
-import com.dburackov.petfiesta.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class PetProfileService {
         return petProfileMapper.petProfileToPetProfileDto(petProfile);
     }
 
-    public PetProfileDto addPetProfile(PetProfileDto petProfileDto) {
+    public PetProfileDto createPetProfile(PetProfileDto petProfileDto) {
         PetProfile petProfile = petProfileMapper.petProfileDtoToPetProfile(petProfileDto);
         return petProfileMapper.petProfileToPetProfileDto(petProfileRepository.save(petProfile));
     }
@@ -47,7 +46,7 @@ public class PetProfileService {
         petProfileRepository.deleteById(id);
     }
 
-//    public List<PetProfile> getUserPetProfiles(Long userId) {
-//        return petProfileRepository.findByUserId(userId);
-//    }
+    public List<PetProfileDto> getUserPetProfiles(Long userId) {
+        return petProfileRepository.findByUserId(userId).stream().map(petProfileMapper::petProfileToPetProfileDto).toList();
+    }
 }
