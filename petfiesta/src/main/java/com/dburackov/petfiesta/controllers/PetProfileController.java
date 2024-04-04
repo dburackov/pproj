@@ -1,7 +1,6 @@
 package com.dburackov.petfiesta.controllers;
 
 import com.dburackov.petfiesta.dto.petprofiledto.PetProfileDto;
-import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.services.PetProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +9,12 @@ import java.util.List;
 
 @RestController
 public class PetProfileController {
+    private final PetProfileService petProfileService;
+
     @Autowired
-    PetProfileService petProfileService;
+    public PetProfileController(PetProfileService petProfileService) {
+        this.petProfileService = petProfileService;
+    }
 
     @GetMapping("/pet-profiles")
     public List<PetProfileDto> getPetProfiles() {
@@ -23,9 +26,9 @@ public class PetProfileController {
         return petProfileService.getPetProfileById(id);
     }
 
-    @PostMapping("/pet-profiles/add")
-    public PetProfileDto addPetProfile(@RequestBody PetProfileDto petProfileDto) {
-        return petProfileService.addPetProfile(petProfileDto);
+    @PostMapping("/pet-profiles/create")
+    public PetProfileDto createPetProfile(@RequestBody PetProfileDto petProfileDto) {
+        return petProfileService.createPetProfile(petProfileDto);
     }
 
     @PostMapping("/pet-profiles/update/{id}")
@@ -38,8 +41,8 @@ public class PetProfileController {
         petProfileService.deletePetProfileById(id);
     }
 
-//    @GetMapping("/users/{userId}/pet-profiles")
-//    public List<PetProfile> getUserPetProfiles(@PathVariable Long userId) {
-//        return petProfileService.getUserPetProfiles(userId);
-//    }
+    @GetMapping("/users/{userId}/pet-profiles")
+    public List<PetProfileDto> getUserPetProfiles(@PathVariable Long userId) {
+        return petProfileService.getUserPetProfiles(userId);
+    }
 }

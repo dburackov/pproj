@@ -9,12 +9,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PassportController {
+    private final PassportService passportService;
+
     @Autowired
-    PassportService passportService;
+    public PassportController(PassportService passportService) {
+        this.passportService = passportService;
+    }
+
+    @GetMapping("passport/{id}")
+    public Passport getPassportById(@PathVariable Long id) {
+        return passportService.getPassportById(id);
+    }
 
     @GetMapping("passport/add")
-    public Passport addPassport(@RequestBody  Passport passport) {
-        return passportService.addPassport(passport);
+    public Passport createPassport(@RequestBody  Passport passport) {
+        return passportService.createPassport(passport);
     }
 
     @PostMapping("passport/update/{id}")

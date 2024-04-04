@@ -1,20 +1,21 @@
 package com.dburackov.petfiesta.controllers;
 
-import com.dburackov.petfiesta.dto.petprofiledto.PetProfileDto;
-import com.dburackov.petfiesta.entities.Passport;
 import com.dburackov.petfiesta.entities.Photo;
-import com.dburackov.petfiesta.services.PassportService;
 import com.dburackov.petfiesta.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public class PhotoControler {
+@RestController
+public class PhotoController {
+
+    private final PhotoService photoService;
 
     @Autowired
-    PhotoService photoService;
-
+    public PhotoController(PhotoService photoService) {
+        this.photoService = photoService;
+    }
     @GetMapping("/photos")
     public List<Photo> getPhotos() {
         return photoService.getPhotos();
