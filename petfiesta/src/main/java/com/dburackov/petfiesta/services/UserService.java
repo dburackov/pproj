@@ -49,11 +49,21 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).get();
+        var userOpt = userRepository.findByEmail(email);
+        User user = null;
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+        }
+        return user;
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password).get();
+        var userOpt = userRepository.findByEmailAndPassword(email, password);
+        User user = null;
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+        }
+        return user;
     }
 
 }
