@@ -5,8 +5,10 @@ import com.dburackov.petfiesta.dto.userdto.UserDto;
 import com.dburackov.petfiesta.dto.userdto.GetUserDto;
 import com.dburackov.petfiesta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -34,14 +36,17 @@ public class UserController {
     }
 
     @PostMapping("/users/update/{id}")
-    public GetUserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
-        return userService.updateUser(id, userDto);
+    @PreAuthorize("isAuthenticated()")
+    public GetUserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto, Principal principal) {
+        System.out.println(principal.getName());
+        return userService.updateUser(id, userDto, Long.parseLong(principal.getName()));
     }
 
 
     @DeleteMapping("/users/delete/{id}")
-    public void deleteUserById(@PathVariable Long id) {
-        userService.deleteUserById(id);
+    @PreAuthorize("isAuthenticated()")
+    public void deleteUserById(@PathVariable Long id, Principal principal) {
+        userService.deleteUserById(id, Long.parseLong(principal.getName()));
     }
 
 }

@@ -6,6 +6,7 @@ import com.dburackov.petfiesta.entities.User;
 import com.dburackov.petfiesta.mappers.UserMapper;
 import com.dburackov.petfiesta.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,23 +39,20 @@ public class UserService {
         return userMapper.userToGetUserDto(userRepository.findById(id).get());
     }
 
-    public GetUserDto updateUser(Long id, UserDto userDto) {
+    public GetUserDto updateUser(Long id, UserDto userDto, Long authenticatedUserId) {
+        if (!authenticatedUserId.equals(id)) {
+            throw new AccessDeniedException("");
+        }
         User user = userMapper.userDtoToUser(userDto);
         user.setId(id);
         return userMapper.userToGetUserDto(userRepository.save(user));
     }
 
-    public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    public User getUserByEmail(String email) {
-        var userOpt = userRepository.findByEmail(email);
-        User user = null;
-        if (userOpt.isPresent()) {
-            user = userOpt.get();
+    public void deleteUserById(Long id, Long authenticatedUserId) {
+        if (!authenticatedUserId.equals(id)) {
+            throw new AccessDeniedException("");
         }
-        return user;
+        userRepository.deleteById(id);
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
