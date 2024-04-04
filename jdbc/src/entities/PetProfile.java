@@ -27,14 +27,12 @@ public class PetProfile implements Entity {
 
     @Setter
     @Getter
-    private List<Tag> tags;
+    private List<Long> tags;
 
     @Override
     public String toString() {
         String result = String.format("%-16d%-16s%-16s", petProfileId, userId, purpose);
-        for (Tag tag : tags) {
-            result = result.concat(String.format("(%d, %s) ", tag.getTagId(), tag.getName()));
-        }
+        result = result.concat(tags.toString());
         return result;
     }
 }

@@ -29,7 +29,12 @@ public class TagRepository extends Repository {
         while (resultSet.next())
         {
             tags.add(new Tag(resultSet.getLong("tag_id"),
-                    resultSet.getString("name")));
+                    resultSet.getString("name"),
+                    null));
+        }
+
+        for (Entity tag : tags) {
+            ((Tag) tag).setPetProfiles(getPetProfiles(((Tag)tag).getTagId()));
         }
 
         close();
@@ -53,6 +58,8 @@ public class TagRepository extends Repository {
             tag.setTagId(resultSet.getLong("tag_id"));
             tag.setName(resultSet.getString("name"));
         }
+
+        tag.setPetProfiles(getPetProfiles(id));
 
         close();
         return tag;
@@ -110,6 +117,25 @@ public class TagRepository extends Repository {
         statement.executeUpdate(sql);
 
         close();
+    }
+
+    private List<Long> getPetProfiles(Long tagId) throws SQLException {
+        List<Long> petProfiles = new ArrayList<>();
+
+        String sql = String.format("""
+                SELECT pet_profiles.pet_profile_id FROM tags
+                JOIN pet_xref_tag ON tags.tag_id = pet_xref_tag.tag_id
+                JOIN pet_profiles ON pet_xref_tag.pet_profile_id = pet_profiles.pet_profile_id
+                WHERE tags.tag_id = 2;
+                """, tagId);
+
+        resultSet = statement.executeQuery(sql);
+
+        while(resultSet.next()) {
+            petProfiles.add(resultSet.getLong("pet_profile_id"));
+        }
+
+        return petProfiles;
     }
 
 

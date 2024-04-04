@@ -5,9 +5,11 @@ import entities.PetProfile;
 import entities.Tag;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class PetProfileRepository extends Repository {
     public PetProfileRepository() throws IOException {
@@ -29,10 +31,15 @@ public class PetProfileRepository extends Repository {
         resultSet = statement.executeQuery(sql);
         while (resultSet.next())
         {
-            petProfiles.add(new PetProfile(resultSet.getLong("pet_profile_id"),
+            Long petProfileId = resultSet.getLong("pet_profile_id");
+            petProfiles.add(new PetProfile(petProfileId,
                     resultSet.getLong("user_id"),
                     resultSet.getString("purpose"),
-                    new ArrayList<>()));
+                    null));
+        }
+
+        for (Entity petProfile : petProfiles) {
+            ((PetProfile) petProfile).setTags(getTags(((PetProfile) petProfile).getPetProfileId()));
         }
 
         close();
@@ -58,21 +65,7 @@ public class PetProfileRepository extends Repository {
             petProfile.setPurpose(resultSet.getString("purpose"));
         }
 
-        petProfile.setTags(new ArrayList<>());
-
-        sql = String.format("""
-                SELECT tags.tag_id, tags.name FROM pet_profiles
-                JOIN pet_xref_tag ON pet_profiles.pet_profile_id = pet_xref_tag.pet_profile_id
-                JOIN tags ON pet_xref_tag.tag_id = tags.tag_id
-                WHERE pet_profiles.pet_profile_id = %d;
-                """, petProfile.getPetProfileId());
-
-        resultSet = statement.executeQuery(sql);
-
-        while (resultSet.next()) {
-            petProfile.getTags().add(new Tag(resultSet.getLong("tag_id"),
-                    resultSet.getString("name")));
-        }
+        petProfile.setTags(getTags(id));
 
         close();
         return petProfile;
@@ -97,14 +90,13 @@ public class PetProfileRepository extends Repository {
 
         if (petProfile.getTags() != null) {
             sql = """
-             
-                    INSERT INTO pet_xref_tag
+             INSERT INTO pet_xref_tag
              (pet_profile_id, tag_id)
              """;
 
             boolean ok = false;
-            for (Tag tag : petProfile.getTags()) {
-                sql = sql.concat(String.format("(%d, %d),", petProfile.getPetProfileId(), tag.getTagId()));
+            for (Long tagId : petProfile.getTags()) {
+                sql = sql.concat(String.format("(%d, %d),", petProfile.getPetProfileId(), tagId));
                 ok = true;
             }
 
@@ -133,6 +125,8 @@ public class PetProfileRepository extends Repository {
 
         statement.executeUpdate(sql);
 
+        updateTags(petProfile);
+
         close();
     }
 
@@ -152,7 +146,54 @@ public class PetProfileRepository extends Repository {
         close();
     }
 
-    public void addTag(PetProfile petProfile, Tag tag) throws SQLException {
+    private List<Long> getTags(Long petProfileId) throws SQLException {
+        List<Long> tags = new ArrayList<>(0);
+        String sql = String.format("""
+                SELECT tags.tag_id FROM pet_profiles
+                JOIN pet_xref_tag ON pet_profiles.pet_profile_id = pet_xref_tag.pet_profile_id
+                JOIN tags ON pet_xref_tag.tag_id = tags.tag_id
+                WHERE pet_profiles.pet_profile_id = %d;
+                """, petProfileId);
+
+        resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            tags.add(resultSet.getLong("tag_id"));
+        }
+
+        return tags;
+    }
+
+    private void updateTags(PetProfile petProfile) throws SQLException {
+
+        String sql = String.format("""
+                SELECT tags.tag_id FROM pet_profiles
+                JOIN pet_xref_tag ON pet_profiles.pet_profile_id = pet_xref_tag.pet_profile_id
+                JOIN tags ON pet_xref_tag.tag_id = tags.tag_id
+                WHERE pet_profiles.pet_profile_id = %d;
+                """, petProfile.getPetProfileId());
+
+        TreeSet<Long> currentTags = new TreeSet<>();
+        TreeSet<Long> updatedTags = new TreeSet<>(petProfile.getTags());
+
+        resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            Long tagId = resultSet.getLong("tag_id");
+            currentTags.add(tagId);
+            if (!updatedTags.contains(tagId)) {
+                deleteTag(petProfile, tagId);
+            }
+        }
+
+        for (Long tagId : petProfile.getTags()) {
+            if (!currentTags.contains(tagId)) {
+                addTag(petProfile, tagId);
+            }
+        }
+    }
+
+    public void addTag(PetProfile petProfile, Long tagId) throws SQLException {
         open();
 
         String sql = String.format("""
@@ -160,32 +201,32 @@ public class PetProfileRepository extends Repository {
                 (pet_profile_id, tag_id)
                 VALUES
                 (%d, %d);
-                """, petProfile.getPetProfileId(), tag.getTagId());
+                """, petProfile.getPetProfileId(), tagId);
 
         statement.executeUpdate(sql);
 
         if (petProfile.getTags() == null) {
             petProfile.setTags(new ArrayList<>());
         } else {
-            petProfile.getTags().add(tag);
+            petProfile.getTags().add(tagId);
         }
         close();
     }
 
-    public void deleteTag(PetProfile petProfile, Tag tag) throws SQLException {
+    public void deleteTag(PetProfile petProfile, Long tagId) throws SQLException {
         open();
 
         String sql = String.format("""
                 DELETE FROM pet_xref_tag
                 WHERE pet_profile_id = %d AND tag_id = %d;
-                """, petProfile.getPetProfileId(), tag.getTagId());
+                """, petProfile.getPetProfileId(), tagId);
 
         statement.executeUpdate(sql);
 
         if (petProfile.getTags() == null) {
             petProfile.setTags(new ArrayList<>());
         } else {
-            petProfile.getTags().remove(tag);
+            petProfile.getTags().remove(tagId);
         }
 
         close();

@@ -102,13 +102,11 @@ public class PetProfileScreen extends EntityScreen {
 
 
     private void addTag(Long tagId) throws SQLException {
-        Tag tag = (Tag) tagRepository.getById(tagId);
-        ((PetProfileRepository) repository).addTag((PetProfile) entity, tag);
+        ((PetProfileRepository) repository).addTag((PetProfile) entity, tagId);
     }
     
     private void deleteTag(Long tagId) throws SQLException {
-        Tag tag = (Tag) tagRepository.getById(tagId);
-        ((PetProfileRepository) repository).deleteTag((PetProfile) entity, tag);
+        ((PetProfileRepository) repository).deleteTag((PetProfile) entity, tagId);
     }
     
     public void addTag() throws SQLException {
