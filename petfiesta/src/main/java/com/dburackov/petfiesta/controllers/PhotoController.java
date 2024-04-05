@@ -3,8 +3,10 @@ package com.dburackov.petfiesta.controllers;
 import com.dburackov.petfiesta.entities.Photo;
 import com.dburackov.petfiesta.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -17,6 +19,7 @@ public class PhotoController {
         this.photoService = photoService;
     }
     @GetMapping("/photos")
+    @PreAuthorize("isAuthenticated()")
     public List<Photo> getPhotos() {
         return photoService.getPhotos();
     }
@@ -26,19 +29,19 @@ public class PhotoController {
         return photoService.getPhotoById(id);
     }
 
-    @PostMapping("/photos/create")
-    public Photo createPhoto(@RequestBody Photo photo) {
-        return photoService.createPhoto(photo);
+    @PostMapping("pet-profiles/{petProfileId}/photos/create")
+    @PreAuthorize("isAuthenticated()")
+    public Photo createPhoto(@PathVariable Long petProfileId,
+                             @RequestBody Photo photo,
+                             Principal principal)
+    {
+        return photoService.createPhoto(petProfileId, photo, Long.parseLong(principal.getName()));
     }
 
-    @PostMapping("/photos/update/{id}")
-    public Photo updatePhoto(@PathVariable  Long id, @RequestBody Photo photo) {
-        return photoService.updatePhoto(id, photo);
-    }
-
-    @DeleteMapping("/photos/delete/{id}")
-    public void deletePhotoById(@PathVariable Long id) {
-        photoService.deletePhotoById(id);
+    @DeleteMapping("pet-profiles/{petProfileId}/photos/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public void deletePhotoById(@PathVariable Long petProfileId, @PathVariable Long id, Principal principal) {
+        photoService.deletePhotoById(petProfileId, id, Long.parseLong(principal.getName()));
     }
 
     @GetMapping("/pet-profiles/{petProfileId}/photos")

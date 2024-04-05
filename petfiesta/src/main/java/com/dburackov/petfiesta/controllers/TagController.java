@@ -3,8 +3,10 @@ package com.dburackov.petfiesta.controllers;
 import com.dburackov.petfiesta.entities.Tag;
 import com.dburackov.petfiesta.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -28,16 +30,19 @@ public class TagController {
     }
 
     @PostMapping("/tags/create")
+    @PreAuthorize("isAuthenticated()")
     public Tag createTag(@RequestBody Tag tag) {
         return tagService.createTag(tag);
     }
 
     @PostMapping("/tags/update/{id}")
+    @PreAuthorize("isAuthenticated()")
     public Tag updateTag(@PathVariable Long id, @RequestBody Tag tag) {
         return tagService.updateTag(id, tag);
     }
 
     @DeleteMapping("/tags/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
     public void deleteTagById(@PathVariable Long id) {
         tagService.deleteTagById(id);
     }

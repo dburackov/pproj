@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -28,13 +29,13 @@ public class PetProfile {
     private User user;
 
     @OneToMany(mappedBy = "petProfile", orphanRemoval = true)
-    private List<Photo> photos;
+    private Set<Photo> photos;
 
     @OneToOne(mappedBy = "petProfile", orphanRemoval = true)
     private Passport passport;
 
     @OneToMany(mappedBy = "petProfile", orphanRemoval = true)
-    private List<SocialMedia> socialMedias;
+    private Set<SocialMedia> socialMedias;
 
     @ManyToMany
     @JoinTable(
@@ -42,7 +43,7 @@ public class PetProfile {
             joinColumns = @JoinColumn(name = "pet_profile_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @ElementCollection
     @CollectionTable (
@@ -50,7 +51,7 @@ public class PetProfile {
             joinColumns = @JoinColumn(name = "target_pet_id")
     )
     @Column(name = "object_pet_id")
-    private List<Long> likedBy;
+    private Set<Long> likedBy;
 
     @ElementCollection
     @CollectionTable(
@@ -58,7 +59,7 @@ public class PetProfile {
             joinColumns = @JoinColumn(name = "object_pet_id")
     )
     @Column(name = "target_pet_id")
-    private List<Long> likedPetProfiles;
+    private Set<Long> likedPetProfiles;
 
     @ElementCollection
     @CollectionTable(
@@ -66,7 +67,7 @@ public class PetProfile {
             joinColumns=@JoinColumn(name="second_pet_id")
     )
     @Column(name="first_pet_id")
-    private List<Long> matches;
+    private Set<Long> matches;
 
     @ElementCollection
     @CollectionTable(
@@ -74,5 +75,5 @@ public class PetProfile {
             joinColumns=@JoinColumn(name="object_pet_id")
     )
     @Column(name="target_pet_id")
-    private List<Long> viewedProfiles;
+    private Set<Long> viewedProfiles;
 }

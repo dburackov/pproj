@@ -12,12 +12,10 @@ import java.util.List;
 @Service
 public class TagService {
     private final TagRepository tagRepository;
-    private final PetProfileRepository petProfileRepository;
 
     @Autowired
-    public TagService(TagRepository tagRepository, PetProfileRepository petProfileRepository) {
+    public TagService(TagRepository tagRepository) {
         this.tagRepository = tagRepository;
-        this.petProfileRepository = petProfileRepository;
     }
 
     public List<Tag> getTags() {
@@ -42,7 +40,6 @@ public class TagService {
     }
 
     public List<Tag> getPetProfileTags(Long petProfileId) {
-        PetProfile petProfile = petProfileRepository.findById(petProfileId).get();
-        return tagRepository.findByPetProfilesContains(petProfile);
+        return tagRepository.findByPetProfilesId(petProfileId);
     }
 }

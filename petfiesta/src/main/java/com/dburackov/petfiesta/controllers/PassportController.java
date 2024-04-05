@@ -4,7 +4,10 @@ package com.dburackov.petfiesta.controllers;
 import com.dburackov.petfiesta.entities.Passport;
 import com.dburackov.petfiesta.services.PassportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 
 @RestController
@@ -21,19 +24,31 @@ public class PassportController {
         return passportService.getPassportById(id);
     }
 
-    @GetMapping("passport/add")
-    public Passport createPassport(@RequestBody  Passport passport) {
-        return passportService.createPassport(passport);
+    @GetMapping("pet-profiles/{petProfileId}/passport/create")
+    @PreAuthorize("isAuthenticated()")
+    public Passport createPassport(@PathVariable Long petProfileId,
+                                   @RequestBody  Passport passport,
+                                   Principal principal)
+    {
+        return passportService.createPassport(petProfileId, passport, Long.parseLong(principal.getName()));
     }
 
     @PostMapping("passport/update/{id}")
-    public Passport updatePassport(@PathVariable Long id, @RequestBody Passport passport) {
-        return passportService.updatePassport(id, passport);
+    @PreAuthorize("isAuthenticated()")
+    public Passport updatePassport(@PathVariable Long id,
+                                   @RequestBody Passport passport,
+                                   Principal principal)
+    {
+        return passportService.updatePassport(id, passport, Long.parseLong(principal.getName()));
     }
 
-    @DeleteMapping("passport/delete/{id}")
-    public void deletePassport(@PathVariable Long id) {
-        passportService.deletePassportById(id);
+    @DeleteMapping("pet-profiles/{petProfileId}/passport/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public void deletePassport(@PathVariable Long petProfileId,
+                               @PathVariable Long id,
+                               Principal principal)
+    {
+        passportService.deletePassportById(petProfileId, id, Long.parseLong(principal.getName()));
     }
 
     @GetMapping("pet-profiles/{petProfileId}/passport")

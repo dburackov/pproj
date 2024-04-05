@@ -35,7 +35,7 @@ public class ApplicationUserDetailsService implements UserDetailsService {
         return new User(
                 user.get().getId().toString(),
                 user.get().getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("user"))
+                Collections.singletonList(new SimpleGrantedAuthority("USER"))
         );
     }
 }

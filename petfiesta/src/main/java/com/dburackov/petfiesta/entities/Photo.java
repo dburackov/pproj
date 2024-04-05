@@ -16,8 +16,8 @@ public class Photo {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "file_link")
-    private Long fileLink;
+    @Column(name = "file_path")
+    private String filePath;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
