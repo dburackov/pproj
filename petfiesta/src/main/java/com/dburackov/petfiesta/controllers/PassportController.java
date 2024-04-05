@@ -19,12 +19,12 @@ public class PassportController {
         this.passportService = passportService;
     }
 
-    @GetMapping("passport/{id}")
+    @GetMapping("/passport/{id}")
     public Passport getPassportById(@PathVariable Long id) {
         return passportService.getPassportById(id);
     }
 
-    @GetMapping("pet-profiles/{petProfileId}/passport/create")
+    @GetMapping("/pet-profiles/{petProfileId}/passport/create")
     @PreAuthorize("isAuthenticated()")
     public Passport createPassport(@PathVariable Long petProfileId,
                                    @RequestBody  Passport passport,
@@ -33,7 +33,7 @@ public class PassportController {
         return passportService.createPassport(petProfileId, passport, Long.parseLong(principal.getName()));
     }
 
-    @PostMapping("passport/update/{id}")
+    @PostMapping("/passport/update/{id}")
     @PreAuthorize("isAuthenticated()")
     public Passport updatePassport(@PathVariable Long id,
                                    @RequestBody Passport passport,
@@ -42,7 +42,7 @@ public class PassportController {
         return passportService.updatePassport(id, passport, Long.parseLong(principal.getName()));
     }
 
-    @DeleteMapping("pet-profiles/{petProfileId}/passport/delete/{id}")
+    @DeleteMapping("/pet-profiles/{petProfileId}/passport/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public void deletePassport(@PathVariable Long petProfileId,
                                @PathVariable Long id,
@@ -51,7 +51,7 @@ public class PassportController {
         passportService.deletePassportById(petProfileId, id, Long.parseLong(principal.getName()));
     }
 
-    @GetMapping("pet-profiles/{petProfileId}/passport")
+    @GetMapping("/pet-profiles/{petProfileId}/passport")
     public Passport getPetPassport(@PathVariable Long petProfileId) {
         return passportService.getPetPassport(petProfileId);
     }

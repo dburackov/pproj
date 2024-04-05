@@ -29,7 +29,7 @@ public class PhotoController {
         return photoService.getPhotoById(id);
     }
 
-    @PostMapping("pet-profiles/{petProfileId}/photos/create")
+    @PostMapping("/pet-profiles/{petProfileId}/photos/create")
     @PreAuthorize("isAuthenticated()")
     public Photo createPhoto(@PathVariable Long petProfileId,
                              @RequestBody Photo photo,
@@ -38,7 +38,7 @@ public class PhotoController {
         return photoService.createPhoto(petProfileId, photo, Long.parseLong(principal.getName()));
     }
 
-    @DeleteMapping("pet-profiles/{petProfileId}/photos/delete/{id}")
+    @DeleteMapping("/pet-profiles/{petProfileId}/photos/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public void deletePhotoById(@PathVariable Long petProfileId, @PathVariable Long id, Principal principal) {
         photoService.deletePhotoById(petProfileId, id, Long.parseLong(principal.getName()));

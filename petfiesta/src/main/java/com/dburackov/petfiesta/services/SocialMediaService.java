@@ -2,6 +2,7 @@ package com.dburackov.petfiesta.services;
 
 import com.dburackov.petfiesta.entities.SocialMedia;
 import com.dburackov.petfiesta.entities.User;
+import com.dburackov.petfiesta.enums.SocialMediaType;
 import com.dburackov.petfiesta.repositories.SocialMediaRepository;
 import com.dburackov.petfiesta.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

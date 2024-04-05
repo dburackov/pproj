@@ -1,12 +1,12 @@
 package com.dburackov.petfiesta.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import com.dburackov.petfiesta.enums.Purpose;
 
-import java.util.List;
 import java.util.Set;
 
 
@@ -19,13 +19,14 @@ public class PetProfile {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "purpose")
-    private String purpose;
+    @ColumnTransformer(write = "?::PURPOSE")
+    private Purpose purpose;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="user_id")
-    @JsonBackReference
     private User user;
 
     @OneToMany(mappedBy = "petProfile", orphanRemoval = true)

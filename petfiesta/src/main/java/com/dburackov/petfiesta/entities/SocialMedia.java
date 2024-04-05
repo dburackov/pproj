@@ -1,9 +1,12 @@
 package com.dburackov.petfiesta.entities;
 
 
+import com.dburackov.petfiesta.enums.SocialMediaType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -23,8 +26,10 @@ public class SocialMedia {
     @JsonIgnore
     private PetProfile petProfile;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private String type;
+    @ColumnTransformer(write = "?::SOCIAL_MEDIA_TYPE")
+    private SocialMediaType type;
 
     @Column(name = "link")
     private String link;

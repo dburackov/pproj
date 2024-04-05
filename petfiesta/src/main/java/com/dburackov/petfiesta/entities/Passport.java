@@ -1,8 +1,10 @@
 package com.dburackov.petfiesta.entities;
 
+import com.dburackov.petfiesta.enums.Kind;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -30,8 +32,10 @@ public class Passport {
     @Column(name = "birth_date")
     private Date birthDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "kind")
-    private String kind;
+    @ColumnTransformer(write = "?::KIND")
+    private Kind kind;
 
     @Column(name = "breed")
     private String breed;

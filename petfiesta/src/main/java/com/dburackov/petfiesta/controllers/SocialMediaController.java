@@ -31,7 +31,7 @@ public class SocialMediaController {
         return socialMediaService.getSocialMediaById(id);
     }
 
-    @PostMapping("pet-profiles/{petProfileId}/social-medias/create")
+    @PostMapping("/pet-profiles/{petProfileId}/social-medias/create")
     @PreAuthorize("isAuthenticated()")
     public SocialMedia createSocialMedia(@PathVariable Long petProfileId,
                                          @RequestBody SocialMedia socialMedia,
@@ -40,7 +40,7 @@ public class SocialMediaController {
         return socialMediaService.createSocialMedia(petProfileId, socialMedia, Long.parseLong(principal.getName()));
     }
 
-    @PostMapping("pet-profiles/{petProfileId}/social-medias/update/{id}")
+    @PostMapping("/pet-profiles/{petProfileId}/social-medias/update/{id}")
     @PreAuthorize("isAuthenticated()")
     public SocialMedia updateSocialMedia(@PathVariable Long petProfileId,
                                          @PathVariable Long id,
@@ -50,7 +50,7 @@ public class SocialMediaController {
         return socialMediaService.updateSocialMedia(petProfileId, id, socialMedia, Long.parseLong(principal.getName()));
     }
 
-    @DeleteMapping("pet-profiles/{petProfileId}/social-medias/delete/{id}")
+    @DeleteMapping("/pet-profiles/{petProfileId}/social-medias/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public void deleteSocialMediaById(@PathVariable Long petProfileId, @PathVariable Long id, Principal principal) {
         socialMediaService.deleteSocialMediaById(petProfileId, id, Long.parseLong(principal.getName()));

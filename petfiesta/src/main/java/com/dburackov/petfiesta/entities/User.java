@@ -29,7 +29,6 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
     private Set<PetProfile> petProfiles;
 
 }
