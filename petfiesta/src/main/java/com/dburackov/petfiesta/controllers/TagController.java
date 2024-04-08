@@ -30,19 +30,16 @@ public class TagController {
     }
 
     @PostMapping("/tags/create")
-    @PreAuthorize("isAuthenticated()")
     public Tag createTag(@RequestBody Tag tag) {
         return tagService.createTag(tag);
     }
 
     @PostMapping("/tags/update/{id}")
-    @PreAuthorize("isAuthenticated()")
     public Tag updateTag(@PathVariable Long id, @RequestBody Tag tag) {
         return tagService.updateTag(id, tag);
     }
 
     @DeleteMapping("/tags/delete/{id}")
-    @PreAuthorize("isAuthenticated()")
     public void deleteTagById(@PathVariable Long id) {
         tagService.deleteTagById(id);
     }

@@ -10,6 +10,7 @@ import java.util.List;
 public class PetProfileDto {
     private Long id;
     private String purpose;
+    private Long userId;
 //    private User user;
 //    private Passport passport;
 //    private List<Photo> photos;
