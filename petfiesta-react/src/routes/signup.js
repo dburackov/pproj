@@ -15,6 +15,10 @@ export default function Signup() {
     return (
         <section>
             <input
+                placeholder="Login"
+                onChange={e => setLogin(e.target.value)}
+            />
+            <input
                 placeholder="Email"
                 type="email"
                 onChange={e => setEmail(e.target.value)}
@@ -23,10 +27,6 @@ export default function Signup() {
                 placeholder="Password"
                 type="password"
                 onChange={e => setPassword(e.target.value)}
-            />
-            <input
-                placeholder="Name"
-                onChange={e => setLogin(e.target.value)}
             />
             <button
                 onClick={signupButtonOnClick}
@@ -37,7 +37,7 @@ export default function Signup() {
     );
 
     async function signupButtonOnClick() {
-        const data = await signUp(name, email, password);
+        const data = await signUp(login, email, password);
         appContext.setCookie('userId', data.id);
         appContext.setCookie('token', data.token);
         appContext.setIsAuthenticated(true);

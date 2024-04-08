@@ -11,11 +11,11 @@ export async function signIn(email, password) {
     return response.data
 }
 
-export async function signUp(name, email, password) {
+export async function signUp(login, email, password) {
     let response = await axios.post(
         "http://localhost:8080/auth/signup", 
         {
-            "name": name,
+            "name": login,
             "email": email,
             "password": password
         }

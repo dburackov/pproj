@@ -3,8 +3,8 @@ import {
     RouterProvider,
   } from "react-router-dom";
   import Root from './routes/root';
-  import Tag from './routes/tags';
-  import PetProfile from './routes/petProfiles';
+  import Tags, { TagsCreate, TagsUpdate, loader as tagsLoader } from './routes/tags';
+  import PetProfiles, {PetProfilesCreate, PetProfilesUpdate, loader as petProfileLoader} from './routes/petProfiles';
   // import Users from './routes/users';
   import Signup from './routes/signup';
   import Signin from './routes/signin';
@@ -20,8 +20,8 @@ import {
     const [user, setUser] = useState({});
   
     useEffect(() => {
-      if (cookies.userId !== undefined) {
-        getUserById(cookies.userId).then(user => setUser(user));
+      if (cookies.id !== undefined) {
+        getUserById(cookies.id).then(user => setUser(user));
       }
   
       if (cookies.token !== undefined) {
@@ -45,20 +45,35 @@ import {
       {
         path: "/",
         element: <Root/>,
-        // errorElement: <NotFound />,
+        errorElement: <App />,
         children: [
-          // {
-          //   path: "/users",
-          //   element: <Users />
-          // },
           {
             path: "/tags",
-            element: <Tag />
+            element: <Tags />
+          }, 
+          {
+            path: "/tags/create",
+            element: <TagsCreate/>
           },
           {
-            path: "/pet-profile",
-            element: <PetProfile />
+            path: "/tags/update/:tagId",
+            element: <TagsUpdate/>,
+            loader: tagsLoader
+          },
+          {
+            path: "/pet-profiles",
+            element: <PetProfiles />
+          },
+          {
+            path: "/pet-profiles/create",
+            element: <PetProfilesCreate/>
+          },
+          {
+            path: "/pet-profiles/update/:petProfileId",
+            element: <PetProfilesUpdate/>,
+            loader: petProfileLoader
           }
+
         ]
       }
     ]);
@@ -67,12 +82,8 @@ import {
       {
         path: "/",
         element: <Root/>,
-        // errorElement: <NotFound />,
+        errorElement: <App />,
         children: [
-          // {
-          //   path: "/users",
-          //   element: <Users />
-          // },
           {
             path: "/signup",
             element: <Signup />
@@ -85,8 +96,10 @@ import {
       }
     ]);
 
+    
   
     return (
+
       <AppContext.Provider value={state}>
         <RouterProvider router={isAuthenticated ? authenticatedRouter : anonymousRouter} />
       </AppContext.Provider>

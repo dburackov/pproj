@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { AppContext } from "../contexts/contexts";
 import { getTag, getTags, createTag, deleteTag, updateTag} from "../api/tagService"
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
@@ -15,9 +15,10 @@ export default function Tags() {
 
     const [Tags, setTags] = useState([]);
     const [name, setName] = useState('');
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
-        loadChats();
+        loadTags();
     }, []);
 
     return (
@@ -32,7 +33,7 @@ export default function Tags() {
                                 Name
                             </th>
                             <th>
-                                <Link to="add/" className="btn btn-success">Add</Link>
+                                <Link to="create/" className="btn btn-success">Add</Link>
                             </th>
                         </tr>
                     </thead>
@@ -71,7 +72,7 @@ export default function Tags() {
     }
 }
 
-export function TagsAdd() {
+export function TagsCreate() {
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
@@ -95,10 +96,9 @@ export function TagsAdd() {
 
     async function addTagClick() {
         let tag = {}
-        tag.id = crypto.randomUUID();
         tag.name = name
-        await addTag(tag)
-        navigate('/Tags')
+        await createTag(tag)
+        navigate('/tags')   
     }
 }
 
@@ -119,7 +119,7 @@ export function TagsUpdate() {
                 />
                 <button
                     onClick={updateTagClick}>
-                    Изменить
+                    Update
                 </button>
             </div>
         </section>
@@ -128,6 +128,6 @@ export function TagsUpdate() {
     async function updateTagClick() {
         tag.name = name
         await updateTag(tag)
-        navigate('/Tags')
+        navigate('/tags')
     }
 }
