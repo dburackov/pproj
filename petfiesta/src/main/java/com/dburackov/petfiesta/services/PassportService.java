@@ -1,10 +1,8 @@
 package com.dburackov.petfiesta.services;
 
 import com.dburackov.petfiesta.entities.Passport;
-import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.entities.User;
 import com.dburackov.petfiesta.repositories.PassportRepository;
-import com.dburackov.petfiesta.repositories.PetProfileRepository;
 import com.dburackov.petfiesta.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -51,7 +49,7 @@ public class PassportService {
         passportRepository.deleteById(id);
     }
 
-    public Passport getPetPassport(Long petProfileId) {
+    public Passport getPassportByPetProfileId(Long petProfileId) {
         return passportRepository.findByPetProfileId(petProfileId);
     }
 }

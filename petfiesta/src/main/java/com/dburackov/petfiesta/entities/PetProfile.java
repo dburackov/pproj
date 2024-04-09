@@ -1,5 +1,8 @@
 package com.dburackov.petfiesta.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.ColumnTransformer;
@@ -7,6 +10,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import com.dburackov.petfiesta.enums.Purpose;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 
@@ -30,21 +34,16 @@ public class PetProfile {
     private User user;
 
     @OneToMany(mappedBy = "petProfile", orphanRemoval = true)
-    private Set<Photo> photos;
+    private Set<Photo> photos  = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "petProfile", orphanRemoval = true)
+    @OneToOne(mappedBy = "petProfile")
     private Passport passport;
 
     @OneToMany(mappedBy = "petProfile", orphanRemoval = true)
-    private Set<SocialMedia> socialMedias;
+    private Set<SocialMedia> socialMedias = new LinkedHashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "pet_xref_tag",
-            joinColumns = @JoinColumn(name = "pet_profile_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private Set<Tag> tags;
+    @ManyToMany(mappedBy = "petProfiles")
+    private Set<Tag> tags = new LinkedHashSet<>();
 
     @ElementCollection
     @CollectionTable (
@@ -52,7 +51,7 @@ public class PetProfile {
             joinColumns = @JoinColumn(name = "target_pet_id")
     )
     @Column(name = "object_pet_id")
-    private Set<Long> likedBy;
+    private Set<Long> likedBy = new LinkedHashSet<>();
 
     @ElementCollection
     @CollectionTable(
@@ -60,7 +59,7 @@ public class PetProfile {
             joinColumns = @JoinColumn(name = "object_pet_id")
     )
     @Column(name = "target_pet_id")
-    private Set<Long> likedPetProfiles;
+    private Set<Long> likedPetProfiles = new LinkedHashSet<>();
 
     @ElementCollection
     @CollectionTable(
@@ -68,7 +67,7 @@ public class PetProfile {
             joinColumns=@JoinColumn(name="second_pet_id")
     )
     @Column(name="first_pet_id")
-    private Set<Long> matches;
+    private Set<Long> matches = new LinkedHashSet<>();
 
     @ElementCollection
     @CollectionTable(
@@ -76,5 +75,5 @@ public class PetProfile {
             joinColumns=@JoinColumn(name="object_pet_id")
     )
     @Column(name="target_pet_id")
-    private Set<Long> viewedProfiles;
+    private Set<Long> viewedProfiles = new LinkedHashSet<>();
 }

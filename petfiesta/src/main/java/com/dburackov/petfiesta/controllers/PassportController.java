@@ -52,8 +52,8 @@ public class PassportController {
     }
 
     @GetMapping("/pet-profiles/{petProfileId}/passport")
-    public Passport getPetPassport(@PathVariable Long petProfileId) {
-        return passportService.getPetPassport(petProfileId);
+    public Passport getPassportByPetProfileId(@PathVariable Long petProfileId) {
+        return passportService.getPassportByPetProfileId(petProfileId);
     }
 
 }

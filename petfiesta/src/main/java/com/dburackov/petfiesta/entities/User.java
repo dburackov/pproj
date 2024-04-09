@@ -29,6 +29,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties(value = {"user", "handler", "hibernateLazyInitializer"}, allowSetters=true)
     private Set<PetProfile> petProfiles;
 
 }

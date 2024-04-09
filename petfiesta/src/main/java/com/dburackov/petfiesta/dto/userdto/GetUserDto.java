@@ -11,5 +11,4 @@ public class GetUserDto {
     private Long id;
     private String name;
     private String email;
-//    private List<PetProfile> petProfiles;
 }

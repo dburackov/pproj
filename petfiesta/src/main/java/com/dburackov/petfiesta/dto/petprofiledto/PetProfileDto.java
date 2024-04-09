@@ -4,20 +4,16 @@ import com.dburackov.petfiesta.dto.userdto.UserDto;
 import com.dburackov.petfiesta.entities.*;
 import lombok.Data;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class PetProfileDto {
     private Long id;
     private String purpose;
-    private Long userId;
-//    private User user;
-//    private Passport passport;
-//    private List<Photo> photos;
-//    private List<Tag> tags;
-//    private List<SocialMedia> socialMedias;
-    private List<Long> likedBy;
-    private List<Long> likedPetProfiles;
-    private List<Long> matches;
-    private List<Long> viewedProfiles;
+    private Set<Long> likedBy;
+    private Set<Long> likedPetProfiles;
+    private Set<Long> matches;
+    private Set<Long> viewedProfiles;
 }

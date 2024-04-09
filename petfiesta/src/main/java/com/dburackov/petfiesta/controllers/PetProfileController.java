@@ -1,6 +1,7 @@
 package com.dburackov.petfiesta.controllers;
 
 import com.dburackov.petfiesta.dto.petprofiledto.PetProfileDto;
+import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.services.PetProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

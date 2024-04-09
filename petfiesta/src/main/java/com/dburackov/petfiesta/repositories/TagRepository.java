@@ -10,6 +10,5 @@ import java.util.List;
 
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
-    List<Tag> findByPetProfilesContains(PetProfile petProfile);
     List<Tag> findByPetProfilesId(Long petProfileId);
 }
