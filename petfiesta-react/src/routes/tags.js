@@ -78,11 +78,11 @@ export function TagsCreate() {
     const [name, setName] = useState('');
 
     return (
-        <section class="form-container">
-            <div class="form">
+        <section className="form-container">
+            <div className="form">
                 <input
                     placeholder="Name"
-                    class="form-control"
+                    className="form-control"
                     type="text"
                     onChange={(e) => setName(e.target.value)}
                 />
@@ -109,11 +109,11 @@ export function TagsUpdate() {
     const [name, setName] = useState('');
 
     return (
-        <section class="form-container">
-            <div class="form">
+        <section className="form-container">
+            <div className="form">
                 <input
                     placeholder="Name"
-                    class="form-control"
+                    className="form-control"
                     type="text"
                     onChange={(e) => setName(e.target.value)}
                 />
@@ -127,7 +127,7 @@ export function TagsUpdate() {
 
     async function updateTagClick() {
         tag.name = name
-        await updateTag(tag)
+        await updateTag(tag.id, tag)
         navigate('/tags')
     }
 }

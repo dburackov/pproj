@@ -14,17 +14,29 @@ export async function getPetProfile(id) {
     return response.data
 }
 
-export async function deletePetProfile(userId, id) {
+export async function deletePetProfile(userId, id, token) {
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
     let response = await axios.delete(
-        'http://localhost:8080/users/' + userId + '/pet-profiles/delete' + id
+        `http://localhost:8080/users/${userId}/pet-profiles/delete/${id}`,
+        config
     )
     return response.data
 }
 
-export async function createPetProfile(userId, petProfile) {
+export async function createPetProfile(userId, petProfile, token) {
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
     let response = await axios.post(
         'http://localhost:8080/users/' + userId + '/pet-profiles/create',
-        petProfile
+        petProfile,
+        config
     )
     return response.data
 }

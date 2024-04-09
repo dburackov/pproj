@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+export default function AuthNavbar() {
     return (
         <nav>
             <ul>
                 <li>
-                    <Link to={`/pet-profiles`}>Pet profiles</Link>
+                    <Link to={`/signin`}>sign in</Link>
                 </li>
                 <li>
-                    <Link to={`/tags`}>Tags </Link>
+                    <Link to={`/signup`}>sign up</Link>
                 </li>
             </ul>
         </nav>

@@ -37,7 +37,7 @@ export async function updateTag(id, tag) {
     return response.data
 }
 
-export async function getPetProfileTag(petProfileId) {
+export async function getTagsByPetProfileId(petProfileId) {
     let response = await axios.get(
         'http://localhost:8080/pet-profiles/' + petProfileId + '/tags'
     )

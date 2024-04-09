@@ -15,13 +15,13 @@ import {
   import axios from "axios";
   
   export default function App() {
-    const [cookies, setCookie, removeCookie] = useCookies(['id', 'token']);
+    const [cookies, setCookie, removeCookie] = useCookies(['userId', 'token']);
     const [isAuthenticated, setIsAuthenticated] = useState(cookies.token !== undefined);
     const [user, setUser] = useState({});
-  
+
     useEffect(() => {
-      if (cookies.id !== undefined) {
-        getUserById(cookies.id).then(user => setUser(user));
+      if (cookies.userId !== undefined) {
+        getUserById(cookies.userId).then(user => setUser(user));
       }
   
       if (cookies.token !== undefined) {
@@ -31,8 +31,9 @@ import {
         axios.defaults.headers.common['Authorization'] = '';
       }
     }, [isAuthenticated]);
-  
+
     const state = {
+      cookies,
       setCookie,
       removeCookie,
       isAuthenticated,
