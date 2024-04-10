@@ -1,7 +1,6 @@
 package com.dburackov.petfiesta.controllers;
 
-import com.dburackov.petfiesta.entities.SocialMedia;
-import com.dburackov.petfiesta.services.PetProfileService;
+import com.dburackov.petfiesta.dto.socialMedia.SocialMediaDto;
 import com.dburackov.petfiesta.services.SocialMediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@RequestMapping("/social-medias")
 @RestController
 public class SocialMediaController {
 
@@ -20,44 +20,42 @@ public class SocialMediaController {
         this.socialMediaService = socialMediaService;
     }
 
-    @GetMapping("/social-medias")
+    @GetMapping("")
     @PreAuthorize("isAuthenticated()")
-    public List<SocialMedia> getSocialMedias() {
+    public List<SocialMediaDto> getSocialMedias() {
         return socialMediaService.getSocialMedias();
     }
 
-    @GetMapping("/social-medias/{id}")
-    public SocialMedia getSocialMediaById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public SocialMediaDto getSocialMediaById(@PathVariable Long id) {
         return socialMediaService.getSocialMediaById(id);
     }
 
-    @PostMapping("/pet-profiles/{petProfileId}/social-medias/create")
+    @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
-    public SocialMedia createSocialMedia(@PathVariable Long petProfileId,
-                                         @RequestBody SocialMedia socialMedia,
+    public SocialMediaDto createSocialMedia(@RequestBody SocialMediaDto socialMediaDto,
                                          Principal principal)
     {
-        return socialMediaService.createSocialMedia(petProfileId, socialMedia, Long.parseLong(principal.getName()));
+        return socialMediaService.createSocialMedia(socialMediaDto, Long.parseLong(principal.getName()));
     }
 
-    @PostMapping("/pet-profiles/{petProfileId}/social-medias/update/{id}")
+    @PostMapping("/update/{id}")
     @PreAuthorize("isAuthenticated()")
-    public SocialMedia updateSocialMedia(@PathVariable Long petProfileId,
-                                         @PathVariable Long id,
-                                         @RequestBody SocialMedia socialMedia,
+    public SocialMediaDto updateSocialMedia(@PathVariable Long id,
+                                         @RequestBody SocialMediaDto socialMediaDto,
                                          Principal principal)
     {
-        return socialMediaService.updateSocialMedia(petProfileId, id, socialMedia, Long.parseLong(principal.getName()));
+        return socialMediaService.updateSocialMedia(id, socialMediaDto, Long.parseLong(principal.getName()));
     }
 
-    @DeleteMapping("/pet-profiles/{petProfileId}/social-medias/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
-    public void deleteSocialMediaById(@PathVariable Long petProfileId, @PathVariable Long id, Principal principal) {
-        socialMediaService.deleteSocialMediaById(petProfileId, id, Long.parseLong(principal.getName()));
+    public void deleteSocialMediaById(@PathVariable Long id, Principal principal) {
+        socialMediaService.deleteSocialMediaById(id, Long.parseLong(principal.getName()));
     }
 
-    @GetMapping("/pet-profiles/{petProfileId}/social-medias")
-    public List<SocialMedia> getPetProfileSocialMedias(@PathVariable Long petProfileId) {
-        return socialMediaService.getPetProfileSocialMedias(petProfileId);
+    @GetMapping("/social-medias/pet-profile/{petProfileId}")
+    public List<SocialMediaDto> getSocialMediasByPetProfileId(@PathVariable Long petProfileId) {
+        return socialMediaService.getSocialMediasByPetProfileId(petProfileId);
     }
 }

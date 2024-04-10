@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -22,9 +23,7 @@ public class Passport {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pet_profile_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JoinColumn(name = "pet_profile_id", referencedColumnName = "pet_profile_id")
     private PetProfile petProfile;
 
     @Column(name = "name")
@@ -42,11 +41,12 @@ public class Passport {
     private String breed;
 
     @Column(name = "breeding_certificate")
-    private Boolean breedingCertificate;
+    private Boolean breedingCertificate = false;
 
     @Column(name = "coat")
-    private String coat;
+    private String coat = "";
 
     @Column(name = "bio")
     private String bio;
+
 }

@@ -1,7 +1,6 @@
 package com.dburackov.petfiesta.controllers;
 
-import com.dburackov.petfiesta.dto.petprofiledto.PetProfileDto;
-import com.dburackov.petfiesta.entities.PetProfile;
+import com.dburackov.petfiesta.dto.petProfile.PetProfileDto;
 import com.dburackov.petfiesta.services.PetProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +10,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@RequestMapping("/pet-profiles")
 public class PetProfileController {
     private final PetProfileService petProfileService;
 
@@ -19,45 +19,43 @@ public class PetProfileController {
         this.petProfileService = petProfileService;
     }
 
-    @GetMapping("/pet-profiles")
+    @GetMapping("")
     public List<PetProfileDto> getPetProfiles() {
         return petProfileService.getPetProfiles();
     }
 
-    @GetMapping("/pet-profiles/{id}")
+    @GetMapping("/{id}")
     public PetProfileDto getPetProfileById(@PathVariable Long id) {
         return petProfileService.getPetProfileById(id);
     }
 
-    @PostMapping("/users/{userId}/pet-profiles/create")
-    public PetProfileDto createPetProfile(@PathVariable Long userId,
+    @PostMapping("/create")
+    @PreAuthorize("isAuthenticated()")
+    public PetProfileDto createPetProfile(@RequestBody PetProfileDto petProfileDto,
+                                          Principal principal)
+    {
+        return petProfileService.createPetProfile(petProfileDto, Long.parseLong(principal.getName()));
+    }
+
+    @PostMapping("/update/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public PetProfileDto updatePetProfile(@PathVariable Long id,
                                           @RequestBody PetProfileDto petProfileDto,
                                           Principal principal)
     {
-        return petProfileService.createPetProfile(userId, petProfileDto, Long.parseLong(principal.getName()));
+        return petProfileService.updatePetProfile(id, petProfileDto, Long.parseLong(principal.getName()));
     }
 
-    @PostMapping("/users/{userId}/pet-profiles/update/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
-    public PetProfileDto updatePetProfile(@PathVariable Long userId,
-                                          @PathVariable  Long id,
-                                          @RequestBody PetProfileDto petProfileDto,
-                                          Principal principal)
-    {
-        return petProfileService.updatePetProfile(userId, id, petProfileDto, Long.parseLong(principal.getName()));
-    }
-
-    @DeleteMapping("/users/{userId}/pet-profiles/delete/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public void deletePetProfileById(@PathVariable Long userId,
-                                     @PathVariable Long id,
+    public void deletePetProfileById(@PathVariable Long id,
                                      Principal principal)
     {
-        petProfileService.deletePetProfileById(userId, id, Long.parseLong(principal.getName()));
+        petProfileService.deletePetProfileById(id, Long.parseLong(principal.getName()));
     }
 
-    @GetMapping("/users/{userId}/pet-profiles")
-    public List<PetProfileDto> getUserPetProfiles(@PathVariable Long userId, Principal principal) {
-        return petProfileService.getUserPetProfiles(userId, Long.parseLong(principal.getName()));
+    @GetMapping("/user/{userId}")
+    public List<PetProfileDto> getPetProfilesByUserId(@PathVariable Long userId, Principal principal) {
+        return petProfileService.getPetProfilesByUserId(userId, Long.parseLong(principal.getName()));
     }
 }

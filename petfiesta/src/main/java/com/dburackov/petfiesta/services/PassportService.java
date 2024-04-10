@@ -1,8 +1,14 @@
 package com.dburackov.petfiesta.services;
 
+import com.dburackov.petfiesta.constants.Constants;
+import com.dburackov.petfiesta.dto.passport.PassportDto;
 import com.dburackov.petfiesta.entities.Passport;
+import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.entities.User;
+import com.dburackov.petfiesta.exceptions.NotFoundException;
+import com.dburackov.petfiesta.mappers.PassportMapper;
 import com.dburackov.petfiesta.repositories.PassportRepository;
+import com.dburackov.petfiesta.repositories.PetProfileRepository;
 import com.dburackov.petfiesta.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -11,45 +17,58 @@ import org.springframework.stereotype.Service;
 @Service
 public class PassportService {
     private final PassportRepository passportRepository;
-    private final UserRepository userRepository;
+    private final PetProfileRepository petProfileRepository;
+    private final PassportMapper passportMapper;
 
     @Autowired
     public PassportService(PassportRepository passportRepository,
-                           UserRepository userRepository)
+                           PetProfileRepository petProfileRepository,
+                           PassportMapper passportMapper)
     {
         this.passportRepository = passportRepository;
-        this.userRepository = userRepository;
+        this.petProfileRepository = petProfileRepository;
+        this.passportMapper = passportMapper;
     }
 
-    public Passport getPassportById(Long id) {
-        return passportRepository.findById(id).get();
+    public PassportDto getPassportById(Long id) {
+        Passport passport =  passportRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        return passportMapper.passportToPassportDto(passport);
     }
 
-    public Passport createPassport(Long petProfileId, Passport passport, Long authenticatedUserId) {
-        User user = userRepository.findByPetProfilesId(petProfileId);
-        if (!authenticatedUserId.equals(user.getId())) {
+    public PassportDto createPassport(PassportDto passportDto, Long authenticatedUserId) {
+        PetProfile petProfile = petProfileRepository.findById(passportDto.getPetProfileId()).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        if (!authenticatedUserId.equals(petProfile.getUser().getId())) {
             throw new AccessDeniedException("");
         }
-        return passportRepository.save(passport);
+
+        Passport passport = passportMapper.passportDtoToPassport(passportDto);
+        passport.setPetProfile(petProfile);
+
+        return passportMapper.passportToPassportDto(passportRepository.save(passport));
     }
 
-    public Passport updatePassport(Long id, Passport passport, Long authenticatedUserId) {
-        if (!authenticatedUserId.equals(passport.getPetProfile().getUser().getId())) {
+    public PassportDto updatePassport(Long id, PassportDto passportDto , Long authenticatedUserId) {
+        PetProfile petProfile = petProfileRepository.findById(passportDto.getPetProfileId()).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        if (!authenticatedUserId.equals(petProfile.getUser().getId())) {
             throw new AccessDeniedException("");
         }
+        Passport passport = passportMapper.passportDtoToPassport(passportDto);
         passport.setId(id);
-        return passportRepository.save(passport);
+        passport.setPetProfile(petProfile);
+
+        return passportMapper.passportToPassportDto(passportRepository.save(passport));
     }
 
-    public void deletePassportById(Long petProfileId, Long id, Long authenticatedUserId) {
-        User user = userRepository.findByPetProfilesId(petProfileId);
-        if (!authenticatedUserId.equals(user.getId())) {
+    public void deletePassportById(Long id, Long authenticatedUserId) {
+//        PetProfile petProfile = petProfileRepository.findByPassportId(id);
+        Passport passport = passportRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        if (!authenticatedUserId.equals(passport.getPetProfile().getUser().getId())) {
             throw new AccessDeniedException("");
         }
         passportRepository.deleteById(id);
     }
 
-    public Passport getPassportByPetProfileId(Long petProfileId) {
-        return passportRepository.findByPetProfileId(petProfileId);
+    public PassportDto getPassportByPetProfileId(Long petProfileId) {
+        return passportMapper.passportToPassportDto(passportRepository.findByPetProfileId(petProfileId));
     }
 }

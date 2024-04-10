@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.dburackov.petfiesta.enums.Purpose;
 
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -36,7 +37,8 @@ public class PetProfile {
     @OneToMany(mappedBy = "petProfile", orphanRemoval = true)
     private Set<Photo> photos  = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "petProfile")
+    @OneToOne(mappedBy = "petProfile", orphanRemoval = true)
+    @JsonIgnore
     private Passport passport;
 
     @OneToMany(mappedBy = "petProfile", orphanRemoval = true)
@@ -76,4 +78,5 @@ public class PetProfile {
     )
     @Column(name="target_pet_id")
     private Set<Long> viewedProfiles = new LinkedHashSet<>();
+
 }

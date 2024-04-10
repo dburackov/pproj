@@ -1,6 +1,6 @@
 package com.dburackov.petfiesta.controllers;
 
-import com.dburackov.petfiesta.entities.Photo;
+import com.dburackov.petfiesta.dto.photo.PhotoDto;
 import com.dburackov.petfiesta.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@RequestMapping("/photos")
 @RestController
 public class PhotoController {
 
@@ -18,34 +19,34 @@ public class PhotoController {
     public PhotoController(PhotoService photoService) {
         this.photoService = photoService;
     }
-    @GetMapping("/photos")
+
+    @GetMapping("")
     @PreAuthorize("isAuthenticated()")
-    public List<Photo> getPhotos() {
+    public List<PhotoDto> getPhotos() {
         return photoService.getPhotos();
     }
 
-    @GetMapping("/photos/{id}")
-    public Photo getPhotoById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public PhotoDto getPhotoById(@PathVariable Long id) {
         return photoService.getPhotoById(id);
     }
 
-    @PostMapping("/pet-profiles/{petProfileId}/photos/create")
+    @PostMapping("/photos/create")
     @PreAuthorize("isAuthenticated()")
-    public Photo createPhoto(@PathVariable Long petProfileId,
-                             @RequestBody Photo photo,
+    public PhotoDto createPhoto(@RequestBody PhotoDto photoDto,
                              Principal principal)
     {
-        return photoService.createPhoto(petProfileId, photo, Long.parseLong(principal.getName()));
+        return photoService.createPhoto(photoDto, Long.parseLong(principal.getName()));
     }
 
-    @DeleteMapping("/pet-profiles/{petProfileId}/photos/delete/{id}")
+    @DeleteMapping("/photos/delete/{id}")
     @PreAuthorize("isAuthenticated()")
-    public void deletePhotoById(@PathVariable Long petProfileId, @PathVariable Long id, Principal principal) {
-        photoService.deletePhotoById(petProfileId, id, Long.parseLong(principal.getName()));
+    public void deletePhotoById(@PathVariable Long id, Principal principal) {
+        photoService.deletePhotoById(id, Long.parseLong(principal.getName()));
     }
 
-    @GetMapping("/pet-profiles/{petProfileId}/photos")
-    public List<Photo> getPetProfilePhotos(@PathVariable Long petProfileId) {
-        return photoService.getPetProfilePhotos(petProfileId);
+    @GetMapping("/photos/pet-profile/{petProfileId}")
+    public List<PhotoDto> getPhotosByPetProfileId(@PathVariable Long petProfileId) {
+        return photoService.getPhotosByPetProfileId(petProfileId);
     }
 }

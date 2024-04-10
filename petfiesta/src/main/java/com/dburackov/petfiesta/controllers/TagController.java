@@ -45,7 +45,13 @@ public class TagController {
     }
 
     @GetMapping("/pet-profiles/{petProfileId}/tags")
-    public List<Tag> getPetProfileTags(@PathVariable Long petProfileId) {
-        return tagService.getPetProfileTags(petProfileId);
+    public List<Tag> getTagsByPetProfileId(@PathVariable Long petProfileId) {
+        return tagService.getTagsByPetProfileid(petProfileId);
+    }
+
+    @PostMapping("/pet-profiles/{petProfileId}/tags/add")
+    @PreAuthorize("isAuthenticated()")
+    public void setPetProfileTags(@PathVariable Long petProfileId, @RequestBody Tag tag, Principal principal) {
+        tagService.setPetProfileTags(petProfileId, tag, Long.parseLong(principal.getName()));
     }
 }

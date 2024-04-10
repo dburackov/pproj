@@ -1,33 +1,31 @@
 package com.dburackov.petfiesta.services;
 
-import com.dburackov.petfiesta.dto.petprofiledto.PetProfileDto;
+import com.dburackov.petfiesta.constants.Constants;
+import com.dburackov.petfiesta.dto.petProfile.PetProfileDto;
 import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.entities.User;
+import com.dburackov.petfiesta.exceptions.NotFoundException;
 import com.dburackov.petfiesta.mappers.PetProfileMapper;
 import com.dburackov.petfiesta.repositories.PetProfileRepository;
-import com.dburackov.petfiesta.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
+
 import java.util.List;
 
 @Service
 public class PetProfileService {
 
-    private final PetProfileRepository petProfileRepository;
-    private final UserRepository userRepository;
+    private final PetProfileRepository petProfileRepository;;
     private final PetProfileMapper petProfileMapper;
 
     @Autowired
     public PetProfileService(PetProfileRepository petProfileRepository,
-                             PetProfileMapper petProfileMapper,
-                             UserRepository userRepository)
+                             PetProfileMapper petProfileMapper)
     {
         this.petProfileRepository = petProfileRepository;
         this.petProfileMapper = petProfileMapper;
-        this.userRepository = userRepository;
     }
 
     public List<PetProfileDto> getPetProfiles() {
@@ -35,42 +33,48 @@ public class PetProfileService {
     }
 
     public PetProfileDto getPetProfileById(Long id) {
-        PetProfile petProfile = petProfileRepository.findById(id).get();
+        PetProfile petProfile = petProfileRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
         return petProfileMapper.petProfileToPetProfileDto(petProfile);
     }
 
-    public PetProfileDto createPetProfile(Long userId, PetProfileDto petProfileDto, Long authenticatedUserId) {
-        if (!authenticatedUserId.equals(userId)) {
+    public PetProfileDto createPetProfile(PetProfileDto petProfileDto, Long authenticatedUserId) {
+        if (!authenticatedUserId.equals(petProfileDto.getUserId())) {
             throw new AccessDeniedException("");
         }
-        var userOpt = userRepository.findById(userId);
-        User user = null;
-        if (userOpt.isPresent()) {
-          user = userOpt.get();
-        }
+
         PetProfile petProfile = petProfileMapper.petProfileDtoToPetProfile(petProfileDto);
+
+        User user = new User();
+        user.setId(petProfileDto.getUserId());
         petProfile.setUser(user);
+
         return petProfileMapper.petProfileToPetProfileDto(petProfileRepository.save(petProfile));
     }
 
 
-    public PetProfileDto updatePetProfile(Long userId, Long id, PetProfileDto petProfileDto, Long authenticatedUserId) {
-        PetProfile petProfile = petProfileMapper.petProfileDtoToPetProfile(petProfileDto);
-        if (!authenticatedUserId.equals(userId)) {
+    public PetProfileDto updatePetProfile(Long id, PetProfileDto petProfileDto, Long authenticatedUserId) {
+        if (!authenticatedUserId.equals(petProfileDto.getUserId())) {
             throw new AccessDeniedException("");
         }
-        petProfile.setId(id);
+        PetProfile petProfile = petProfileRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        petProfile.setPurpose(petProfileDto.getPurpose());
+        petProfile.setLikedBy(petProfileDto.getLikedBy());
+        petProfile.setLikedPetProfiles(petProfileDto.getLikedPetProfiles());
+        petProfile.setMatches(petProfileDto.getMatches());
+        petProfile.setViewedProfiles(petProfileDto.getViewedProfiles());
+
         return petProfileMapper.petProfileToPetProfileDto(petProfileRepository.save(petProfile));
     }
 
-    public void deletePetProfileById(Long userId, Long id, Long authenticatedUserId) {
-        if (!authenticatedUserId.equals(userId)) {
+    public void deletePetProfileById(Long id, Long authenticatedUserId) {
+        PetProfile petProfile = petProfileRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        if (!authenticatedUserId.equals(petProfile.getUser().getId())) {
             throw new AccessDeniedException("");
         }
         petProfileRepository.deleteById(id);
     }
 
-    public List<PetProfileDto> getUserPetProfiles(Long userId, Long authenticatedUserId) {
+    public List<PetProfileDto> getPetProfilesByUserId(Long userId, Long authenticatedUserId) {
         if (!authenticatedUserId.equals(userId)) {
             throw new AccessDeniedException("");
         }

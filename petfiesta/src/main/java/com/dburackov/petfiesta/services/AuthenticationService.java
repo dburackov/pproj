@@ -1,6 +1,6 @@
 package com.dburackov.petfiesta.services;
 
-import com.dburackov.petfiesta.dto.userdto.UserDto;
+import com.dburackov.petfiesta.dto.user.UserDto;
 import com.dburackov.petfiesta.responses.AuthenticationResponse;
 import com.dburackov.petfiesta.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

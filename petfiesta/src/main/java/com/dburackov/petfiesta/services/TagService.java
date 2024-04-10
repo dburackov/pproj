@@ -5,6 +5,7 @@ import com.dburackov.petfiesta.entities.Tag;
 import com.dburackov.petfiesta.repositories.PetProfileRepository;
 import com.dburackov.petfiesta.repositories.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +13,14 @@ import java.util.List;
 @Service
 public class TagService {
     private final TagRepository tagRepository;
+    private final PetProfileRepository petProfileRepository;
 
     @Autowired
-    public TagService(TagRepository tagRepository) {
+    public TagService(TagRepository tagRepository,
+                      PetProfileRepository petProfileRepository)
+    {
         this.tagRepository = tagRepository;
+        this.petProfileRepository = petProfileRepository;
     }
 
     public List<Tag> getTags() {
@@ -39,7 +44,22 @@ public class TagService {
         tagRepository.deleteById(id);
     }
 
-    public List<Tag> getPetProfileTags(Long petProfileId) {
+    public List<Tag> getTagsByPetProfileid(Long petProfileId) {
         return tagRepository.findByPetProfilesId(petProfileId);
+    }
+
+    public void setPetProfileTags(Long petProfileId, Tag tag, Long authenticatedUserId) {
+        var petProfileOpt = petProfileRepository.findById(petProfileId);
+        PetProfile petProfile = null;
+        if (petProfileOpt.isPresent()) {
+            petProfile = petProfileOpt.get();
+        }
+        if (petProfile != null) {
+            if (!authenticatedUserId.equals(petProfile.getUser().getId())) {
+                throw new AccessDeniedException("");
+            }
+            petProfile.getTags().add(tag);
+            petProfileRepository.save(petProfile);
+        }
     }
 }

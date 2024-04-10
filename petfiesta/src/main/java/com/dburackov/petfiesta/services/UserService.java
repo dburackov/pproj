@@ -1,7 +1,7 @@
 package com.dburackov.petfiesta.services;
 
-import com.dburackov.petfiesta.dto.userdto.UserDto;
-import com.dburackov.petfiesta.dto.userdto.GetUserDto;
+import com.dburackov.petfiesta.dto.user.UserDto;
+import com.dburackov.petfiesta.dto.user.GetUserDto;
 import com.dburackov.petfiesta.entities.User;
 import com.dburackov.petfiesta.mappers.UserMapper;
 import com.dburackov.petfiesta.repositories.UserRepository;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

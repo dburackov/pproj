@@ -1,8 +1,8 @@
 package com.dburackov.petfiesta.controllers;
 
 
-import com.dburackov.petfiesta.dto.userdto.UserDto;
-import com.dburackov.petfiesta.dto.userdto.GetUserDto;
+import com.dburackov.petfiesta.dto.user.UserDto;
+import com.dburackov.petfiesta.dto.user.GetUserDto;
 import com.dburackov.petfiesta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,6 +1,6 @@
 package com.dburackov.petfiesta.controllers;
 
-import com.dburackov.petfiesta.dto.userdto.UserDto;
+import com.dburackov.petfiesta.dto.user.UserDto;
 import com.dburackov.petfiesta.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

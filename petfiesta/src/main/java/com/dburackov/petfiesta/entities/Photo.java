@@ -23,6 +23,5 @@ public class Photo {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="pet_profile_id")
-    @JsonIgnore
     private PetProfile petProfile;
 }

@@ -24,8 +24,7 @@ public class Tag {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany()
-    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "pet_xref_tag",
             joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "tag_id"),

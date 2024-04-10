@@ -24,7 +24,6 @@ public class SocialMedia {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pet_profile_id")
-    @JsonIgnore
     private PetProfile petProfile;
 
     @Enumerated(EnumType.STRING)
@@ -35,8 +34,4 @@ public class SocialMedia {
     @Column(name = "link")
     private String link;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    public void setPetProfile(PetProfile petProfile) {
-        this.petProfile = petProfile;
-    }
 }
