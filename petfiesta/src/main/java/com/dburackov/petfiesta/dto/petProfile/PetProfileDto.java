@@ -1,17 +1,15 @@
-package com.dburackov.petfiesta.dto.petprofiledto;
+package com.dburackov.petfiesta.dto.petProfile;
 
-import com.dburackov.petfiesta.dto.userdto.UserDto;
-import com.dburackov.petfiesta.entities.*;
+import com.dburackov.petfiesta.enums.Purpose;
 import lombok.Data;
 
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
 public class PetProfileDto {
     private Long id;
-    private String purpose;
+    private Long userId;
+    private Purpose purpose;
     private Set<Long> likedBy;
     private Set<Long> likedPetProfiles;
     private Set<Long> matches;

@@ -1,4 +1,4 @@
-package com.dburackov.petfiesta.dto.userdto;
+package com.dburackov.petfiesta.dto.user;
 
 
 import lombok.Data;
