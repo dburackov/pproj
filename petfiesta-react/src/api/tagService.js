@@ -9,14 +9,14 @@ export async function getTags() {
 
 export async function getTag(id) {
     let response = await axios.get(
-        'http://localhost:8080/tags/' + id
+        `http://localhost:8080/tags/${id}`
     )
     return response.data
 }
 
 export async function deleteTag(id) {
     let response = await axios.delete(
-        'http://localhost:8080/tags/delete/' + id
+        `http://localhost:8080/tags/delete/${id}`
     )
     return response.data
 }
@@ -31,7 +31,7 @@ export async function createTag(tag) {
 
 export async function updateTag(id, tag) {
     let response = await axios.post(
-        'http://localhost:8080/tags/update/' + id,
+        `http://localhost:8080/tags/update/${id}`,
         tag
     )
     return response.data
@@ -39,7 +39,35 @@ export async function updateTag(id, tag) {
 
 export async function getTagsByPetProfileId(petProfileId) {
     let response = await axios.get(
-        'http://localhost:8080/pet-profiles/' + petProfileId + '/tags'
+        `http://localhost:8080/tags/pet-profile/${petProfileId}`
+    )
+    return response.data
+}
+
+export async function addTagToPetProfile(tag, token) {
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    let response = await axios.post(
+        'http://localhost:8080/tags/add',
+        tag,
+        config
+    )
+    return response.data
+}
+
+export async function deleteTagFromPetProfile(tag, token) {
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    let response = await axios.post(
+        'http://localhost:8080/tags/delete',
+        tag,
+        config
     )
     return response.data
 }

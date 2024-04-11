@@ -9,14 +9,14 @@ export async function getUsers() {
 
 export async function getUserById(id) {
     let response = await axios.get(
-        "http://localhost:8080/users/" + id
+        `http://localhost:8080/users/${id}`
     )
     return response.data
 }
 
 export async function deleteUser(id) {
     let response = await axios.delete(
-        'http://localhost:8080/users/delete' + id
+        `http://localhost:8080/users/delete${id}`
     )
     return response.data
 }
@@ -31,7 +31,7 @@ export async function createUser(user) {
 
 export async function updateUser(user) {
     let response = await axios.post(
-        'http://localhost:8080/users/update/' + user.id,
+        `http://localhost:8080/users/update/${user.id}`,
         user
     )
     return response.data
