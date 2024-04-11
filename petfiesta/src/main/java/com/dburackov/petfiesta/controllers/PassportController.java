@@ -2,7 +2,6 @@ package com.dburackov.petfiesta.controllers;
 
 
 import com.dburackov.petfiesta.dto.passport.PassportDto;
-import com.dburackov.petfiesta.entities.Passport;
 import com.dburackov.petfiesta.services.PassportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

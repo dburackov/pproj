@@ -12,7 +12,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import lombok.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-
 import java.io.IOException;
 
 @Component

@@ -4,7 +4,6 @@ import com.dburackov.petfiesta.constants.Constants;
 import com.dburackov.petfiesta.dto.socialMedia.SocialMediaDto;
 import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.entities.SocialMedia;
-import com.dburackov.petfiesta.entities.User;
 import com.dburackov.petfiesta.exceptions.NotFoundException;
 import com.dburackov.petfiesta.mappers.SocialMediaMapper;
 import com.dburackov.petfiesta.repositories.PetProfileRepository;

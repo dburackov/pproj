@@ -1,6 +1,7 @@
 package com.dburackov.petfiesta.controllers;
 
-import com.dburackov.petfiesta.entities.Tag;
+import com.dburackov.petfiesta.dto.tag.ModifyTagDto;
+import com.dburackov.petfiesta.dto.tag.TagDto;
 import com.dburackov.petfiesta.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@RequestMapping("/tags")
 @RestController
 public class TagController {
 
@@ -19,39 +21,45 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @GetMapping("/tags")
-    public List<Tag> getTags() {
+    @GetMapping("")
+    public List<TagDto> getTags() {
         return tagService.getTags();
     }
 
-    @GetMapping("/tags/{id}")
-    public Tag getTagById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public TagDto getTagById(@PathVariable Long id) {
         return tagService.getTagById(id);
     }
 
-    @PostMapping("/tags/create")
-    public Tag createTag(@RequestBody Tag tag) {
-        return tagService.createTag(tag);
+    @PostMapping("/create")
+    public TagDto createTag(@RequestBody TagDto tagDto) {
+        return tagService.createTag(tagDto);
     }
 
-    @PostMapping("/tags/update/{id}")
-    public Tag updateTag(@PathVariable Long id, @RequestBody Tag tag) {
-        return tagService.updateTag(id, tag);
+    @PostMapping("/update/{id}")
+    public TagDto updateTag(@PathVariable Long id, @RequestBody TagDto tagDto) {
+        return tagService.updateTag(id, tagDto);
     }
 
-    @DeleteMapping("/tags/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteTagById(@PathVariable Long id) {
         tagService.deleteTagById(id);
     }
 
-    @GetMapping("/pet-profiles/{petProfileId}/tags")
-    public List<Tag> getTagsByPetProfileId(@PathVariable Long petProfileId) {
-        return tagService.getTagsByPetProfileid(petProfileId);
+    @GetMapping("/pet-profile/{petProfileId}")
+    public List<TagDto> getTagsByPetProfileId(@PathVariable Long petProfileId) {
+        return tagService.getTagsByPetProfileId(petProfileId);
     }
 
-    @PostMapping("/pet-profiles/{petProfileId}/tags/add")
+    @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public void setPetProfileTags(@PathVariable Long petProfileId, @RequestBody Tag tag, Principal principal) {
-        tagService.setPetProfileTags(petProfileId, tag, Long.parseLong(principal.getName()));
+    public void addPetProfileTag(@RequestBody ModifyTagDto modifyTagDto, Principal principal) {
+        tagService.addPetProfileTags(modifyTagDto, Long.parseLong(principal.getName()));
+    }
+
+    @PostMapping("/delete")
+    @PreAuthorize("isAuthenticated()")
+    public void deletePetProfileTag(@RequestBody ModifyTagDto modifyTagDto, Principal principal) {
+        tagService.deletePetProfileTag(modifyTagDto, Long.parseLong(principal.getName()));
     }
 }

@@ -1,6 +1,5 @@
 package com.dburackov.petfiesta.repositories;
 
-import com.dburackov.petfiesta.entities.PetProfile;
 import com.dburackov.petfiesta.entities.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

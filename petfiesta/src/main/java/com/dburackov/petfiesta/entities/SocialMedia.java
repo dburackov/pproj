@@ -2,9 +2,6 @@ package com.dburackov.petfiesta.entities;
 
 
 import com.dburackov.petfiesta.enums.SocialMediaType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.ColumnTransformer;

@@ -1,13 +1,9 @@
 package com.dburackov.petfiesta.entities;
 
 import com.dburackov.petfiesta.enums.Kind;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.ColumnTransformer;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 
 import java.util.Date;
@@ -49,4 +45,8 @@ public class Passport {
     @Column(name = "bio")
     private String bio;
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

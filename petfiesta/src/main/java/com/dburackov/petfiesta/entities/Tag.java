@@ -1,14 +1,10 @@
 package com.dburackov.petfiesta.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -24,7 +20,7 @@ public class Tag {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "pet_xref_tag",
             joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "tag_id"),

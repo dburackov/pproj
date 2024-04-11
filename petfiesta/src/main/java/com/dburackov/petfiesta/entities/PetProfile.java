@@ -1,8 +1,6 @@
 package com.dburackov.petfiesta.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.ColumnTransformer;
@@ -79,4 +77,8 @@ public class PetProfile {
     @Column(name="target_pet_id")
     private Set<Long> viewedProfiles = new LinkedHashSet<>();
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
