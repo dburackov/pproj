@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@RequestMapping("/social-medias")
 @RestController
+@RequestMapping("/social-medias")
 public class SocialMediaController {
 
     private final SocialMediaService socialMediaService;

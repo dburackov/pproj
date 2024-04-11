@@ -12,6 +12,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -20,22 +21,22 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("")
     public List<GetUserDto> getUsers() {
         return userService.getUsers();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public GetUserDto getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/users/create")
+    @PostMapping("/create")
     public GetUserDto createUser (@RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
 
-    @PostMapping("/users/update/{id}")
+    @PostMapping("/update/{id}")
     @PreAuthorize("isAuthenticated()")
     public GetUserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto, Principal principal) {
         System.out.println(principal.getName());
@@ -43,7 +44,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/users/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public void deleteUserById(@PathVariable Long id, Principal principal) {
         userService.deleteUserById(id, Long.parseLong(principal.getName()));

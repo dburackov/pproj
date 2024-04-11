@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@RequestMapping("/tags")
 @RestController
+@RequestMapping("/tags")
 public class TagController {
 
     private final TagService tagService;

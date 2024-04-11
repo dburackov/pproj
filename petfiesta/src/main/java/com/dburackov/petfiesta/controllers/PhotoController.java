@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@RequestMapping("/photos")
 @RestController
+@RequestMapping("/photos")
 public class PhotoController {
 
     private final PhotoService photoService;

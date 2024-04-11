@@ -7,9 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
+@RequestMapping("/auth")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
@@ -18,14 +21,14 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/auth/signin")
+    @PostMapping("/signin")
     public ResponseEntity<Object> signIn(@RequestBody UserDto userDto) {
         var authenticationResponse = authenticationService.signIn(userDto.getEmail(), userDto.getPassword());
 
         return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/auth/signup")
+    @PostMapping("/signup")
     public ResponseEntity<Object> signUp(@RequestBody UserDto userDto) {
         var authenticationResponse = authenticationService.signUp(userDto);
 
