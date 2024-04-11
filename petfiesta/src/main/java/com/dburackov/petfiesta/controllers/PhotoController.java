@@ -31,7 +31,7 @@ public class PhotoController {
         return photoService.getPhotoById(id);
     }
 
-    @PostMapping("/photos/create")
+    @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
     public PhotoDto createPhoto(@RequestBody PhotoDto photoDto,
                              Principal principal)
@@ -39,13 +39,13 @@ public class PhotoController {
         return photoService.createPhoto(photoDto, Long.parseLong(principal.getName()));
     }
 
-    @DeleteMapping("/photos/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public void deletePhotoById(@PathVariable Long id, Principal principal) {
         photoService.deletePhotoById(id, Long.parseLong(principal.getName()));
     }
 
-    @GetMapping("/photos/pet-profile/{petProfileId}")
+    @GetMapping("/pet-profile/{petProfileId}")
     public List<PhotoDto> getPhotosByPetProfileId(@PathVariable Long petProfileId) {
         return photoService.getPhotosByPetProfileId(petProfileId);
     }
