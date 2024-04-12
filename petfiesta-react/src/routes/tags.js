@@ -19,7 +19,7 @@ export default function Tags() {
 
     useEffect(() => {
         loadTags();
-    }, []);
+    }, [reload]);
 
     return (
         <section className="main-content">

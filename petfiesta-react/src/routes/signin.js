@@ -14,22 +14,20 @@ export default function Signin() {
     const [password, setPassword] = useState('');
 
     return (
-        <section>
+        <section className="main-content auth">
             <input
                 placeholder="Email"
                 type="email"
-                className="form-control"
+                className="form-control input-margin"
                 onChange={e => setEmail(e.target.value)}
             />
             <input
                 placeholder="Password"
                 type="password"
-                className="form-control"
+                className="form-control input-margin"
                 onChange={e => setPassword(e.target.value)}
             />
-            <button onClick={signinButtonOnClick}>
-                Sign in
-            </button>
+            <button className="btn btn-success" onClick={signinButtonOnClick}>Sign in</button>
         </section>
     );
 

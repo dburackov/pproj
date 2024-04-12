@@ -13,26 +13,25 @@ export default function Signup() {
     const [login, setLogin] = useState('');
 
     return (
-        <section>
+        <section className="main-content auth">
             <input
                 placeholder="Login"
+                className="form-control input-margin"
                 onChange={e => setLogin(e.target.value)}
             />
             <input
                 placeholder="Email"
                 type="email"
+                className="form-control input-margin"
                 onChange={e => setEmail(e.target.value)}
             />
             <input
                 placeholder="Password"
                 type="password"
+                className="form-control input-margin"
                 onChange={e => setPassword(e.target.value)}
             />
-            <button
-                onClick={signupButtonOnClick}
-            >
-                Sign up
-            </button>
+            <button className="btn btn-success" onClick={signupButtonOnClick}>Sign up</button>
         </section>
     );
 

@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
+import React from "react";
 
 export default function AuthNavbar() {
     return (
-        <nav>
-            <ul>
-                <li>
-                    <Link to={`/signin`}>sign in</Link>
+        <nav className="navbar navbar-expand-lg navbar-light nav-underline">
+            <ul className="navbar-nav">
+                <li className="nav-item">
+                    <Link className="nav-link" to={`/signin`}>sign in</Link>
                 </li>
-                <li>
-                    <Link to={`/signup`}>sign up</Link>
+                <li className="nav-item">
+                    <Link className="nav-link" to={`/signup`}>sign up</Link>
                 </li>
             </ul>
         </nav>
