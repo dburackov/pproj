@@ -22,34 +22,28 @@ export default function Tags() {
     }, []);
 
     return (
-        <section >
-            <div className='table-title'>
+        <section className="main-content">
+            <div className="table-title tags-table">
                 <h2>Tags</h2>
-                
-                <table className="table table-striped table-hover">   
+                <Link to="create/" className="btn btn-success">Create</Link>
+                <table className="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                <Link to="create/" className="btn btn-success">Add</Link>
-                            </th>
+                            <th>Name</th>
                         </tr>
                     </thead>
                     <tbody>
                         {Tags.map(tag =>
                             <tr key={tag.id}>
+                                <td>{tag.name}</td>
                                 <td>
-                                    {tag.name}
+                                    <Link to={`update/${tag.id}`} className="btn btn-outline-primary">Update</Link>
                                 </td>
                                 <td>
-                                    <Link to={`update/${tag.id}`} className="btn btn-info">Update</Link>
-                                    |
                                     <button 
                                         onClick={() => removeTag(tag.id)} 
                                         value={tag.id}
-                                        className="btn btn-danger">
+                                        className="btn btn-outline-danger">
                                             Remove
                                     </button>
                                 </td>

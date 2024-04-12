@@ -18,16 +18,16 @@ export default function Signin() {
             <input
                 placeholder="Email"
                 type="email"
+                className="form-control"
                 onChange={e => setEmail(e.target.value)}
             />
             <input
                 placeholder="Password"
                 type="password"
+                className="form-control"
                 onChange={e => setPassword(e.target.value)}
             />
-            <button
-                onClick={signinButtonOnClick}
-            >
+            <button onClick={signinButtonOnClick}>
                 Sign in
             </button>
         </section>

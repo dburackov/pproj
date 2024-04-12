@@ -9,16 +9,16 @@ export function TagUpdate() {
     const [name, setName] = useState('');
 
     return (
-        <section className="form-container">
-            <div className="form">
+        <section className="form-container main-content">
+            <div className="form update-form">
+                <h1>Update tag</h1>
                 <input
                     placeholder="Name"
-                    className="form-control"
+                    className="form-control input-margin"
                     type="text"
                     onChange={(e) => setName(e.target.value)}
                 />
-                <button
-                    onClick={updateTagClick}>
+                <button className="btn btn-primary" onClick={updateTagClick}>
                     Update
                 </button>
             </div>

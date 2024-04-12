@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.main-content {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.input-margin {
+  margin-bottom: 10px;
+}
+
+.create-form, .update-form {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.tags-table {
+  width: 400px;
+}

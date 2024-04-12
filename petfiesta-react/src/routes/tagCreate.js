@@ -8,18 +8,16 @@ export function TagCreate() {
     const [name, setName] = useState('');
 
     return (
-        <section className="form-container">
-            <div className="form">
+        <section className="form-container main-content">
+            <div className="form create-form">
+                <h1>Create tag</h1>
                 <input
                     placeholder="Name"
-                    className="form-control"
+                    className="form-control input-margin"
                     type="text"
                     onChange={(e) => setName(e.target.value)}
                 />
-                <button
-                    onClick={addTagClick}>
-                    Add
-                </button>
+                <button className="btn btn-success" onClick={addTagClick}>Create</button>
             </div>
         </section>
     );

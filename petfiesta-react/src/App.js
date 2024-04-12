@@ -16,6 +16,7 @@ import {PetProfileCreate} from "./routes/petProfileCreate";
 import {PetProfileUpdate} from "./routes/petProfileUpdate";
 import {TagCreate} from "./routes/tagCreate";
 import {TagUpdate} from "./routes/tagUpdate";
+import "./App.css"
 
 export default function App() {
     const [cookies, setCookie, removeCookie] = useCookies(['userId', 'token']);

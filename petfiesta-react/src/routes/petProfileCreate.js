@@ -48,21 +48,23 @@ export function PetProfileCreate() {
     }
 
     return (
-        <section>
-            <div className="form">
+        <section className="form-container main-content">
+            <div className="form create-form">
+                <h1>Create pet profile</h1>
                 <input
                     placeholder="name"
-                    className="form-control"
+                    className="form-control input-margin"
                     type="text"
                     onChange={(e) => setName(e.target.value)}
                 />
                 <input
                     placeholder="birth date"
-                    className="form-control"
+                    className="form-control input-margin"
                     type="date"
                     onChange={(e) => setBirthDate(e.target.value)}
                 />
                 <Select
+                    className="input-margin"
                     options={kindList}
                     placeholder="kind"
                     value={kind}
@@ -71,17 +73,18 @@ export function PetProfileCreate() {
                 />
                 <input
                     placeholder="breed"
-                    className="form-control"
+                    className="form-control input-margin"
                     type="text"
                     onChange={(e) => setBreed(e.target.value)}
                 />
-                <input
+                <textarea
                     placeholder="bio"
-                    className="form-control"
+                    className="form-control input-margin"
                     type="text"
                     onChange={(e) => setBio(e.target.value)}
                 />
                 <Select
+                    className="input-margin"
                     options={purposeList}
                     placeholder="purpose"
                     value={purpose}
@@ -90,6 +93,7 @@ export function PetProfileCreate() {
                 />
 
                 <Select
+                    className="input-margin"
                     options={tagsList}
                     placeholder="Tags"
                     value={tags}
@@ -98,9 +102,7 @@ export function PetProfileCreate() {
                     isMulti
                 />
 
-                <button onClick={createPetProfileClick}>
-                    Create
-                </button>
+                <button className="btn btn-success" onClick={createPetProfileClick}>Create</button>
             </div>
         </section>
     );

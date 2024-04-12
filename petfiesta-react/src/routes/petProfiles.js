@@ -23,11 +23,11 @@ export default function PetProfiles() {
     }, [reload]);
 
     return (
-        <section>
+        <section className="main-content">
             <div className='table-title'>
-                <h2>Pet Profiles</h2>
+                <h1>Pet Profiles</h1>
                 <Link to="create/" className="btn btn-success">Create</Link>
-                <table className='table'>
+                <table className='table table-striped table-hover'>
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -50,13 +50,13 @@ export default function PetProfiles() {
                                 <td>{petProfile.purpose}</td>
                                 <td>{petProfile.tags.map(tag => tag.name + ' ')}</td>
                                 <td>
-                                    <Link to={`update/${petProfile.id}`} className="btn btn-info">Update</Link>
+                                    <Link to={`update/${petProfile.id}`} className="btn btn-outline-primary">Update</Link>
                                 </td>
                                 <td>
                                     <button 
                                         onClick={() => removePetProfile(petProfile.id)}
                                         value={petProfile.id}
-                                        className="btn btn-danger">
+                                        className="btn btn-outline-danger">
                                             Remove
                                     </button>
                                 </td>
