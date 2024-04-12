@@ -13,7 +13,7 @@ public class PassportDto {
     private Date birthDate;
     private Kind kind;
     private String breed;
-    private Boolean breedingCertificate;
-    private String coat;
+    private Boolean breedingCertificate = false;
+    private String coat = "";
     private String bio;
 }

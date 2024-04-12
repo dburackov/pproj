@@ -81,4 +81,16 @@ public class PetProfile {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (object.getClass() != this.getClass()) {
+            return false;
+        }
+        PetProfile other = (PetProfile) object;
+        return this.getId().equals(other.getId());
+    }
 }

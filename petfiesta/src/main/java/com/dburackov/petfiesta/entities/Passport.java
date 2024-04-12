@@ -49,4 +49,16 @@ public class Passport {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (object.getClass() != this.getClass()) {
+            return false;
+        }
+        Passport other = (Passport) object;
+        return this.getId().equals(other.getId());
+    }
 }
