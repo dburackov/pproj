@@ -1,0 +1,18 @@
+
+.input-margin {
+    margin-bottom: 10px;
+}
+
+.create-form, .update-form, .auth {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.tags-table {
+    width: 400px;
+}
+
+.main-content {
+    margin-left: 20px;
+    margin-right: 20px;
+}

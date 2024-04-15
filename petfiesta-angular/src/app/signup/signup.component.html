@@ -1,0 +1,28 @@
+<section class="container">
+    <input
+        placeholder="Login"
+        class="form-control"
+        [(ngModel)]="login"
+    />
+    <input
+        placeholder="Email"
+        class="form-control"
+        type="email"
+        [(ngModel)]="email"
+        #emailValid="ngModel"
+        required pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+    />
+    <input
+        placeholder="Password"
+        class="form-control"
+        type="password"
+        [(ngModel)]="password"
+    />
+    <button
+        [disabled]="emailValid.invalid"
+        class="background-color-green"
+        (click)="signUp()"
+    >
+        Sign up
+    </button>
+</section>

@@ -1,0 +1,14 @@
+<section class="form-container main-content">
+    <div class="form update-form">
+        <h1>Update tag</h1>
+        <input
+            placeholder="Name"
+            class="form-control input-margin"
+            type="text"
+            [(ngModel)]="tag.name"
+        />
+        <button class="btn btn-primary" (click)="updateTag()">
+            Update
+        </button>
+    </div>
+</section>

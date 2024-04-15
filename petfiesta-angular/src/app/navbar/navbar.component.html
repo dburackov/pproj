@@ -1,0 +1,22 @@
+<header class="navigation-header">
+  <nav class="navigation-menu">
+    <ul>
+      @if (isAuthenticated) {
+        <li>
+          <a class="menu-item" routerLink="/pet-profiles" routerLinkActive="active">Pet profiles</a>
+        </li>
+        <li>
+          <a class="menu-item" routerLink="/tags" routerLinkActive="active">Tags</a>
+        </li>
+      }
+      @else {
+        <li>
+          <a class="menu-item" routerLink="/signup" routerLinkActive="active">Sign up</a>
+        </li>
+        <li>
+          <a class="menu-item" routerLink="/signin" routerLinkActive="active">Sign In</a>
+        </li>
+      }
+    </ul>
+  </nav>
+</header>

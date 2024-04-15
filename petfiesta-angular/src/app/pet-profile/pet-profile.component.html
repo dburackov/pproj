@@ -1,0 +1,42 @@
+<section class="main-content">
+    <div class='table-title'>
+        <h1>Pet Profiles</h1>
+        <a routerLink="create/" class="btn btn-success">Create</a>
+        <table class='table table-striped table-hover'>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Birth date</th>
+                <th>Kind</th>
+                <th>Breed</th>
+                <th>Bio</th>
+                <th>Purpose</th>
+                <th>Tags</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let petProfile of petProfiles">
+                <td>{{petProfile.passport.name}}</td>
+                <td>{{moment(petProfile.passport.birthDate).format('DD/MM/YYYY')}}</td>
+                <td>{{petProfile.passport.kind}}</td>
+                <td>{{petProfile.passport.breed}}</td>
+                <td>{{petProfile.passport.bio}}</td>
+                <td>{{petProfile.purpose}}</td>
+                <td><span *ngFor="let tag of petProfile.tags">{{tag.name + ' '}}</span></td>
+                <td>
+                    <a [routerLink]="['update/', petProfile.id]" class="btn btn-outline-primary">Update</a>
+                </td>
+                <td>
+                    <button
+                        (click) = "deletePetProfile(petProfile.id)"
+                        class="btn btn-outline-danger"
+                    >
+                        Remove
+                    </button>
+                </td>
+</tr>
+            </tbody>
+
+        </table>
+    </div>
+</section>

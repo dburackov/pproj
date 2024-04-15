@@ -1,0 +1,12 @@
+<section class="form-container main-content">
+    <div class="form create-form">
+        <h1>Create tag</h1>
+        <input
+            placeholder="Name"
+            class="form-control input-margin"
+            type="text"
+            [(ngModel)]="tag.name"
+        />
+        <button class="btn btn-success" (click)="createTag()">Create</button>
+    </div>
+</section>
