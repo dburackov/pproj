@@ -1,1 +1,45 @@
-<p>pet-profile-update works!</p>
+<section class="form-container main-content">
+    <div class="form create-form">
+        <h1>Update pet profile</h1>
+        <input
+            placeholder="Name"
+            class="form-control input-margin"
+            type="text"
+            [(ngModel)]="petProfile.passport.name"
+        />
+        <input
+            placeholder="Birth date"
+            class="form-control input-margin"
+            type="date"
+            [(ngModel)]="petProfile.passport.birthDate"
+        />
+        <select class="input-margin form-control" [(ngModel)]="petProfile.passport.kind">
+            <option value="" disabled selected>Kind</option>
+            <option *ngFor="let kind of kindList" [ngValue]="kind.value">{{ kind.label }}</option>
+        </select>
+        <input
+            placeholder="Breed"
+            class="form-control input-margin"
+            type="text"
+            [(ngModel)]="petProfile.passport.breed"
+        />
+        <textarea
+            placeholder="Bio"
+            class="form-control input-margin"
+            type="text"
+            [(ngModel)]="petProfile.passport.bio"></textarea>
+
+        <select class="form-control input-margin" [(ngModel)]="petProfile.purpose">
+            <option value="" disabled selected>Purpose</option>
+            <option *ngFor="let purpose of purposeList" [ngValue]="purpose.value">{{ purpose.label }}</option>
+        </select>
+
+        <select multiple class="form-control input-margin" [(ngModel)]="petProfile.tags">
+            <option value="" disabled>Tags</option>
+            <option *ngFor="let tag of tagsList" [ngValue]="tag">{{ tag.name }}</option>
+        </select>
+
+
+        <button class="btn btn-success" (click)="updatePetProfile()">Update</button>
+    </div>
+</section>

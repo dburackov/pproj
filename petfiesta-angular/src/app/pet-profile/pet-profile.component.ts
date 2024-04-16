@@ -5,9 +5,9 @@ import {PetProfile} from "../entities/pet-profile";
 import {Passport} from "../entities/passport";
 import {PetProfileService} from "../services/pet-profile.service";
 import {PassportService} from "../services/passport.service";
-import {AuthorizationService} from "../services/authorization.service";
 import moment from "moment";
 import {TagService} from "../services/tag.service";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-pet-profile',
@@ -20,20 +20,19 @@ import {TagService} from "../services/tag.service";
 export class PetProfileComponent {
     petProfiles: PetProfile[] = [];
     passports: Passport[] = [];
-    userId: string;
-    token: string
+    private userId: string;
+    private token: string
 
     constructor(private petProfileService: PetProfileService,
                 private passportService: PassportService,
                 private tagService: TagService,
-                private authorizationService: AuthorizationService)
+                private cookieService: CookieService)
     {
-        this.userId = authorizationService.userId;
-        this.token = authorizationService.token;
+        this.userId = cookieService.get('userId');
+        this.token = cookieService.get('token');
     }
 
     async ngOnInit() {
-        console.log("userId" + this.userId, this.authorizationService.userId);
         this.petProfiles = await this.petProfileService.getPetProfilesByUserId(this.userId);
         for (const petProfile of this.petProfiles) {
             petProfile.passport = await this.passportService.getPassportByPetProfileId(petProfile.id);

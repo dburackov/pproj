@@ -1,0 +1,33 @@
+.navigation-header {
+    background-color: #1e90ff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.navigation-menu {
+    display: flex;
+    justify-content: space-around;
+    background-color: #6495ed;
+    padding: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu-item {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.menu-item:hover {
+    background-color: #4169e1;
+}
+
+.active {
+    font-weight: bold;
+}
