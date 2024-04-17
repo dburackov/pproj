@@ -58,7 +58,6 @@ public class PassportService {
     }
 
     public void deletePassportById(Long id, Long authenticatedUserId) {
-//        PetProfile petProfile = petProfileRepository.findByPassportId(id);
         Passport passport = passportRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
         if (!authenticatedUserId.equals(passport.getPetProfile().getUser().getId())) {
             throw new AccessDeniedException("");

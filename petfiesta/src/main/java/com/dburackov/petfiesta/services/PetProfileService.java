@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class PetProfileService {
 
-    private final PetProfileRepository petProfileRepository;;
+    private final PetProfileRepository petProfileRepository;
     private final PetProfileMapper petProfileMapper;
 
     @Autowired

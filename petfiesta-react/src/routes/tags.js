@@ -1,7 +1,6 @@
-import React, { useState, useEffect,useContext } from 'react';
-import { AppContext } from "../contexts/contexts";
+import React, { useState, useEffect } from 'react';
 import { getTag, getTags, deleteTag} from "../api/tagService"
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export async function loader({ params }) {
     const tag = await getTag(params.tagId);

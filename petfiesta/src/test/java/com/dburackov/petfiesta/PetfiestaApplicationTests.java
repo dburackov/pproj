@@ -8,6 +8,7 @@ class PetfiestaApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//sonar you useless
 	}
 
 }

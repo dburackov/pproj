@@ -39,7 +39,6 @@ public class UserController {
     @PostMapping("/update/{id}")
     @PreAuthorize("isAuthenticated()")
     public GetUserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto, Principal principal) {
-        System.out.println(principal.getName());
         return userService.updateUser(id, userDto, Long.parseLong(principal.getName()));
     }
 
