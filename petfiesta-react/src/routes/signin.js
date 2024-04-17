@@ -1,6 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { signIn } from '../api/authService';
 import { AppContext } from '../contexts/contexts';
 import { useNavigate } from 'react-router-dom';

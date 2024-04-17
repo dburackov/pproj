@@ -15,7 +15,7 @@ export async function loader({ params }) {
 export default function PetProfiles() {
     const appContext = useContext(AppContext);
     useNavigate();
-    const [PetProfiles, setPetProfiles] = useState([]);
+    const [petProfiles, setPetProfiles] = useState([]);
     const [reload, setReload] = useState(false);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function PetProfiles() {
                         </tr>
                     </thead>
                     <tbody>
-                        {PetProfiles.map(petProfile =>
+                        {petProfiles.map(petProfile =>
                             <tr key={petProfile.id}>
                                 <td>{petProfile.passport.name}</td>
                                 <td>{moment(petProfile.passport.birthDate).format('DD/MM/YYYY')}</td>

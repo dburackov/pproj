@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useContext } from 'react';
 import { AppContext } from "../contexts/contexts";
-import { getTag, getTags, createTag, deleteTag, updateTag} from "../api/tagService"
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { getTag, getTags, deleteTag} from "../api/tagService"
+import { Link, useNavigate } from "react-router-dom";
 
 export async function loader({ params }) {
     const tag = await getTag(params.tagId);
@@ -9,12 +9,7 @@ export async function loader({ params }) {
 }
 
 export default function Tags() {
-    const appContext = useContext(AppContext);
-
-    const navigate = useNavigate();
-
     const [Tags, setTags] = useState([]);
-    const [name, setName] = useState('');
     const [reload, setReload] = useState(false);
 
     useEffect(() => {

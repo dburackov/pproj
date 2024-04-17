@@ -8,7 +8,7 @@ import PetProfiles, {loader as petProfileLoader} from './routes/petProfiles';
 import Signup from './routes/signup';
 import Signin from './routes/signin';
 import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react";
+import {useEffect, useMemo, useState} from "react";
 import { AppContext } from "./contexts/contexts";
 import { getUserById } from "./api/userService";
 import axios from "axios";
@@ -35,7 +35,7 @@ export default function App() {
         }
     }, [isAuthenticated]);
 
-    const state = {
+    const state = useMemo(() => ({
         cookies,
         setCookie,
         removeCookie,
@@ -43,7 +43,7 @@ export default function App() {
         setIsAuthenticated,
         user,
         setUser
-    };
+    }), [cookies, setCookie, removeCookie, isAuthenticated, setIsAuthenticated, user, setUser]);
 
     const authenticatedRouter = createBrowserRouter([{
         path: "/",
