@@ -2,7 +2,7 @@ import { Injectable, Optional, SkipSelf } from '@angular/core';
 import User from '../entities/user';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationService } from './authentication.service';
-import { UserService } from './user.service';
+import {UserService} from "./user.service";
 import { BehaviorSubject } from 'rxjs';
 import axios from 'axios';
 

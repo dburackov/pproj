@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 import {NgFor} from "@angular/common";
 import {PetProfile} from "../entities/pet-profile";
 import {PetProfileService} from "../services/pet-profile.service";
