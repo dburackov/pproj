@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NgFor} from "@angular/common";
 import {Tag} from "../entities/tag";
@@ -9,11 +9,10 @@ import {ActivatedRoute, Router} from "@angular/router";
   selector: 'app-tag-update',
   standalone: true,
   imports: [FormsModule, NgFor],
-  templateUrl: './tag-update.component.html',
-  styleUrl: './tag-update.component.css'
+  templateUrl: './tag-update.component.html'
 })
 
-export class TagUpdateComponent {
+export class TagUpdateComponent implements OnInit {
     tag: Tag = new Tag();
     id: number;
 

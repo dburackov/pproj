@@ -6,8 +6,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-signin',
     standalone: true,
     imports: [FormsModule],
-    templateUrl: './signin.component.html',
-    styleUrl: './signin.component.css'
+    templateUrl: './signin.component.html'
 })
 export class SigninComponent {
     email = '';

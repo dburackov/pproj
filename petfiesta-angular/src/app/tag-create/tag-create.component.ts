@@ -9,8 +9,7 @@ import {Router} from "@angular/router";
   selector: 'app-tag-create',
   standalone: true,
   imports: [FormsModule, NgFor],
-  templateUrl: './tag-create.component.html',
-  styleUrl: './tag-create.component.css'
+  templateUrl: './tag-create.component.html'
 })
 
 export class TagCreateComponent {

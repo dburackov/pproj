@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormsModule} from "@angular/forms";
 import {NgFor} from "@angular/common";
 import {PetProfile} from "../entities/pet-profile";
@@ -16,11 +16,10 @@ import {MatSelectModule} from '@angular/material/select';
   selector: 'app-pet-profile-create',
   standalone: true,
   imports: [FormsModule, NgFor, MatSelectModule],
-  templateUrl: './pet-profile-create.component.html',
-  styleUrl: './pet-profile-create.component.css'
+  templateUrl: './pet-profile-create.component.html'
 })
 
-export class PetProfileCreateComponent {
+export class PetProfileCreateComponent implements OnInit {
     petProfile: PetProfile = new PetProfile();
     tagsList: Tag[] = [];
     private userId: string;

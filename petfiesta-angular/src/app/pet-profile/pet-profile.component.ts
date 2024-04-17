@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NgFor} from "@angular/common";
 import {PetProfile} from "../entities/pet-profile";
@@ -13,11 +13,10 @@ import {CookieService} from "ngx-cookie-service";
   selector: 'app-pet-profile',
   standalone: true,
   imports: [RouterLink, NgFor],
-  templateUrl: './pet-profile.component.html',
-  styleUrl: './pet-profile.component.css'
+  templateUrl: './pet-profile.component.html'
 })
 
-export class PetProfileComponent {
+export class PetProfileComponent implements OnInit {
     petProfiles: PetProfile[] = [];
     passports: Passport[] = [];
     private userId: string;
@@ -50,5 +49,5 @@ export class PetProfileComponent {
         return this.passports.find(passport => passport.petProfileId === petProfileId);
     }
 
-    protected readonly moment = moment;
+    public readonly moment = moment;
 }

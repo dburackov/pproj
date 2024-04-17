@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NgFor} from "@angular/common";
 import {MatSelectModule} from "@angular/material/select";
@@ -10,19 +10,15 @@ import {TagService} from "../services/tag.service";
 import {CookieService} from "ngx-cookie-service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ModifyTag} from "../entities/modify-tag";
-import {
-    PartialInjectableLinkerVersion1
-} from "@angular/compiler-cli/linker/src/file_linker/partial_linkers/partial_injectable_linker_1";
 
 @Component({
   selector: 'app-pet-profile-update',
   standalone: true,
     imports: [FormsModule, NgFor, MatSelectModule],
-  templateUrl: './pet-profile-update.component.html',
-  styleUrl: './pet-profile-update.component.css'
+  templateUrl: './pet-profile-update.component.html'
 })
 
-export class PetProfileUpdateComponent {
+export class PetProfileUpdateComponent implements OnInit {
     petProfile: PetProfile = new PetProfile();
     petProfileId: number;
     tagsList: Tag[] = [];
@@ -75,7 +71,7 @@ export class PetProfileUpdateComponent {
         }
 
         const tagsToDelete = this.originalTags.filter(originalTag => !tags.some(tag => tag.id === originalTag.id));
-        
+
         for (let tag of tagsToDelete) {
             await this.tagService.deleteTagFromPetProfile(new ModifyTag(tag.id, this.petProfileId), this.token);
         }

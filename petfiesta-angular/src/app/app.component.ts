@@ -10,8 +10,7 @@ axios.defaults.baseURL = 'http://localhost:8080';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, NavbarComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   isAuthenticated = false;

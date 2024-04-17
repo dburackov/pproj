@@ -9,7 +9,6 @@ import {TagService} from "../services/tag.service";
   standalone: true,
   imports: [RouterLink, NgFor],
   templateUrl: './tags.component.html',
-  styleUrl: './tags.component.css'
 })
 export class TagsComponent {
     tags: Tag[] = [];
